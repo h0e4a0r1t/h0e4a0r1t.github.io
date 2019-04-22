@@ -88,74 +88,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/22/ssrf/" data-id="cjurwuk5t0002gktqjutetcw2" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-wfuzz" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/22/wfuzz/" class="article-date">
-  <time datetime="2019-04-22T03:40:31.318Z" itemprop="datePublished">2019-04-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="WFUZZ������˭��FUZZ˭��"><a href="#WFUZZ������˭��FUZZ˭��" class="headerlink" title="WFUZZ������˭��FUZZ˭��"></a>WFUZZ������˭��FUZZ˭��</h1><h2 id="wfuzzռλ��-https-www-baidu-com-FUZZ"><a href="#wfuzzռλ��-https-www-baidu-com-FUZZ" class="headerlink" title="wfuzzռλ��      https://www.baidu.com/FUZZ"></a>wfuzzռλ��      <a href="https://www.baidu.com/FUZZ" target="_blank" rel="noopener">https://www.baidu.com/FUZZ</a></h2><p>ʹ���ֵ䣺  wfuzz -w �ֵ�·��(����·��) URL/FUZZ<br>                   wfuzz -w Ŀ¼�ֵ�·�� -w �ļ����ֵ�·�� -w ��׺���ֵ�·�� URL/FUZZ/FUZ2Z.FUZ3Z</p>
-<h2 id="������Ӧ�����"><a href="#������Ӧ�����" class="headerlink" title="������Ӧ�����"></a>������Ӧ�����</h2><p>1.–hc ������Ӧ����״̬��������أ�hide code��<br>2.–hl������Ӧ���������������أ�hide lines)<br>3.–hw������Ӧ���������������أ�hide word��<br>4.–hh������Ӧ�����ַ����������أ�hide chars ������Ϊcode��chars����ĸ����c���Chc�����Ѿ����ˣ�����hide chars�Ĳ����ͱ���˨Chh��</p>
-<h2 id="��ʾ��Ӧ���"><a href="#��ʾ��Ӧ���" class="headerlink" title="��ʾ��Ӧ���:"></a>��ʾ��Ӧ���:</h2><p>–sc��show code����–sl��show lines����–sw��show word����–sh ��show chars��</p>
-<h2 id="ʹ��Baseline-��׼��"><a href="#ʹ��Baseline-��׼��" class="headerlink" title="ʹ��Baseline(��׼��)"></a>ʹ��Baseline(��׼��)</h2><p>wfuzz -w wordlist –hh BBB <a href="https://www.baidu.com/FUZZ{404there}" target="_blank" rel="noopener">https://www.baidu.com/FUZZ{404there}</a><br><a href="https://www.baidu.com/FUZZ{404there}����˼���������wfuzz��һ������������https://www.baidu.com/404there�����ַ����{" target="_blank" rel="noopener">https://www.baidu.com/FUZZ{404there}����˼���������wfuzz��һ������������https://www.baidu.com/404there�����ַ����{</a> }�ڵ�ֵ����ָ��wfuzz��һ�������е�FUZZռλ���������һ�����󱻱��ΪBBB��BBB���ܻ��ɱ�ģ���׼�ߣ��������ʹ�õĲ�����–hh��Ҳ������BBB���������е�CharsΪ��׼�����������Charsֵ��BBB��ͬ�����ء�</p>
-<h2 id="ʹ���������ʽ����"><a href="#ʹ���������ʽ����" class="headerlink" title="ʹ���������ʽ����"></a>ʹ���������ʽ����</h2><p>wfuzz����–ss��–hs����ʹ���������ʽ���Է��صĽ������<br>wfuzz -w wordlist –hs “Not Found” <a href="http://127.0.0.1/FUZZ" target="_blank" rel="noopener">http://127.0.0.1/FUZZ</a>    ���˵�����ҳ������not found��<br>wfuzz -w wordlist –hs �������ʽ URL/FUZZ #����<br>wfuzz -w wordlist –ss �������ʽ URL/FUZZ #��ʾ</p>
-<h2 id="wfuzz�����������"><a href="#wfuzz�����������" class="headerlink" title="wfuzz�����������"></a>wfuzz�����������</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">Usage:    wfuzz [options] -z payload,params &lt;url&gt;</span><br><span class="line">    FUZZ, ..., FUZnZ              payloadռλ����wfuzz����ָ����payload������Ӧ��ռλ����n��������. </span><br><span class="line">    FUZZ&#123;baseline_value&#125;     FUZZ �ᱻ baseline_value�滻����������Ϊ���Թ����е�һ�����������ԣ���������Ϊ���˵�һ��������</span><br><span class="line">Options:</span><br><span class="line">    -h/--help            : �����ĵ�</span><br><span class="line">    --help                : �߼������ĵ�</span><br><span class="line">    --version            : Wfuzz��ϸ�汾��Ϣ</span><br><span class="line">    -e &lt;type&gt;            :  ��ʾ���õ�encoders/payloads/iterators/printers/scripts�б�</span><br><span class="line">    --recipe &lt;filename&gt;        : ���ļ��ж�ȡ����</span><br><span class="line">    --dump-recipe &lt;filename&gt;    : ��ӡ��ǰ�Ĳ�����������ĵ�</span><br><span class="line">    --oF &lt;filename&gt;               : �����Խ�����浽�ļ�����Щ����ɱ�wfuzz payload ����</span><br><span class="line">    -c                : ��ɫ�����</span><br><span class="line">    -v                : ��ϸ���</span><br><span class="line">    -f filename,printer         : �������printer�ķ�ʽ���浽filename (Ĭ��Ϊraw printer).</span><br><span class="line">    -o printer                  : ����ض�printer��������</span><br><span class="line">    --interact            : (���Թ���) ������ã����еİ������ᱻ������ʹ�����ܹ�����򽻻�</span><br><span class="line">    --dry-run            : ��ӡ���Խ��������������HTTP����</span><br><span class="line">    --prev                : ��ӡ֮ǰ��HTTP���󣨽���ʹ��payloads�����ɲ��Խ��ʱʹ�ã�</span><br><span class="line">    -p addr                : ʹ�ô�������ʽ ip:port:type. �����ö��������type��ȡ��ֵΪSOCKS4,SOCKS5 or HTTP��Ĭ�ϣ�</span><br><span class="line">    -t N                : ָ�����ӵĲ�������Ĭ��Ϊ10</span><br><span class="line">    -s N                : ָ������ļ��ʱ�䣬Ĭ��Ϊ0</span><br><span class="line">    -R depth            : �ݹ�·��̽�⣬depthָ�����ݹ�����</span><br><span class="line">    -L,--follow            : ����HTTP�ض���</span><br><span class="line">    -Z                : ɨ��ģʽ (���Ӵ��󽫱�����).</span><br><span class="line">    --req-delay N            : ���÷����������������ʱ�䣬Ĭ��Ϊ 90����λΪ��.</span><br><span class="line">    --conn-delay N              : �������ӵȴ������ʱ�䣬Ĭ��Ϊ 90����λΪ��.</span><br><span class="line">    -A                : �� --script=default -v -c �ļ�д</span><br><span class="line">    --script=            : �� --script=default �ȼ�</span><br><span class="line">    --script=&lt;plugins&gt;        : ���нű�ɨ�裬 &lt;plugins&gt; ��һ���Զ��ŷֿ��Ĳ�����������б�</span><br><span class="line">    --script-help=&lt;plugins&gt;        : ��ʾ�ű��İ���</span><br><span class="line">    --script-args n1=v1,...     : ���ű����ݲ���. ie. --script-args grep.regex=&quot;&lt;A href=\&quot;(.*?)\&quot;&gt;&quot;</span><br><span class="line">    -u url                      : ָ�������URL</span><br><span class="line">    -m iterator            : ָ��һ������payloads�ĵ����� (Ĭ��Ϊproduct)</span><br><span class="line">    -z payload            : Ϊÿһ��ռλ��ָ��һ��payload����ʽΪ name[,parameter][,encoder].</span><br><span class="line">                      ���������һ���б�, �� md5-sha1. �����Դ�������, ��. md5@sha1.</span><br><span class="line">                      ����ʹ�ñ������������ url</span><br><span class="line">                                      ʹ��help��Ϊpayload����ʾpayload����ϸ������Ϣ������ʹ��--slice���й���</span><br><span class="line">    --zP &lt;params&gt;            : ��ָ����payload���ò������������ -z ��-w ��������</span><br><span class="line">    --slice &lt;filter&gt;        : ��ָ���ı���ʽ����payload����Ϣ���������-z ��������</span><br><span class="line">    -w wordlist            : ָ��һ��wordlist�ļ�����ͬ�� -z file,wordlist</span><br><span class="line">    -V alltype            : ������������GET/POST����������ָ��ռλ��</span><br><span class="line">    -X method            : ָ��һ�����������HTTP��������HEAD��FUZZ</span><br><span class="line">    -b cookie            : ָ�������cookie��������ָ�����cookie</span><br><span class="line">    -d postdata             : �������ڲ��Ե�POST data (ex: &quot;id=FUZZ&amp;catalogue=1&quot;)</span><br><span class="line">    -H header              : �������ڲ��������HEADER (ex:&quot;Cookie:id=1312321&amp;user=FUZZ&quot;). ��ָ�����HEADER.</span><br><span class="line">    --basic/ntlm/digest auth    : ��ʽΪ &quot;user:pass&quot; or &quot;FUZZ:FUZZ&quot; or &quot;domain\FUZ2Z:FUZZ&quot;</span><br><span class="line">    --hc/hl/hw/hh N[,N]+        : ��ָ���ķ�����/����/����/�ַ�����Ϊ�ж��������ط��ؽ�� (�� BBB ������ baseline)</span><br><span class="line">    --sc/sl/sw/sh N[,N]+        : ��ָ���ķ�����/����/����/�ַ�����Ϊ�ж�������ʾ���ؽ�� (�� BBB ������ baseline)</span><br><span class="line">    --ss/hs regex            : ��ʾ�����ط��ؽ���з���ָ���������ʽ�ķ��ؽ��</span><br><span class="line">    --filter &lt;filter&gt;        : ��ʾ�����ط���ָ��filter����ʽ�ķ��ؽ�� (�� BBB ������ baseline)</span><br><span class="line">    --prefilter &lt;filter&gt;        : ��ָ����filter����ʽ�ڲ���֮ǰ����ĳЩ������Ŀ</span><br></pre></td></tr></table></figure>
-<h2 id="����o�ٲ���ֵ"><a href="#����o�ٲ���ֵ" class="headerlink" title="����ö�ٲ���ֵ"></a>����ö�ٲ���ֵ</h2><p>����id��wfuzz -z range,000-999 <a href="http://127.0.0.1/getuser.php?uid=FUZZ" target="_blank" rel="noopener">http://127.0.0.1/getuser.php?uid=FUZZ</a>    ʹ��rangeģ��</p>
-<h2 id="POST�������"><a href="#POST�������" class="headerlink" title="POST�������"></a>POST�������</h2><p>�����ַΪ��<a href="http://127.0.0.1/login.php" target="_blank" rel="noopener">http://127.0.0.1/login.php</a>   POST��������Ϊ��username=&amp;password=</p>
-<p>�����û��˻���wfuzz -w userlist -w passlist -d “username=FUZZ&amp;password=FUZ2Z” <a href="http://127.0.0.1/login.php" target="_blank" rel="noopener">http://127.0.0.1/login.php</a>      (-d����post����)</p>
-<h2 id="Cookie����"><a href="#Cookie����" class="headerlink" title="Cookie����"></a>Cookie����</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -z range,000-999 -b session=session -b cookie=cookie http://127.0.0.1/getuser.php?uid=FUZZ</span><br></pre></td></tr></table></figure>
-<p>-b ����ָ��Cookie��<strong>���Cookie��Ҫָ�����</strong>��Ҳ���Զ�Cookie���в��ԣ���Ȼʹ��FUZZռλ������</p>
-<h2 id="HTTP-Headers����"><a href="#HTTP-Headers����" class="headerlink" title="HTTP Headers����"></a>HTTP Headers����</h2><p>��Ҫα��XFFͷ��IP���ɴﵽˢƱ��Ч����ͶƱ������ΪGET���ͣ���ַΪ��<a href="http://127.0.0.1/get.php?userid=666����useridΪ666������ˢƱ" target="_blank" rel="noopener">http://127.0.0.1/get.php?userid=666����useridΪ666������ˢƱ</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -z range,0000-9999 -H &quot;X-Forwarded-For: FUZZ&quot; http://127.0.0.1/get.php?userid=666</span><br></pre></td></tr></table></figure>
-<p>-H ָ��HTTPͷ�������Ҫָ����Σ�ͬCookie��-b����)</p>
-<h2 id="����HTTP���󷽷���Method��"><a href="#����HTTP���󷽷���Method��" class="headerlink" title="����HTTP���󷽷���Method��"></a>����HTTP���󷽷���Method��</h2><p>�����һ����վ(<a href="http://127.0.0.1/)֧����ЩHTTP���󷽷�" target="_blank" rel="noopener">http://127.0.0.1/)֧����ЩHTTP���󷽷�</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -z list,&quot;GET-POST-HEAD-PUT&quot; -X FUZZ http://127.0.0.1/</span><br></pre></td></tr></table></figure>
-<p>���������ж���  -z list  ��  -X  ������ -z list �����Զ���һ���ֵ��б��������������֣����� - �ָ -X ������ָ��HTTP���󷽷����ͣ���Ϊ����Ҫ����HTTP���󷽷��������ֵΪFUZZռλ��</p>
-<h2 id="ʹ�o���"><a href="#ʹ�o���" class="headerlink" title="ʹ�ô���"></a>ʹ�ô���</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -w wordlist -p proxtHost:proxyPort:TYPE URL/FUZZ</span><br></pre></td></tr></table></figure>
-<p> -p ����ָ��<strong>����:�˿�:��������</strong>����������ʹ��ssr�ģ�����ʹ����������</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -w wordlist -p 127.0.0.1:1087:SOCKS5 URL/FUZZ</span><br></pre></td></tr></table></figure>
-<p>���������ʹ�ö�� -p ����ͬʱָ����wfuzzÿ�����󶼻�ѡȡ��ͬ�Ĵ�������</p>
-<h2 id="��֤"><a href="#��֤" class="headerlink" title="��֤"></a>��֤</h2><p>��Ҫ����һ����ҪHTTP Basic Auth���������ݿ�ʹ���������</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -z list,&quot;username-password&quot; --basic FUZZ:FUZZ URL</span><br></pre></td></tr></table></figure>
-<p>wfuzz����ͨ��<code>--basec --ntml --digest</code>��������֤ͷ��ʹ�÷�����һ����</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--basec/ntml/digest username:password</span><br></pre></td></tr></table></figure>
-<h2 id="�ݹ����"><a href="#�ݹ����" class="headerlink" title="�ݹ����"></a>�ݹ����</h2><p>ʹ��<code>-R</code>��������ָ��һ��payload���ݹ�����(����)�����磺����Ŀ¼ʱ��������ʹ����ͬ��payload���ѷ��ֵ�Ŀ¼���в��ԣ�����ʹ���������</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -z list,&quot;admin-login.php-test-dorabox&quot; -R 1 http://127.0.0.1/FUZZ</span><br></pre></td></tr></table></figure>
-<p>�ݹ����Ϊ1Ҳ����˵������ĳһ��Ŀ¼���ڵ�ʱ���ڴ���Ŀ¼���ٵݹ�һ���ֵ䣨���뱬��Ŀ¼��</p>
-<h2 id="�����ͼ��"><a href="#�����ͼ��" class="headerlink" title="�����ͼ��"></a>�����ͼ��</h2><p>wfuzz�ṩ��һЩ����������������HTTP������߳�</p>
-<p>e.g. �������һ����վ��ת�������Ƿ����HTTP����©��������������</p>
-<p>�����ַ��<a href="http://127.0.0.1/dorabox/race_condition/pay.php" target="_blank" rel="noopener">http://127.0.0.1/dorabox/race_condition/pay.php</a></p>
-<p>POST�������ģ�money=1</p>
-<p>ʹ���������</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -z range,0-20 -t 20 -d &quot;money=1&quot; http://127.0.0.1/dorabox/race_condition/pay.php?FUZZ</span><br></pre></td></tr></table></figure>
-<p>���Բ���Ҫ�������������������Ϊʹ��<code>range</code>ģ������0-20��<strong>Ȼ��FUZZռλ������URL�Ĳ�����Ӱ����Լ���</strong>����Ҫ����<code>-t</code>�������ò������󣬸ò���Ĭ�����ö���10��</p>
-<p>����ʹ��<code>-s</code>�������Ե���ÿ�η���HTTP��ʱ������</p>
-<h2 id="������Խ��"><a href="#������Խ��" class="headerlink" title="������Խ��"></a>������Խ��</h2><p>wfuzzͨ��<code>printers</code>ģ����������Բ�ͬ��ʽ���浽�ĵ��У�һ�������¼��ָ�ʽ��</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">raw       | `Raw` output format</span><br><span class="line">json      | Results in `json` format</span><br><span class="line">csv       | `CSV` printer ftw</span><br><span class="line">magictree | Prints results in `magictree` format</span><br><span class="line">html      | Prints results in `html` format</span><br></pre></td></tr></table></figure>
-<p>�������<code>json</code>��ʽ������ļ����������£�</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wfuzz -f outfile,json -w wordlist URL/FUZZ</span><br></pre></td></tr></table></figure>
-<p>ʹ��<code>-f</code>������ָ��ֵ�ĸ�ʽΪ<code>����ļ�λ��,�����ʽ</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/22/wfuzz/" data-id="cjurwuk610003gktq8u99z3xl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/22/ssrf/" data-id="cjurwyr400001ystqi9abwk40" class="article-share-link">Share</a>
       
       
     </footer>
@@ -266,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/22/Recon/" data-id="cjurwuk5g0000gktq3ko09sut" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/22/Recon/" data-id="cjurwyr3n0000ystqrtu8b5wi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -303,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/hello/" data-id="cjurwuk5q0001gktqzwnnj45j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/hello/" data-id="cjurwyr420002ystqre6fv2de" class="article-share-link">Share</a>
       
       
     </footer>
@@ -345,10 +278,6 @@
         
           <li>
             <a href="/2019/04/22/ssrf/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/22/wfuzz/">(no title)</a>
           </li>
         
           <li>
