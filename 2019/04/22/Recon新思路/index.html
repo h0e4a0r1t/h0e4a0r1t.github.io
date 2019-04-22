@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Hello · H0e4a0r1t&#39;s Blog</title>
+    <title>Recon 新思路 · H0e4a0r1t&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">H0e4a0r1t&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Hello</a>
+                <a href="#" class="post-name">Recon 新思路</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Hello
+            Recon 新思路
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">7</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">735</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/17</span>
+                    <span class="post-intro-time">2019/04/22</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,16 +395,148 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>Welcome to my blog ! I`m H0e4a0r1t 😁</p>
+        <h1 id="Recon新思路"><a href="#Recon新思路" class="headerlink" title="Recon新思路"></a>Recon新思路</h1><h2 id="0x00-常规性资产收集"><a href="#0x00-常规性资产收集" class="headerlink" title="0x00.常规性资产收集"></a>0x00.常规性资产收集</h2><h3 id="1-子域名收集"><a href="#1-子域名收集" class="headerlink" title="1. 子域名收集"></a>1. 子域名收集</h3><h4 id="基于爆破类型："><a href="#基于爆破类型：" class="headerlink" title="基于爆破类型："></a>基于爆破类型：</h4><ul>
+<li>Sublist3r</li>
+<li>subdomainBurte</li>
+<li>subfinder</li>
+<li>layer子域名挖掘机</li>
+</ul>
+<h4 id="在线查询："><a href="#在线查询：" class="headerlink" title="在线查询："></a>在线查询：</h4><ul>
+<li>云悉资产</li>
+<li>FOFA</li>
+<li>Virstotal（基于证书查询）（<a href="https://www.virustotal.com/" target="_blank" rel="noopener">https://www.virustotal.com/</a>）</li>
+<li>crt.sh（基于证书查询）（<a href="https://crt.sh/" target="_blank" rel="noopener">https://crt.sh/</a>）</li>
+<li>Dnsdumpster（基于DNS记录）（<a href="https://dnsdumpster.com/" target="_blank" rel="noopener">https://dnsdumpster.com/</a>）</li>
+<li>Threatcrowd （<a href="https://www.threatcrowd.org/" target="_blank" rel="noopener">https://www.threatcrowd.org/</a>）</li>
+<li><a href="https://phpinfo.me/domain/" target="_blank" rel="noopener">https://phpinfo.me/domain/</a></li>
+<li>aquatone</li>
+</ul>
+<h3 id="2-端口扫描"><a href="#2-端口扫描" class="headerlink" title="2. 端口扫描"></a>2. 端口扫描</h3><p>Masscan：masscan ip -p0-65535 –rate 线程数</p>
+<p>Nmap</p>
+<h3 id="3-路径扫描"><a href="#3-路径扫描" class="headerlink" title="3. 路径扫描"></a>3. 路径扫描</h3><p>目录爆破+路径扫描：msf中的brute_dirs、dir_listing、dir_scanner；dirsearch</p>
+<p>Wfuzz：wfuzz -w dir.txt –sc 200,302,403 <a href="http://xxx.xxx.com/FUZZ" target="_blank" rel="noopener">http://xxx.xxx.com/FUZZ</a></p>
+<h3 id="4-旁站C段查询"><a href="#4-旁站C段查询" class="headerlink" title="4. 旁站C段查询"></a>4. 旁站C段查询</h3><p>在线旁站C段查询：<a href="http://www.webscan.cc、www.5kik.com、phpinfo.me" target="_blank" rel="noopener">www.webscan.cc、www.5kik.com、phpinfo.me</a></p>
+<h3 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h3><p>子域名收集：  子域名爆破工具 + 在线子域名查询 = 获得子域名列表</p>
+<p>端口扫描：使用工具探测站点开放端口，保存到域名列表中（批量扫描所有子域名）</p>
+<p>路径扫描：对站点所有开放的web端点进行路径扫描，获取具体资产</p>
+<p>旁站C段查询：对站点旁站、c段进行查询，对获取到的新资产收录入子域名列表，开启下一轮循环</p>
+<p><img src="https://i.loli.net/2019/04/22/5cbc951f9a546.png" alt></p>
+<h2 id="0x01-搜索引擎"><a href="#0x01-搜索引擎" class="headerlink" title="0x01.搜索引擎"></a>0x01.搜索引擎</h2><h3 id="1-子域名收集-1"><a href="#1-子域名收集-1" class="headerlink" title="1.子域名收集"></a>1.子域名收集</h3><p>site:域名</p>
+<h3 id="1-页面内容"><a href="#1-页面内容" class="headerlink" title="1. 页面内容"></a>1. 页面内容</h3><p>intext:域名</p>
+<h3 id="2-目录"><a href="#2-目录" class="headerlink" title="2. 目录"></a>2. 目录</h3><p>site:域名   之后观察结果中的目录路径</p>
+<h3 id="3-敏感关键字搜索"><a href="#3-敏感关键字搜索" class="headerlink" title="3. 敏感关键字搜索"></a>3. 敏感关键字搜索</h3><p>parent dictionary site:域名</p>
+<p>site:域名 intitle:”index of”</p>
+<p>site:域名     asmx/xml</p>
+<h2 id="0x02-创造性思维"><a href="#0x02-创造性思维" class="headerlink" title="0x02.创造性思维"></a>0x02.创造性思维</h2><h3 id="1-构造接口"><a href="#1-构造接口" class="headerlink" title="1. 构造接口"></a>1. 构造接口</h3><p>js文件中接口发现，寻找接口请求方式及是否存在信息泄露</p>
+<h3 id="2-构造文件"><a href="#2-构造文件" class="headerlink" title="2. 构造文件"></a>2. 构造文件</h3><p>通过敏感文件发现，查找是否可以download网站源码</p>
+<h3 id="3-构造目录"><a href="#3-构造目录" class="headerlink" title="3. 构造目录"></a>3. 构造目录</h3><p>404页面下可能存在可访问的敏感目录</p>
+<h3 id="4-框架搭配"><a href="#4-框架搭配" class="headerlink" title="4. 框架搭配"></a>4. 框架搭配</h3><p>在框架报错的域名中，探测相关服务的敏感目录路径</p>
+<p>例：actuator服务</p>
+<table>
+<thead>
+<tr>
+<th>HTTP方法</th>
+<th>路径</th>
+<th>描述</th>
+<th>鉴权</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>/autoconfig</td>
+<td>查看自动配置的使用情况</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/configprops</td>
+<td>查看配置属性，包括默认配置</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/beans</td>
+<td>查看bean及其关系列表</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/dump</td>
+<td>打印线程栈</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/env</td>
+<td>查看所有环境变量</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/env/{name}</td>
+<td>查看具体变量值</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/health</td>
+<td>查看应用健康指标</td>
+<td>false</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/info</td>
+<td>查看应用信息</td>
+<td>false</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/mappings</td>
+<td>查看所有url映射</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/metrics</td>
+<td>查看应用基本指标</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/metrics/{name}</td>
+<td>查看具体指标</td>
+<td>true</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>/shutdown</td>
+<td>关闭应用</td>
+<td>true</td>
+</tr>
+<tr>
+<td>GET</td>
+<td>/trace</td>
+<td>查看基本追踪信息</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>swagger服务</p>
+<p>/swagger-ui.html</p>
+<p>/swagger/index.html#</p>
+<h2 id="0x03-关注企业动态"><a href="#0x03-关注企业动态" class="headerlink" title="0x03.关注企业动态"></a>0x03.关注企业动态</h2><h3 id="1-微信公众号"><a href="#1-微信公众号" class="headerlink" title="1. 微信公众号"></a>1. 微信公众号</h3><h3 id="2-小程序"><a href="#2-小程序" class="headerlink" title="2. 小程序"></a>2. 小程序</h3><h3 id="主要目的：企业动态：关注app、应用程序、新系统、新上线功能"><a href="#主要目的：企业动态：关注app、应用程序、新系统、新上线功能" class="headerlink" title="主要目的：企业动态：关注app、应用程序、新系统、新上线功能"></a>主要目的：企业动态：关注app、应用程序、新系统、新上线功能</h3><h2 id="0x04-Other-Tips"><a href="#0x04-Other-Tips" class="headerlink" title="0x04.Other Tips"></a>0x04.Other Tips</h2><h3 id="1-GitHub搜索"><a href="#1-GitHub搜索" class="headerlink" title="1. GitHub搜索"></a>1. GitHub搜索</h3><p>搜索域名、username、password、邮箱地址及其他敏感信息</p>
+<h3 id="2-漏洞回挖"><a href="#2-漏洞回挖" class="headerlink" title="2. 漏洞回挖"></a>2. 漏洞回挖</h3><p>关注修复方式、新的功能模块</p>
+<h3 id="3-假性社工（应厂商要求）"><a href="#3-假性社工（应厂商要求）" class="headerlink" title="3. 假性社工（应厂商要求）"></a>3. 假性社工（应厂商要求）</h3><p>如果厂商未要求禁止社工，可以打入内部群获取一手资料及敏感资料</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2019/03/17/hello/">http://yoursite.com/2019/03/17/hello/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2019/03/17/hello/">March 17th 2019, 3:21:25 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/03/17/hello/">March 17th 2019, 4:29:43 pm</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/04/22/Recon新思路/">http://yoursite.com/2019/04/22/Recon新思路/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/04/22/Recon新思路/">April 22nd 2019, 2:36:00 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/04/22/Recon新思路/">April 22nd 2019, 2:36:53 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -413,12 +545,17 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/04/22/Recon/" title="Recon">
-                    <div class="nextTitle">Recon</div>
+                <a href="/2019/04/22/XSS_Note_1/" title="XSS_Notes_1">
+                    <div class="nextTitle">XSS_Notes_1</div>
                 </a>
             
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/22/ssrf/" title="SSRF">
+                    <div class="prevTitle">SSRF</div>
+                </a>
             
         </li>
     </ul>
@@ -536,7 +673,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Recon新思路"><span class="toc-number">1.</span> <span class="toc-text">Recon新思路</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-常规性资产收集"><span class="toc-number">1.1.</span> <span class="toc-text">0x00.常规性资产收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-子域名收集"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 子域名收集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基于爆破类型："><span class="toc-number">1.1.1.1.</span> <span class="toc-text">基于爆破类型：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在线查询："><span class="toc-number">1.1.1.2.</span> <span class="toc-text">在线查询：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-端口扫描"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 端口扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-路径扫描"><span class="toc-number">1.1.3.</span> <span class="toc-text">3. 路径扫描</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-旁站C段查询"><span class="toc-number">1.1.4.</span> <span class="toc-text">4. 旁站C段查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-总结"><span class="toc-number">1.1.5.</span> <span class="toc-text">5. 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-搜索引擎"><span class="toc-number">1.2.</span> <span class="toc-text">0x01.搜索引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-子域名收集-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.子域名收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-页面内容"><span class="toc-number">1.2.2.</span> <span class="toc-text">1. 页面内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-目录"><span class="toc-number">1.2.3.</span> <span class="toc-text">2. 目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-敏感关键字搜索"><span class="toc-number">1.2.4.</span> <span class="toc-text">3. 敏感关键字搜索</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-创造性思维"><span class="toc-number">1.3.</span> <span class="toc-text">0x02.创造性思维</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-构造接口"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. 构造接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-构造文件"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. 构造文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-构造目录"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. 构造目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-框架搭配"><span class="toc-number">1.3.4.</span> <span class="toc-text">4. 框架搭配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-关注企业动态"><span class="toc-number">1.4.</span> <span class="toc-text">0x03.关注企业动态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-微信公众号"><span class="toc-number">1.4.1.</span> <span class="toc-text">1. 微信公众号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-小程序"><span class="toc-number">1.4.2.</span> <span class="toc-text">2. 小程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主要目的：企业动态：关注app、应用程序、新系统、新上线功能"><span class="toc-number">1.4.3.</span> <span class="toc-text">主要目的：企业动态：关注app、应用程序、新系统、新上线功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-Other-Tips"><span class="toc-number">1.5.</span> <span class="toc-text">0x04.Other Tips</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-GitHub搜索"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. GitHub搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-漏洞回挖"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. 漏洞回挖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-假性社工（应厂商要求）"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. 假性社工（应厂商要求）</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
