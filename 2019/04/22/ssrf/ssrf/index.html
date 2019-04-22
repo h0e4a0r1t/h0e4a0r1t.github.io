@@ -7,13 +7,19 @@
   
   <title>H1e4a0r1t</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="SSRF0x00.常见漏洞点 0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://12">
+<meta property="og:type" content="article">
 <meta property="og:title" content="H1e4a0r1t">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/04/22/ssrf/ssrf/index.html">
 <meta property="og:site_name" content="H1e4a0r1t">
+<meta property="og:description" content="SSRF0x00.常见漏洞点 0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://12">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://i.loli.net/2019/04/15/5cb49f20c865f.png">
+<meta property="og:updated_time" content="2019-04-20T12:10:23.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="H1e4a0r1t">
+<meta name="twitter:description" content="SSRF0x00.常见漏洞点 0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://12">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/15/5cb49f20c865f.png">
   
     <link rel="alternate" href="/atom.xml" title="H1e4a0r1t" type="application/atom+xml">
   
@@ -60,9 +66,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-ssrf/ssrf" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ssrf/ssrf" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/22/ssrf/ssrf/" class="article-date">
   <time datetime="2019-04-22T03:40:38.439Z" itemprop="datePublished">2019-04-22</time>
@@ -94,159 +98,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Recon/Recon" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/22/Recon/Recon/" class="article-date">
-  <time datetime="2019-04-22T03:40:31.212Z" itemprop="datePublished">2019-04-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Recon"><a href="#Recon" class="headerlink" title="Recon"></a>Recon</h1><h2 id="0x00-Subdomain"><a href="#0x00-Subdomain" class="headerlink" title="0x00.Subdomain"></a>0x00.Subdomain</h2><h3 id="1-爆破型"><a href="#1-爆破型" class="headerlink" title="1. 爆破型"></a>1. 爆破型</h3><p>① sublist3r</p>
-<table>
-<thead>
-<tr>
-<th>Short Form</th>
-<th>Long Form</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-d</td>
-<td>–domain</td>
-<td>用于爆破子域名的域名</td>
-</tr>
-<tr>
-<td>-b</td>
-<td>–bruteforce</td>
-<td>启用subbrute bruteforce模块</td>
-</tr>
-<tr>
-<td>-p</td>
-<td>–ports</td>
-<td>根据特定的端口扫描找到的子域</td>
-</tr>
-<tr>
-<td>-v</td>
-<td>–verbose</td>
-<td>启用详细模式并实时显示结果</td>
-</tr>
-<tr>
-<td>-t</td>
-<td>–threads</td>
-<td>subbrute bruteforce使用的线程数</td>
-</tr>
-<tr>
-<td>-e</td>
-<td>–engines</td>
-<td>指定以逗号分隔的搜索引擎列表</td>
-</tr>
-<tr>
-<td>-o</td>
-<td>–output</td>
-<td>将结果保存到文本文件</td>
-</tr>
-<tr>
-<td>-h</td>
-<td>–help</td>
-<td>帮助信息</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python subist3r.py -b -t 100 -v -d baidu.com -o domain.txt</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/03/31/5ca082cc12692.png" alt></p>
-<p>② Nmap</p>
-<p>nmap –script dns-brute xxx.com   (不建议使用)</p>
-<p>③ Wfuzz</p>
-<p>wfuzz -c -z file,domain.txt -Z -t 100 –sc 200,301,302,403,404 <a href="http://FUZZ.domain.com" target="_blank" rel="noopener">http://FUZZ.domain.com</a></p>
-<p>-c 色彩显示 -z 调用字典文件 -Z 不允许报错 -t 线程 –sc 根据状态码判断允许显示的页面</p>
-<p>☠ 爆破型优点：字典全，可以发现绝大部分子域名；缺点：字典收集不全</p>
-<h3 id="2-基于证书"><a href="#2-基于证书" class="headerlink" title="2. 基于证书"></a>2. 基于证书</h3><p>① crt.sh.sh  （％=通配符） $2 ==&gt; 代理地址 ;</p>
-<p>$1 ==&gt; 域名</p>
-<p>grep 格式    以正则格式输出</p>
-<p><img src="https://i.loli.net/2019/03/31/5ca064fbc6e49.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -x $2 http://crt.sh/?q=%$1 | grep &quot;$1&quot; | cut -d &quot;&gt;&quot; -f2 | cut -d &quot;&lt;&quot; -f1 (分割) | grep -v &quot;&quot; （去除空格） | sort -u （去重） &gt;&gt;domain.txt</span><br></pre></td></tr></table></figure>
-<p>② censys.io</p>
-<h3 id="3-Google-Dork"><a href="#3-Google-Dork" class="headerlink" title="3. Google Dork"></a>3. Google Dork</h3><ul>
-<li>-site :domain.com -inurl:dev</li>
-</ul>
-<h3 id="4-Shodan"><a href="#4-Shodan" class="headerlink" title="4. Shodan"></a>4. Shodan</h3><ul>
-<li><p>Search by hostname==&gt; hostname:baidu.com</p>
-</li>
-<li><p>filter</p>
-<p>-ports 8080 8000 etc</p>
-<p>-Title:Dashboard</p>
-<p>-Product:tocat</p>
-</li>
-</ul>
-<h3 id="5-其他在线平台"><a href="#5-其他在线平台" class="headerlink" title="5. 其他在线平台"></a>5. 其他在线平台</h3><p><a href="https://searchdns.netcraft.com/" target="_blank" rel="noopener">https://searchdns.netcraft.com/</a></p>
-<p><a href="https://dnsdumpster.com/" target="_blank" rel="noopener">https://dnsdumpster.com/</a></p>
-<p><a href="https://www.virustotal.com/" target="_blank" rel="noopener">https://www.virustotal.com/</a></p>
-<p><a href="https://phpinfo.me/domain/" target="_blank" rel="noopener">https://phpinfo.me/domain/</a></p>
-<h2 id="0x01-Port-Scan"><a href="#0x01-Port-Scan" class="headerlink" title="0x01. Port Scan"></a>0x01. Port Scan</h2><h3 id="1-Nmap"><a href="#1-Nmap" class="headerlink" title="1.Nmap"></a>1.Nmap</h3><h3 id="2-Masscan"><a href="#2-Masscan" class="headerlink" title="2.Masscan"></a>2.Masscan</h3><h2 id="0x02-目录扫描"><a href="#0x02-目录扫描" class="headerlink" title="0x02. 目录扫描"></a>0x02. 目录扫描</h2><h3 id="1-Wfuzz"><a href="#1-Wfuzz" class="headerlink" title="1.Wfuzz"></a>1.Wfuzz</h3><p>使用<code>-R</code>参数可以指定一个payload被递归的深度(数字)。例如：爆破目录时，我们想使用相同的payload对已发现的目录进行测试，可以使用如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -z list,&quot;admin-login.php-test-dorabox&quot; -R 1 http://127.0.0.1/FUZZ</span><br></pre></td></tr></table></figure>
-<p>递归深度为1也就是说当发现某一个目录存在的时候，在存在目录下再递归一次字典（深入爆破目录）</p>
+  
+    <a href="/2019/04/22/Recon/Recon/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/22/Recon/Recon/" data-id="cjurx62fe00000ctqwra5gvhl" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/hello/" class="article-date">
-  <time datetime="2019-03-17T07:21:25.430Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/hello/">Hello</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to my blog ! I`m H0e4a0r1t 😁</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/hello/" data-id="cjurx47hb0001vgtqiaydpcqb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         

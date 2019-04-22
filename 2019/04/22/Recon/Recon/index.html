@@ -7,13 +7,20 @@
   
   <title>H1e4a0r1t</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Recon0x00.Subdomain1. 爆破型① sublist3r    Short Form Long Form Description     -d –domain 用于爆破子域名的域名   -b –bruteforce 启用subbrute bruteforce模块   -p –ports 根据特定的端口扫描找到的子域   -v –verbose 启用详细模式并实时显示结果   -t">
+<meta property="og:type" content="article">
 <meta property="og:title" content="H1e4a0r1t">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/04/22/Recon/Recon/index.html">
 <meta property="og:site_name" content="H1e4a0r1t">
+<meta property="og:description" content="Recon0x00.Subdomain1. 爆破型① sublist3r    Short Form Long Form Description     -d –domain 用于爆破子域名的域名   -b –bruteforce 启用subbrute bruteforce模块   -p –ports 根据特定的端口扫描找到的子域   -v –verbose 启用详细模式并实时显示结果   -t">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://i.loli.net/2019/03/31/5ca082cc12692.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/31/5ca064fbc6e49.png">
+<meta property="og:updated_time" content="2019-03-31T16:21:51.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="H1e4a0r1t">
+<meta name="twitter:description" content="Recon0x00.Subdomain1. 爆破型① sublist3r    Short Form Long Form Description     -d –domain 用于爆破子域名的域名   -b –bruteforce 启用subbrute bruteforce模块   -p –ports 根据特定的端口扫描找到的子域   -v –verbose 启用详细模式并实时显示结果   -t">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/31/5ca082cc12692.png">
   
     <link rel="alternate" href="/atom.xml" title="H1e4a0r1t" type="application/atom+xml">
   
@@ -60,45 +67,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-ssrf/ssrf" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/22/ssrf/ssrf/" class="article-date">
-  <time datetime="2019-04-22T03:40:38.439Z" itemprop="datePublished">2019-04-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h1><h2 id="0x00-常见漏洞点"><a href="#0x00-常见漏洞点" class="headerlink" title="0x00.常见漏洞点"></a>0x00.常见漏洞点</h2><p><img src="https://i.loli.net/2019/04/15/5cb49f20c865f.png" alt></p>
-<h2 id="0x01-Bypass"><a href="#0x01-Bypass" class="headerlink" title="0x01.Bypass"></a>0x01.Bypass</h2><h3 id="1-http-127-0-0-0-8888-80-8888为真"><a href="#1-http-127-0-0-0-8888-80-8888为真" class="headerlink" title="1. http://127.0.0.0:8888:80   8888为真"></a>1. <a href="http://127.0.0.0:8888:80" target="_blank" rel="noopener">http://127.0.0.0:8888:80</a>   8888为真</h3><h3 id="2-http-0-0-0-0-evil-com-80"><a href="#2-http-0-0-0-0-evil-com-80" class="headerlink" title="2. http://0.0.0.0#@evil.com:80"></a>2. <a href="http://0.0.0.0#@evil.com:80" target="_blank" rel="noopener">http://0.0.0.0#@evil.com:80</a></h3><h3 id="3-http"><a href="#3-http" class="headerlink" title="3.  http://[::]"></a>3.  http://[::]</h3><h3 id="4-0-evil-com-80-http-google-com-80"><a href="#4-0-evil-com-80-http-google-com-80" class="headerlink" title="4. 0://evil.com:80;http://google.com:80/"></a>4. 0://evil.com:80;<a href="http://google.com:80/" target="_blank" rel="noopener">http://google.com:80/</a></h3><h3 id="5-http-80-；http-1-；http-；http-127-1"><a href="#5-http-80-；http-1-；http-；http-127-1" class="headerlink" title="5. http://[::]:80/；http://[::1]；http://[::]；http://127.1"></a>5. http://[::]:80/；http://[::1]；http://[::]；<a href="http://127.1" target="_blank" rel="noopener">http://127.1</a></h3><h3 id="6-http-127-127-127-127；http-127-0-1-3；http-127-0-0-0"><a href="#6-http-127-127-127-127；http-127-0-1-3；http-127-0-0-0" class="headerlink" title="6. http://127.127.127.127；http://127.0.1.3；http://127.0.0.0"></a>6. <a href="http://127.127.127.127；http://127.0.1.3；http://127.0.0.0" target="_blank" rel="noopener">http://127.127.127.127；http://127.0.1.3；http://127.0.0.0</a></h3><h3 id="7-•http-0177-0-0-1"><a href="#7-•http-0177-0-0-1" class="headerlink" title="7. •http://0177.0.0.1/"></a>7. •<a href="http://0177.0.0.1/" target="_blank" rel="noopener">http://0177.0.0.1/</a></h3><p>•<a href="http://2130706433/" target="_blank" rel="noopener">http://2130706433/</a> = <a href="http://127.0.0.1" target="_blank" rel="noopener">http://127.0.0.1</a></p>
-<p>•<a href="http://3232235521/" target="_blank" rel="noopener">http://3232235521/</a> = <a href="http://192.168.0.1" target="_blank" rel="noopener">http://192.168.0.1</a></p>
-<p>•<a href="http://3232235777/" target="_blank" rel="noopener">http://3232235777/</a> = <a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a></p>
-<h3 id="8-•http-0"><a href="#8-•http-0" class="headerlink" title="8. •http://0/"></a>8. •<a href="http://0/" target="_blank" rel="noopener">http://0/</a></h3><h3 id="9-•http-example-com-example-com"><a href="#9-•http-example-com-example-com" class="headerlink" title="9. •http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ = example.com"></a>9. •http://ⓔⓧⓐⓜⓟⓛⓔ.ⓒⓞⓜ = example.com</h3><p>•List:</p>
-<p>•① ② ③ ④ ⑤ ⑥ ⑦ ⑧ ⑨ ⑩ ⑪ ⑫ ⑬ ⑭ ⑮ ⑯ ⑰ ⑱ ⑲ ⑳ ⑴ ⑵ ⑶ ⑷ ⑸ ⑹ ⑺ ⑻ ⑼ ⑽ ⑾ ⑿ ⒀ ⒁ ⒂ ⒃ ⒄ ⒅ ⒆ ⒇ ⒈ ⒉ ⒊ ⒋ ⒌ ⒍ ⒎ ⒏ ⒐ ⒑ ⒒ ⒓ ⒔ ⒕ ⒖ ⒗ ⒘ ⒙ ⒚ ⒛ ⒜ ⒝ ⒞ ⒟ ⒠ ⒡ ⒢ ⒣ ⒤ ⒥ ⒦ ⒧ ⒨ ⒩ ⒪ ⒫ ⒬ ⒭ ⒮ ⒯ ⒰ ⒱ ⒲ ⒳ ⒴ ⒵ Ⓐ Ⓑ Ⓒ Ⓓ Ⓔ Ⓕ Ⓖ Ⓗ Ⓘ Ⓙ Ⓚ Ⓛ Ⓜ Ⓝ Ⓞ Ⓟ Ⓠ Ⓡ Ⓢ Ⓣ Ⓤ Ⓥ Ⓦ Ⓧ Ⓨ Ⓩ ⓐ ⓑ ⓒ ⓓ ⓔ ⓕ ⓖ ⓗ ⓘ ⓙ ⓚ ⓛ ⓜ ⓝ ⓞ ⓟ ⓠ ⓡ ⓢ ⓣ ⓤ ⓥ ⓦ ⓧ ⓨ ⓩ ⓪ ⓫ ⓬ ⓭ ⓮ ⓯ ⓰ ⓱ ⓲ ⓳ ⓴ ⓵ ⓶ ⓷ ⓸ ⓹ ⓺ ⓻ ⓼ ⓽ ⓾ ⓿</p>
-<h3 id="10-•10-0-0-1-xip-io"><a href="#10-•10-0-0-1-xip-io" class="headerlink" title="10. •10.0.0.1.xip.io"></a>10. •10.0.0.1.xip.io</h3><p>•<a href="http://www.10.0.0.1.xip.io" target="_blank" rel="noopener">www.10.0.0.1.xip.io</a></p>
-<p>•mysite.10.0.0.1.xip.io</p>
-<p>•foo.bar.10.0.0.1.xip.io</p>
-<p>•nip.io</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/22/ssrf/ssrf/" data-id="cjurx62fw00010ctqxx3fbdl9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Recon/Recon" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Recon/Recon" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/04/22/Recon/Recon/" class="article-date">
   <time datetime="2019-04-22T03:40:31.212Z" itemprop="datePublished">2019-04-22</time>
@@ -205,48 +174,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/hello/" class="article-date">
-  <time datetime="2019-03-17T07:21:25.430Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2019/04/22/ssrf/ssrf/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          (no title)
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/hello/">Hello</a>
-    </h1>
   
+    <a href="/2019/03/17/hello/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to my blog ! I`m H0e4a0r1t 😁</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/hello/" data-id="cjurx47hb0001vgtqiaydpcqb" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
