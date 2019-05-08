@@ -359,6 +359,42 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/05/07/url跳转/">
+            
+                <span>[Untitled Post]</span>
+        </a>
+        <div class="abstract-content">
+            title:URL跳转
+
+1.变形绕过@绕过：url=目标地址@www.baidu.com
+问号绕过：url=https://目标地址/?baidu.com
+锚链接绕过：url=http://baidu.com/#目标地址
+xip.io绕过：url=http://目标地址.www.baidu.com.xip.io/
+反斜杠绕过：url=https:/\www.baidu.com
+IP绕过：把目标的URL修改成IP地址，这样也有可能绕过waf的拦截
+编码绕过：
+12
+chrome浏览器特性：
+12
+2.利用url跳转漏洞12
+3.字典（WFuzz）123456789101112131415...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/05/05/wfuzz/">
             
                 <span>WFUZZ</span>
@@ -371,6 +407,41 @@ height:50vh;
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/05</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/05/04/csrf/">
+            
+                <span>[Untitled Post]</span>
+        </a>
+        <div class="abstract-content">
+            CSRF0x00.什么是CSRF？通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。
+0x01.CSRF简单演示这里就拿DVWA来做演示
+正常用户修改密码操作，这里并未做任何用户凭证的校验
+
+抓包，可以看到，模拟用户修改密码为123456并提交
+
+BurpSuite自带有构造CSRF的poc的工具
+
+
+也可以自己构造
+
+CSRF表单自动提交代码
+1234567&lt;form name=&qu...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/04</span>
             </div>
             <!-- tags  -->
             
@@ -861,9 +932,47 @@ subbrute bruteforce使用的线程数
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 7
+        Total : 9
         </div>
         <!-- search  -->
         
@@ -873,6 +982,34 @@ subbrute bruteforce使用的线程数
     
     
     
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/07/url跳转/">[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/04</span><a class="archive-post-title" href="/2019/05/04/csrf/">[Untitled Post]</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
