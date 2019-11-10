@@ -346,285 +346,23 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/2019/05/09/反序列化/">
+        <a class="abstract-title" href="/2019/11/01/九种姿势运行Mimikatz/">
             
-                <span>反序列化</span>
+                <span>[Untitled Post]</span>
         </a>
         <div class="abstract-content">
-            1.常见反序列化
-JBoss
-Weblogic
-WebSphere
-Jenkins
+            title:九种姿势运行Mimikatz
 
-2.乌云案例分析1. Java 反序列化服务器 –》脚本检测利用
-2. JBossJMXInvokerServlet接口
-3. websphere8880端口
-3.漏洞挖掘123456789101112131415161.漏洞触发场景   在java编写的web应用与web服务器间java通常会发送大量的序列化对象例如以下场景：　　1)HTTP请求中的参数，cookies以及Parameters。　　2)RMI协议，被广泛使用的RMI协议完全基于序列化　　4)JMX 同样用于处理序列化对象　　5)自定义...
+0x00. 简介用户绕过杀软执行mimikatz，这里主要是绕过360，未处理的mimikatz会被直接查杀
+
+0x01. powershell1https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-Mimikatz.ps1
+cmd下执行
+1C:\Users\test\Desktop&gt;powershell -exec bypass &quot;import-module .\Invoke-Mimikatz.ps1;Invoke-Mimi...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/09</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/07/url跳转/">
-            
-                <span>URL跳转</span>
-        </a>
-        <div class="abstract-content">
-            1.变形绕过@绕过：url=目标地址@www.baidu.com
-问号绕过：url=https://目标地址/?baidu.com
-锚链接绕过：url=http://baidu.com/#目标地址
-xip.io绕过：url=http://目标地址.www.baidu.com.xip.io/
-反斜杠绕过：url=https:/\www.baidu.com
-IP绕过：把目标的URL修改成IP地址，这样也有可能绕过waf的拦截
-编码绕过：
-123https://example.com/login?return=https%3A%2F%2Fmysite.com%2F  //url编码https:...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/07/2019-5-9随记/">
-            
-                <span>2019/5/9随记</span>
-        </a>
-        <div class="abstract-content">
-            First：Vulnerable Javascript Files
-今天几乎每个网站都以某种方式使用javascript。Jquery，anglular，react和vue是流行的javascript库和框架的一些例子。其中每个都包含漏洞，如果网站使用过时的版本，他们就有可能实施易受攻击的功能，从而使整个网站面临风险
-Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使用此工具最简单的方法是下载chrome插件。下载插件后，它将扫描您在后台访问的每个站点，查找过时的javascript文件，其中许多文件包含已知的CVE。 
-重要的是要知道，仅仅因为网站导入易受攻击的javas...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/05/wfuzz/">
-            
-                <span>WFUZZ</span>
-        </a>
-        <div class="abstract-content">
-            WFUZZ（爆破谁就FUZZ谁）wfuzz占位符      https://www.baidu.com/FUZZ使用字典：  wfuzz -w 字典路径(绝对路径) URL/FUZZ                   wfuzz -w 目录字典路径 -w 文件名字典路径 -w 后缀名字典路径 URL/FUZZ/FUZ2Z.FUZ3Z
-隐藏响应结果：1.–hc 根据响应报文状态码进行隐藏（hide code）2.–hl根据响应报文行数进行隐藏（hide lines)3.–hw根据响应报文字数进行隐藏（hide word）4.–hh根据响应报文字符数进行隐藏（hide chars 这里因为...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/05</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/04/csrf/">
-            
-                <span>CSRF</span>
-        </a>
-        <div class="abstract-content">
-            CSRF0x00.什么是CSRF？通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。
-0x01.CSRF简单演示这里就拿DVWA来做演示
-正常用户修改密码操作，这里并未做任何用户凭证的校验
-
-抓包，可以看到，模拟用户修改密码为123456并提交
-
-BurpSuite自带有构造CSRF的poc的工具
-
-
-也可以自己构造
-
-CSRF表单自动提交代码
-1234567&lt;form name=&qu...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/04</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/24/2019-4-23随记/">
-            
-                <span>2019/4/23 随记</span>
-        </a>
-        <div class="abstract-content">
-            今夜格外的宁静，和好友互相聊了聊天，道了道最近发生的有趣的事情，心情还算不错！oh，对了，明天复联4就要上映了，买了首映票的我还是满怀期待的，毕竟我也算是一个漫威粉嘛😁
-好啦，为了实现我对自己的承诺，所以我要每天坚持更新文章，只为记录自己
-FirstImproper Authorization and Accessing API with Missing Access Controls for POST, PUT &amp; DELETE（https://medium.com/@thehacktivists/improper-authorization-and-accessing-ap...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/24</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/23/2019-4-28随记/">
-            
-                <span>2019/4/28 随记</span>
-        </a>
-        <div class="abstract-content">
-            今天早上做了一件好事，我发现了某公司员工泄露邮箱账号密码导致泄露公司内部的一些项目数据，我发现了它并第一时间联系了厂家，尽管联系厂家相关负责人的时候也非常坎坷，但是最终还是联系上了他们，并帮助他们解决问题(●ˇ∀ˇ●)     上班的路上还碰到了室友小姐姐，和她一起去上班，感到很开心哦 (●&apos;◡&apos;●)
-First：溢出三部曲HTTP响应与标头溢出拆分HTTP Response Splitting与CRLF注入的不同之处。通常99个HTTP响应拆分漏洞是由CRLF注入引起的，而这个漏洞则滥用了一个不涉及注入CRLF的不同缺陷。
-例如链接中的 report_user_id...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/23</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/22/XSS_Note_1/">
-            
-                <span>XSS_Notes_1</span>
-        </a>
-        <div class="abstract-content">
-            XSS_Notes主要挖掘方法：Burpsuite and WFuzz0x00.新思路文件上传：
-在文件名插入payload，即.jpg  
-在文件内容中添加payload，如果为前端加载即触发
-
-更多bypass变形 =》 《XSS-Cheat-Sheet-2019-Edition-2》0x01.案例分析1.[BugBounty] Sleeping stored Google XSS Awakens a $5000 Bounty  by Patrik Fehrenbach思路(存储型xss)：创建项目时，在项目标题处添加payload，添加时会被转义，而执行删除操作时会被执行
-payl...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/22/Recon新思路/">
-            
-                <span>Recon 新思路</span>
-        </a>
-        <div class="abstract-content">
-            Recon新思路0x00.常规性资产收集1. 子域名收集基于爆破类型：
-Sublist3r
-subdomainBurte
-subfinder
-layer子域名挖掘机
-
-在线查询：
-云悉资产
-
-FOFA
-
-Virstotal（基于证书查询）（https://www.virustotal.com/）
-
-crt.sh（基于证书查询）（https://crt.sh/）
-
-Dnsdumpster（基于DNS记录）（https://dnsdumpster.com/）
-
-Threatcrowd （https://www.threatcrowd.org/）
-
-https://phpinfo.me/dom...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/22/ssrf/">
-            
-                <span>SSRF</span>
-        </a>
-        <div class="abstract-content">
-            SSRF0x00.常见漏洞点
-0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://127.16. http://127.127.127.127；http://127.0.1.3；http://127.0.0.07. •http://0177.0.0.1/•http://21307...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/01</span>
             </div>
             <!-- tags  -->
             
@@ -632,10 +370,6 @@ https://phpinfo.me/dom...
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2019/">&#60; PREV</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/page/3/">NEXT &#62;</a>
-    </nav>
     
 </main>
             <!-- profile -->

