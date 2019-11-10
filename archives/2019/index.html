@@ -348,7 +348,7 @@
     <article class="index-post">
         <a class="abstract-title" href="/2019/11/01/九种姿势运行Mimikatz/">
             
-                <span>Token窃取与利用</span>
+                <span>九种姿势运行Mimikatz</span>
         </a>
         <div class="abstract-content">
             0x00. 简介用户绕过杀软执行mimikatz，这里主要是绕过360，未处理的mimikatz会被直接查杀
@@ -364,6 +364,38 @@ cmd下执行
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/11/01</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/10/29/windows中常见后门持久化方法总结/">
+            
+                <span>九种姿势运行Mimikatz</span>
+        </a>
+        <div class="abstract-content">
+            windows中常见后门持久化方法总结0x01. shift后门在windows中有一些辅助功能，能在用户未登录系统之前可以通过组合键来启动它，类似的辅助功能有：
+
+C:\Windows\System32\sethc.exe 粘滞键，启动快捷键：按五次shift键
+C:\Windows\System32\utilman.exe 设置中心，启动快捷键：Windows+U键 
+
+在低版本的windows中，我们可以直接把sethc.exe替换成我们的后门程序，下面我们把sethc.exe替换为calc.exe
+
+
+
+0x02.映像劫持和shift后门差不多，只不过在低版本的windows中，...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/29</span>
             </div>
             <!-- tags  -->
             
@@ -615,33 +647,6 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/09/30</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/07/12/2019-5-3 逻辑漏洞思路 033759/">
-            
-                <span>逻辑漏洞案例总结</span>
-        </a>
-        <div class="abstract-content">
-            逻辑漏洞0x00.之前总结的1.订单处修改id导致用户信息泄露问题参数：订单或用户Id没有被加密（抓包修改id查看返回页面是否存在敏感信息，也可以批量爆破）
-2.找回密码处任意用户密码重置漏洞（手机号）/任意手机号注册输入手机号，下一步，抓包，查看返回值中是否存在验证码；或者尝试换手机号得到验证码之后验证是否可行；修改返回包状态码
-3.手机号验证处存在短信轰炸输入手机号，点击发送验证码，抓包，修改其他手机号，如果发送成功，则可批量发送短信
-4.邮箱验证处存在邮箱轰炸输入邮箱号，点击发送验证码，抓包，修改其他邮箱号，如果发送成功，则可批量发送邮件
-5.订单支付漏洞提交订单时，修改订单的数量...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/07/12</span>
             </div>
             <!-- tags  -->
             
@@ -1078,12 +1083,9 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
     
     
     
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 22
+        Total : 23
         </div>
         <!-- search  -->
         
@@ -1099,31 +1101,8 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/hello/">Hello</a>
+            <span class="archive-post-date">10/29</span><a class="archive-post-title" href="/2019/10/29/windows中常见后门持久化方法总结/">九种姿势运行Mimikatz</a>
         </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/07/url跳转/">URL跳转</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> 2019 </div>
-    <ul class="year-list">
     
     
         <li class="archive-post-item">
@@ -1166,7 +1145,7 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/09/反序列化/">反序列化</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/01/九种姿势运行Mimikatz/">九种姿势运行Mimikatz</a>
         </li>
     
     
@@ -1199,7 +1178,7 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/09/30/新的开始/">新的开始</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/10/泛微OA前台SQL注入/">泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)</a>
         </li>
     
     
@@ -1217,6 +1196,11 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
         </li>
     
     
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/ssrf/">SSRF</a>
+        </li>
+    
+    
     
     
     
@@ -1227,7 +1211,49 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/Windows系统的帐户隐藏/">Windows系统的帐户隐藏</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/09/反序列化/">反序列化</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon/">Recon</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">CVE-2019-14287 sudo 配置不当-权限提升漏洞</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/07/url跳转/">URL跳转</a>
         </li>
     
     
@@ -1283,35 +1309,7 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/10/泛微OA前台SQL注入/">泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">CVE-2019-14287 sudo 配置不当-权限提升漏洞</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/01/九种姿势运行Mimikatz/">Token窃取与利用</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/09/30/新的开始/">新的开始</a>
         </li>
     
     
@@ -1325,12 +1323,21 @@ phpStudy2018PHPTutorial\php\php-5.2.17\ext\php_xmlrpc.dllPHPTutorial\php\php-5.4
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/ssrf/">SSRF</a>
+            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/hello/">Hello</a>
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon/">Recon</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/Windows系统的帐户隐藏/">Windows系统的帐户隐藏</a>
         </li>
     
     </ul></div>
