@@ -359,6 +359,62 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">
+            
+                <span>CVE-2019-14287 sudo 配置不当-权限提升漏洞</span>
+        </a>
+        <div class="abstract-content">
+            CVE-2019-14287 sudo 配置不当-权限提升漏洞0x00. 漏洞描述在sudo使用任意用户ID实现运行命令的方式中发现了一个缺陷。如果编写了一个sudoers条目以允许攻击者以除root以外的任何用户身份运行命令，则攻击者可以使用此缺陷来绕过该限制。
+0x01. 漏洞详情如果将sudo配置为允许用户通过Runas规范中的ALL关键字以任意用户身份运行命令，则可以通过指定用户ID -1或4294967295以root用户身份运行命令。
+即使Runas规范明确禁止root访问，只要Runas规范中首先列出ALL关键字，具有足够sudo特权的用户就可以使用它来以root身份运行命...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/15</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2019/10/14/Token窃取与利用/">
+            
+                <span>Token窃取与利用</span>
+        </a>
+        <div class="abstract-content">
+            Token窃取与利用0x01. Token简介Windows有两种类型的Token：
+Delegation token(授权令牌):用于交互会话登录(例如本地用户直接登录、远程桌面登录)
+Impersonation token(模拟令牌):用于非交互登录(利用net use访问共享文件夹)
+
+注：
+两种token只在系统重启后清除
+具有Delegation token的用户在注销后，该Token将变成Impersonation token，依旧有效
+0x02. Windows平台下的incognito提权（Admin to System）下载地址：
+https://labs.mwrinf...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/14</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/10/10/泛微OA前台SQL注入/">
             
                 <span>泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)</span>
@@ -586,65 +642,6 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
             <!-- date  -->
             <div class="abstract-date">
                 <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/05/wfuzz/">
-            
-                <span>WFUZZ</span>
-        </a>
-        <div class="abstract-content">
-            WFUZZ（爆破谁就FUZZ谁）wfuzz占位符      https://www.baidu.com/FUZZ使用字典：  wfuzz -w 字典路径(绝对路径) URL/FUZZ                   wfuzz -w 目录字典路径 -w 文件名字典路径 -w 后缀名字典路径 URL/FUZZ/FUZ2Z.FUZ3Z
-隐藏响应结果：1.–hc 根据响应报文状态码进行隐藏（hide code）2.–hl根据响应报文行数进行隐藏（hide lines)3.–hw根据响应报文字数进行隐藏（hide word）4.–hh根据响应报文字符数进行隐藏（hide chars 这里因为...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/05</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/04/csrf/">
-            
-                <span>CSRF</span>
-        </a>
-        <div class="abstract-content">
-            CSRF0x00.什么是CSRF？通俗简单点理解就是本该是你本人操作的步骤，攻击者已经给你模拟好了，而只差被系统误认为是你本人在操作，所以只需要你的好奇心驱使你点一下恶意链接，本质上就是你做的操作，只不过操作的value已经被攻击者设置好了，你只是负责触发，即只差你这个身份凭证了。
-0x01.CSRF简单演示这里就拿DVWA来做演示
-正常用户修改密码操作，这里并未做任何用户凭证的校验
-
-抓包，可以看到，模拟用户修改密码为123456并提交
-
-BurpSuite自带有构造CSRF的poc的工具
-
-
-也可以自己构造
-
-CSRF表单自动提交代码
-1234567&lt;form name=&qu...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/04</span>
             </div>
             <!-- tags  -->
             
@@ -1278,9 +1275,13 @@ CSRF表单自动提交代码
     
     
     
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 27
+        Total : 29
         </div>
         <!-- search  -->
         
@@ -1291,26 +1292,17 @@ CSRF表单自动提交代码
     
     
     
-    <div class="archive-year"> 2019 </div>
+    <div class="archive-year"> 2020 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">09/30</span><a class="archive-post-title" href="/2019/09/30/phpstudy后门/">phpstudy后门分析</a>
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href="/2020/07/02/红方作战手册/">[Untitled Post]</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2020/05/10/博客声明/">博客停止更新，转战微信公众号</a>
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href="/2020/07/02/2020攻防演练弹药库/">[Untitled Post]</a>
         </li>
     
     
@@ -1340,6 +1332,11 @@ CSRF表单自动提交代码
     
         <li class="archive-post-item">
             <span class="archive-post-date">10/01</span><a class="archive-post-title" href="/2019/10/01/Windows日志的删除与绕过/">Windows日志的删除与绕过</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/30</span><a class="archive-post-title" href="/2019/09/30/phpstudy后门/">phpstudy后门分析</a>
         </li>
     
     
@@ -1378,7 +1375,7 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/11/域渗透常用命令/">域渗透常用命令</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/10/泛微OA前台SQL注入/">泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)</a>
         </li>
     
     
@@ -1406,7 +1403,7 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/09/30/新的开始/">新的开始</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/26/自搭自玩/">你看我小不小学生就完了😂</a>
         </li>
     
     
@@ -1420,7 +1417,7 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/Windows系统的帐户隐藏/">Windows系统的帐户隐藏</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/22/cobaltstrike初体验/">cobaltstrike初体验</a>
         </li>
     
     
@@ -1448,7 +1445,7 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/26/自搭自玩/">你看我小不小学生就完了😂</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/07/12/2019-5-3 逻辑漏洞思路 033759/">逻辑漏洞案例总结</a>
         </li>
     
     
@@ -1476,7 +1473,35 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">CVE-2019-14287 sudo 配置不当-权限提升漏洞</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/01/九种姿势运行Mimikatz/">九种姿势运行Mimikatz</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/11/域渗透常用命令/">域渗透常用命令</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2020/05/10/博客声明/">博客停止更新，转战微信公众号</a>
         </li>
     
     
@@ -1532,34 +1557,6 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/07/12/2019-5-3 逻辑漏洞思路 033759/">逻辑漏洞案例总结</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/01/九种姿势运行Mimikatz/">九种姿势运行Mimikatz</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/09/反序列化/">反序列化</a>
         </li>
     
@@ -1574,7 +1571,7 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/10/泛微OA前台SQL注入/">泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">CVE-2019-14287 sudo 配置不当-权限提升漏洞</a>
         </li>
     
     
@@ -1588,7 +1585,21 @@ CSRF表单自动提交代码
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/22/cobaltstrike初体验/">cobaltstrike初体验</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/09/30/新的开始/">新的开始</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/Windows系统的帐户隐藏/">Windows系统的帐户隐藏</a>
         </li>
     
     </ul></div>
