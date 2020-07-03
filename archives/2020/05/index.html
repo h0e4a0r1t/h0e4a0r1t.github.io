@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Windows日志的删除与绕过 · H0e4a0r1t&#39;s Blog</title>
+    <title>H0e4a0r1t&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -203,23 +203,12 @@
 </head>
 
     
-        <body class="post-body">
-    
     
 <header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
     <!-- post页的toggle banner  -->
-    
-    <div class="banner">
-            <div class="blog-title">
-                <a href="/">H0e4a0r1t&#39;s Blog</a>
-            </div>
-            <div class="post-title">
-                <a href="#" class="post-name">Windows日志的删除与绕过</a>
-            </div>
-    </div>
     
     <a class="home-link" href="/">H0e4a0r1t's Blog</a>
 </header>
@@ -231,68 +220,24 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
-            
-            Windows日志的删除与绕过
-            <!-- 404 -->
             
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
             
-            
-            <!-- 404 -->
-            
         </p>
         <!-- 文章页meta -->
-        
-            <div class="post-intros">
-                <!-- 文章页标签  -->
-                
-                
-                    <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">633</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
-                    </div>
-                
-                <div class="post-intro-meta">
-                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/10/01</span>
-                    
-                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
-                        <span class="iconfont-archer">&#xe602;</span>
-                        <span id="busuanzi_value_page_pv"></span>
-                    </span>
-                    
-                    <span class="shareWrapper">
-                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
-                        <span class="shareText">Share</span>
-                        <ul class="shareList">
-                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
-                                <div class="share-qrcode"></div>
-                            </li>
-                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
-                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
-                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
-                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
-                        </ul>
-                    </span>
-                </div>
-            </div>
         
     </div>
 </div>
@@ -393,114 +338,44 @@ height:50vh;
 </script>        
         <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
         <div class="container container-unloaded">
-            <main class="main post-page">
-    <article class="article-entry">
-        <h2 id="Windows日志的删除与绕过"><a href="#Windows日志的删除与绕过" class="headerlink" title="Windows日志的删除与绕过"></a>Windows日志的删除与绕过</h2><h3 id="0x01-Windows日志"><a href="#0x01-Windows日志" class="headerlink" title="0x01. Windows日志"></a>0x01. Windows日志</h3><p>Windows日志包括五个类别：</p>
-<ul>
-<li>应用程序（Application）</li>
-<li>安全（Security）</li>
-<li>Setup</li>
-<li>系统（System）</li>
-<li>转发事件（Forwarded Events）</li>
-</ul>
-<p>1、通过面板</p>
-<p>位置如下：控制面板–》系统和安全–》管理工具–》查看事件日志</p>
-<p><img src="https://i.loli.net/2019/10/01/ESrqDiUwe94x3LB.png" alt="1.png"></p>
-<p>2、 通过Powershell</p>
-<p>常用命令如下：</p>
-<p>(管理员权限)</p>
-<p>查看所有日志：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-WinEvent</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/10/01/uvkOr3VKgl5LiIt.png" alt="2.png"></p>
-<p>查看应用程序类别下的日志：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-WinEvent -FilterHashtable @&#123;logname=&quot;Application&quot;;&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/10/01/wh4KnavgL3RXIpu.png" alt="3.png"></p>
-<h3 id="0x02-Windows日志的常用清除方法"><a href="#0x02-Windows日志的常用清除方法" class="headerlink" title="0x02. Windows日志的常用清除方法"></a>0x02. Windows日志的常用清除方法</h3><h3 id="1、wevtutil-exe"><a href="#1、wevtutil-exe" class="headerlink" title="1、wevtutil.exe"></a>1、wevtutil.exe</h3><p>操作系统默认包含，支持系统：Win7及以上</p>
-<p>常用命令如下：</p>
-<p>(1) 统计日志列表，查询指定类别的所有日志信息，包含时间，数目</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wevtutil.exe gli Security</span><br></pre></td></tr></table></figure>
-<p>操作如下图</p>
-<p><img src="https://i.loli.net/2019/10/01/qTCPh4JdprgFQy7.png" alt="4.png"></p>
-<p>(2) 查看指定类别的日志内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wevtutil qe /f:text Security</span><br></pre></td></tr></table></figure>
-<p>操作如下图</p>
-<p><img src="https://i.loli.net/2019/10/01/gUXVeT2nzjJc6Od.png" alt="5.png"></p>
-<p><strong>(3)</strong> 删除该类日志所有内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wevtutil cl Application</span><br></pre></td></tr></table></figure>
-<p>操作如下图</p>
-<p><img src="https://i.loli.net/2019/10/01/VnicOSYoD3E4rpl.png" alt="6.png"></p>
-<p>Application日志全部清除，数目为0</p>
-<p><strong>(4)</strong> 删除单条内容</p>
-<p>尚不支持</p>
-<h3 id="0x03-Windows日志的绕过方法"><a href="#0x03-Windows日志的绕过方法" class="headerlink" title="0x03. Windows日志的绕过方法"></a>0x03. Windows日志的绕过方法</h3><p>参考：<a href="https://artofpwn.com/phant0m-killing-windows-event-log.html" target="_blank" rel="noopener">https://artofpwn.com/phant0m-killing-windows-event-log.html</a></p>
-<p><strong>绕过原理：</strong></p>
-<p>Windows日志对应于eventlog服务，找到该服务对应的进程svchost.exe，进而筛选出svchost.exe进程中具体实现日志功能的线程，终止有关Windows事件日志服务的所有线程，调用TerminateThread结束线程，破坏日志记录功能破坏日志记录功能</p>
-<p><strong>特别的地方：</strong></p>
-<p>Windows事件日志服务的svchost.exe进程尚未停止，而只有相关线程已停止；因此，目标系统将无法收集日志，并且因为无法收集日志而将无法发送日志，但是Windows事件日志服务仍然正在运行</p>
-<p><strong>绕过方法一</strong></p>
-<p><strong>1、</strong> 定位eventlog服务对应进程svchost.exe的pid</p>
-<p><strong>2、</strong> 遍历该进程中的所有线程</p>
-<p><strong>3、</strong> 判断线程是否满足条件</p>
-<p>Windows Event Log 服务需要调用wevtsvc.dll，完整路径为<code>%WinDir%\System32\wevtsvc.dll</code></p>
-<p>并且，如果线程调用了wevtsvc.dll，就可以判读该线程实现了日志记录功能</p>
-<p><strong>4、</strong> 结束线程</p>
-<p>使用TerminateThread</p>
-<p>Phant0m（<a href="https://github.com/hlldz/Invoke-Phant0m" target="_blank" rel="noopener">https://github.com/hlldz/Invoke-Phant0m</a>）</p>
-<p>powershell脚本执行后，Windows日志功能失效，无法记录日志，操作如下图</p>
-<p><img src="https://i.loli.net/2019/10/02/jMlhkIwAnpXi6og.png" alt="3-1.png"></p>
-<p><strong>5、</strong> 恢复方法</p>
-<p>结束进程svchost.exe</p>
-<p>重新开启Windows Event Log 服务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start eventlog</span><br></pre></td></tr></table></figure>
-<p>操作如下图</p>
-<p><img src="https://i.loli.net/2019/10/02/yevmt2CWFRa4O8k.png" alt="3-2.png"></p>
-<p><strong>先水一篇吧，下期再说 :)</strong></p>
-<p>参考：<a href="https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%A0%E9%99%A4%E4%B8%8E%E7%BB%95%E8%BF%87/" target="_blank" rel="noopener">https://3gstudent.github.io/3gstudent.github.io/%E6%B8%97%E9%80%8F%E6%8A%80%E5%B7%A7-Windows%E6%97%A5%E5%BF%97%E7%9A%84%E5%88%A0%E9%99%A4%E4%B8%8E%E7%BB%95%E8%BF%87/</a></p>
-
-    </article>
-    <!-- license  -->
+            <main class="main index-page">
     
-        <div class="license-wrapper">
-            <p>原文作者：<a href="http://yoursite.com">H1e4a0r1t</a>
-            </p><p>原文链接：<a href="http://yoursite.com/2019/10/01/Windows日志的删除与绕过/">http://yoursite.com/2019/10/01/Windows日志的删除与绕过/</a>
-            </p><p>发表日期：<a href="http://yoursite.com/2019/10/01/Windows日志的删除与绕过/">October 1st 2019, 10:31:19 am</a>
-            </p><p>更新日期：<a href="http://yoursite.com/2019/10/01/Windows日志的删除与绕过/">October 11th 2019, 12:33:16 am</a>
-            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2020/05/10/博客声明/">
+            
+                <span>博客停止更新，转战微信公众号</span>
+        </a>
+        <div class="abstract-content">
+            博客已经停更很久了，主要是嫌图片上传图床太麻烦了，像那种很长很多图片的文章就很烦。。。
+后面我就创建了微信公众号h0e4a0r1t的小屋，如果我的文章有人看或者持续关注的话，请关注我的公众号吧！
+公众号也没有做过宣传，主要是放一些自己学习过程中写的笔记或者文章，希望有人能一起交流。。
+贴几篇文章吧😀
+从外网到域控之我想不到起啥名字
+从外网到域控之30分钟撸穿
+艰难的靶机渗透
+模拟域渗透攻击（从外网到内网）
+域渗透相关
+简单贴几篇我觉得写的还可以的文章吧，喜欢的可以关注我的公众号
+
+
         </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/05/10</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
     
     <!-- paginator  -->
-    <ul class="post-paginator">
-        <li class="next">
-            
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/10/10/泛微OA前台SQL注入/" title="泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)">
-                    <div class="nextTitle">泛微OA WorkflowCenterTreeData接口注入漏洞(限oracle数据库)</div>
-                </a>
-            
-        </li>
-        <li class="previous">
-            
-                <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/09/30/phpstudy后门/" title="phpstudy后门分析">
-                    <div class="prevTitle">phpstudy后门分析</div>
-                </a>
-            
-        </li>
-    </ul>
-    <!-- 评论插件 -->
-    <!-- 来必力City版安装代码 -->
-
-<!-- City版安装代码已完成 -->
     
-    
-    <!-- partial('_partial/comment/changyan') -->
-    <!--PC版-->
-
-
-    
-    
-
-    <!-- 评论 -->
 </main>
             <!-- profile -->
             
@@ -585,24 +460,6 @@ height:50vh;
 </footer>
     </div>
     <!-- toc -->
-    
-    <div class="toc-wrapper" style=
-    
-
-
-
-
-
-
-
-top:50vh;
-
-    >
-        <div class="toc-catalog">
-            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
-        </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows日志的删除与绕过"><span class="toc-number">1.</span> <span class="toc-text">Windows日志的删除与绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-Windows日志"><span class="toc-number">1.1.</span> <span class="toc-text">0x01. Windows日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-Windows日志的常用清除方法"><span class="toc-number">1.2.</span> <span class="toc-text">0x02. Windows日志的常用清除方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1、wevtutil-exe"><span class="toc-number">1.3.</span> <span class="toc-text">1、wevtutil.exe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-Windows日志的绕过方法"><span class="toc-number">1.4.</span> <span class="toc-text">0x03. Windows日志的绕过方法</span></a></li></ol></li></ol>
-    </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
     <div class="sidebar sidebar-hide">
@@ -1463,8 +1320,6 @@ jsonContent:
     
     </div>
     <!-- async load share.js -->
-    
-        <script src="/scripts/share.js" async></script>    
      
     </body>
 </html>
