@@ -359,6 +359,42 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/10/15/Windows系统的帐户隐藏/">
+            
+                <span>Windows系统的帐户隐藏</span>
+        </a>
+        <div class="abstract-content">
+            Windows系统的帐户隐藏0x00.前言之前学习过通过帐户克隆实现隐藏帐户的利用技巧，只是每次使用隐藏账户登录时会挤掉正在登陆的用户，下一期我会详细解决掉这个问题，这期先做个笔记，水一篇 :)
+0x01. 简介主介绍以下内容：
+
+帐户隐藏的方法
+编写脚本实现思路
+结合远程桌面多用户登录的利用思路
+
+0x02. 账户隐藏的方法测试系统：Win7_64位
+1. 对注册表赋予权限（regedit）默认注册表HKEY_LOCAL_MACHINE\SAM\SAM\只有system权限才能修改
+现在需要为其添加管理员权限
+右键-权限-选中Administrators，允许完全控制
+如下图
+
+重新启...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/10/15</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">
             
                 <span>CVE-2019-14287 sudo 配置不当-权限提升漏洞</span>
@@ -611,32 +647,6 @@ xip.io绕过：url=http://目标地址.www.baidu.com.xip.io/
 IP绕过：把目标的URL修改成IP地址，这样也有可能绕过waf的拦截
 编码绕过：
 123https://example.com/login?return=https%3A%2F%2Fmysite.com%2F  //url编码https:...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2019/05/07/2019-5-9随记/">
-            
-                <span>2019/5/9随记</span>
-        </a>
-        <div class="abstract-content">
-            First：Vulnerable Javascript Files
-今天几乎每个网站都以某种方式使用javascript。Jquery，anglular，react和vue是流行的javascript库和框架的一些例子。其中每个都包含漏洞，如果网站使用过时的版本，他们就有可能实施易受攻击的功能，从而使整个网站面临风险
-Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使用此工具最简单的方法是下载chrome插件。下载插件后，它将扫描您在后台访问的每个站点，查找过时的javascript文件，其中许多文件包含已知的CVE。 
-重要的是要知道，仅仅因为网站导入易受攻击的javas...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1328,12 +1338,9 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
     
     
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 29
+        Total : 30
         </div>
         <!-- search  -->
         
@@ -1346,6 +1353,11 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
     <div class="archive-year"> 2020 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/14</span><a class="archive-post-title" href="/2020/10/14/1/">测试</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1402,6 +1414,29 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
         </li>
     
     
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/01/九种姿势运行Mimikatz/">九种姿势运行Mimikatz</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
         <li class="archive-post-item">
             <span class="archive-post-date">04/24</span><a class="archive-post-title" href="/2019/04/24/2019-4-23随记/">2019/4/23 随记</a>
         </li>
@@ -1409,16 +1444,6 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
         <li class="archive-post-item">
             <span class="archive-post-date">04/23</span><a class="archive-post-title" href="/2019/04/23/2019-4-28随记/">2019/4/28 随记</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon新思路/">Recon 新思路</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/ssrf/">SSRF</a>
         </li>
     
     
@@ -1446,7 +1471,7 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon/">Recon</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon新思路/">Recon 新思路</a>
         </li>
     
     
@@ -1474,7 +1499,12 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/hello/">Hello</a>
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/ssrf/">SSRF</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/22</span><a class="archive-post-title" href="/2019/04/22/Recon/">Recon</a>
         </li>
     
     
@@ -1497,26 +1527,12 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
         </ul>
     
-    <div class="archive-year"> Invalid date </div>
+    <div class="archive-year"> 2019 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/01/九种姿势运行Mimikatz/">九种姿势运行Mimikatz</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2020/05/10/博客声明/">博客停止更新，转战微信公众号</a>
+            <span class="archive-post-date">03/17</span><a class="archive-post-title" href="/2019/03/17/hello/">Hello</a>
         </li>
     
     
@@ -1544,7 +1560,35 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/11/域渗透常用命令/">域渗透常用命令</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/07/url跳转/">URL跳转</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">CVE-2019-14287 sudo 配置不当-权限提升漏洞</a>
         </li>
     
     
@@ -1586,7 +1630,7 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/11/11/域渗透常用命令/">域渗透常用命令</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/09/反序列化/">反序列化</a>
         </li>
     
     
@@ -1600,7 +1644,7 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/10/15/CVE-2019-14287 sudo 配置不当-权限提升漏洞/">CVE-2019-14287 sudo 配置不当-权限提升漏洞</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2020/05/10/博客声明/">博客停止更新，转战微信公众号</a>
         </li>
     
     
@@ -1629,20 +1673,6 @@ Retire JS是一个很棒的工具，可以扫描网站上过时的软件。使�
     
         <li class="archive-post-item">
             <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/09/30/新的开始/">新的开始</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/05/09/反序列化/">反序列化</a>
         </li>
     
     </ul></div>
